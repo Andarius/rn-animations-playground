@@ -1,4 +1,4 @@
 # RNAnimations v2
 
 
-Boi
+Boilerplate project with RNN, RNGH and RNReanimated v2
