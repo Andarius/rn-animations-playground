@@ -16,7 +16,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'GestureScreen': 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen': 'WelcomeScreen'
 
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({

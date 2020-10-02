@@ -1,6 +1,6 @@
-import React, { FC, useEffect } from 'react'
+import React from 'react'
 import { View, StyleSheet, useWindowDimensions } from 'react-native'
-import { Navigation, NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
     useAnimatedGestureHandler,

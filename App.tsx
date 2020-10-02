@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.background
     },
     goToBtn: {
-        // width: 250,
         alignSelf: 'stretch',
         backgroundColor: Colors.white,
         height: 70,
         justifyContent: 'center',
-        // alignItems: 'center',
-        borderRadius: 10
+    },
+    text: {
+        paddingLeft: 10
     }
 })
 
@@ -60,20 +60,29 @@ const App: RNFC<Props> = function ({ componentId }) {
                 <ScrollView
                     contentInsetAdjustmentBehavior="automatic"
                     style={styles.scrollView}
-                    contentContainerStyle={{ alignItems: 'center', height }}>
-                    <View style={{ marginTop: 200 }} />
+                    contentContainerStyle={{ }}>
                     {SCREENS.map((x) => (
                         <RectButton
                             key={x.name}
                             style={styles.goToBtn}
                             onPress={() => goToScreen(x.name)}>
-                            <Text>{x.title}</Text>
+                            <Text style={styles.text}>{x.title}</Text>
                         </RectButton>
                     ))}
                 </ScrollView>
             </SafeAreaView>
         </>
     )
+}
+
+App.options = {
+    topBar: {
+        title: {
+            text: 'RN Animations',
+            alignment: 'center',
+            color: Colors.primary
+        }
+    }
 }
 
 export default App

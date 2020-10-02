@@ -60,7 +60,15 @@ const WorkletScreen: RNNFC<Props> = function ({  }) {
 
 WorkletScreen.options = {
     topBar: {
-        visible: false
+        visible: true,
+        title: {
+            text: 'Worklets',
+            color: Colors.secondary
+        },
+        backButton: {
+            visible: true,
+            color: Colors.secondary
+        }
     }
 }
 
