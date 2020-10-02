@@ -1,12 +1,13 @@
 import { Navigation } from 'react-native-navigation'
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
-import { FirstScreen } from './src/screens'
+import { GestureScreen, WorkletScreen } from './src/screens'
 
 import App from './App'
 
 const _SCREENS = [
     { name: 'WelcomeScreen', component: App },
-    { name: 'FirstScreen', component: FirstScreen }
+    { name: 'WorkletScreen', component: WorkletScreen },
+    { name: 'GestureScreen', component: GestureScreen }
 ]
 
 _SCREENS.forEach((v) => {
@@ -15,7 +16,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'FirstScreen': 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'GestureScreen': 'WelcomeScreen'
 
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
@@ -24,9 +25,6 @@ Navigation.events().registerAppLaunchedListener(() => {
                 children: [
                     {
                         component: {
-                            options: {
-                                topBar: { visible: false }
-                            },
                             name: FIRST_SCREEN
                         }
                     }
