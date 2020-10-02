@@ -3,11 +3,11 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
 import App from './App'
 
-const SCREENS = [
+const _SCREENS = [
     {name: 'WelcomeScreen', component: App}
 ]
 
-SCREENS.forEach((v) => {
+_SCREENS.forEach((v) => {
     Navigation.registerComponent(v.name, () =>  gestureHandlerRootHOC(v.component))
 })
 
