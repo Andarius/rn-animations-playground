@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native'
 import { Colors } from '@src/theme'
+import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 
 export const CARD_WIDTH = 330
 export const CARD_HEIGHT = 170
@@ -15,15 +16,21 @@ const styles = StyleSheet.create({
 })
 
 export type Props = {
-    style?: StyleProp<ViewStyle>
+    style?: StyleProp<ViewStyle>,
+    height: Animated.SharedValue<number>
  }
 
-const Card: FC<Props> = function ({ children, style }) {
+const AnimatedCard: FC<Props> = function ({ children, style, height }) {
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        height: height.value
+    }))
+
     return (
-        <View style={[styles.container, style]}>
+        <Animated.View style={[styles.container, style, animatedStyle]}>
             { children }
-        </View>
+        </Animated.View>
     )
 }
 
-export { Card }
+export { AnimatedCard }

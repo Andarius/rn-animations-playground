@@ -23,14 +23,26 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         backgroundColor: Colors.white,
         height: 70,
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     text: {
         paddingLeft: 10
+    },
+    headerContainer: {
+        backgroundColor: Colors.primary
+    },
+    headerText: {
+        color: Colors.white,
+        marginLeft: 10,
+        fontSize: 18,
+        marginVertical: 3
     }
 })
 
 const SCREENS = [
+    {
+        title: 'Lessons'
+    },
     {
         name: 'WorkletScreen',
         title: 'Lesson 1. Worklets'
@@ -38,6 +50,17 @@ const SCREENS = [
     {
         name: 'GestureScreen',
         title: 'Lesson 2. Gesture'
+    },
+    {
+        name: 'DragToSortScreen',
+        title: 'Lesson 11. Drag to Sort'
+    },
+    {
+        title: 'Custom'
+    },
+    {
+        name: 'DraggableList',
+        title: 'Draggable List'
     }
 ]
 
@@ -60,15 +83,28 @@ const App: RNFC<Props> = function ({ componentId }) {
                 <ScrollView
                     contentInsetAdjustmentBehavior="automatic"
                     style={styles.scrollView}
-                    contentContainerStyle={{ }}>
-                    {SCREENS.map((x) => (
-                        <RectButton
-                            key={x.name}
-                            style={styles.goToBtn}
-                            onPress={() => goToScreen(x.name)}>
-                            <Text style={styles.text}>{x.title}</Text>
-                        </RectButton>
-                    ))}
+                    contentContainerStyle={{}}>
+                    {SCREENS.map((x) => {
+                        if (x.name)
+                            return (
+                                <RectButton
+                                    key={x.title}
+                                    style={styles.goToBtn}
+                                    onPress={() => goToScreen(x.name)}>
+                                    <Text style={styles.text}>{x.title}</Text>
+                                </RectButton>
+                            )
+                        else
+                            return (
+                                <View
+                                    style={styles.headerContainer}
+                                    key={x.title}>
+                                    <Text style={styles.headerText}>
+                                        {x.title}
+                                    </Text>
+                                </View>
+                            )
+                    })}
                 </ScrollView>
             </SafeAreaView>
         </>
@@ -79,9 +115,9 @@ App.options = {
     topBar: {
         title: {
             text: 'RN Animations',
-            alignment: 'center',
-            color: Colors.primary
-        }
+            alignment: 'center'
+        },
+        backButton: { visible: false }
     }
 }
 

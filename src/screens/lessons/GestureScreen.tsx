@@ -9,7 +9,7 @@ import Animated, {
     withDecay,
 } from 'react-native-reanimated'
 
-import { Card, CARD_WIDTH, CARD_HEIGH } from '@src/components/Card'
+import { Card, CARD_WIDTH, CARD_HEIGHT } from '@src/components/Card'
 import { Colors } from '@src/theme'
 import { useTopBarHeight } from '@src/hooks'
 import { clamp } from '@src/animUtils'
@@ -33,7 +33,7 @@ const GestureScreen: RNNFC<Props> = function ({ }) {
     const topBarHeight = useTopBarHeight()
     const [boundX, boundY] = [
         width - CARD_WIDTH,
-        height - topBarHeight - CARD_HEIGH
+        height - topBarHeight - CARD_HEIGHT
     ]
     const translateX = useSharedValue(0)
     const translateY = useSharedValue(0)
