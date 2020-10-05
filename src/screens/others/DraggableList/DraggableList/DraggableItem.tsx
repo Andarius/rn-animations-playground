@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useContext } from 'react'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import Animated, {
     useAnimatedGestureHandler,
@@ -9,7 +9,7 @@ import Animated, {
     //@ts-expect-error
     useAnimatedReaction
 } from 'react-native-reanimated'
-import { isOverlapping, IItem, Positions, GestureState, ItemID } from './utils'
+import { DragListContext, isOverlapping, IItem, Positions, GestureState, ItemID } from './utils'
 
 const springConfig: Animated.WithSpringConfig = {
     mass: 1,
@@ -22,24 +22,37 @@ const springConfig: Animated.WithSpringConfig = {
 }
 
 export type Props = {
-    // width: number
     id: ItemID
-    item: IItem
-    positions: Positions
     spacingY: number
     verticalOnly: boolean
-    // offset: Animated.SharedValue<number>,
-    // offsets: Animated.SharedValue<number>[]
+    defaultHeight?: number
+    defaultOffset?: number
+    items: Map<ItemID, IItem>,
+    updateItem: (itemId: ItemID, data: IItem) => void
 }
 
 const DraggableItem: FC<Props> = function ({
     children,
     id,
-    positions,
-    item: { height, offset },
     spacingY,
-    verticalOnly
+    verticalOnly,
+    defaultHeight = 50,
+    defaultOffset = 10,
+    items,
+    updateItem
 }) {
+
+    // const items = useContext(DragListContext)
+
+    const offset = useSharedValue(defaultOffset ?? 0)
+    const height = useSharedValue(defaultHeight ?? 0)
+
+
+    if(!items.has(id))
+        updateItem(id, { offset, height })
+        // items.set(id, { offset, height })
+
+
     const gestureState = useSharedValue<GestureState>('IDLE')
     const x = useSharedValue(0)
     const y = useSharedValue(0)
@@ -54,6 +67,8 @@ const DraggableItem: FC<Props> = function ({
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
 
+
+
     const onGestureEvent = useAnimatedGestureHandler({
         onStart: () => {
             gestureState.value = 'ACTIVE'
@@ -61,11 +76,10 @@ const DraggableItem: FC<Props> = function ({
         },
         onActive: (event, ctx) => {
             // x.value = x.value + event.translationX
-
             x.value = verticalOnly ? 0 : event.translationX
             y.value = event.translationY
-
-            positions.map((p, k) => {
+            console.log('On active: ', items.size)
+            items.forEach((p, k) => {
                 if (
                     k !== id &&
                     isOverlapping(
@@ -133,7 +147,7 @@ const DraggableItem: FC<Props> = function ({
         (newHeight: number) => {
             const diffHeight = newHeight - prevHeight.value
             if (diffHeight !== 0) {
-                positions.map((p, k) => {
+                items.forEach((p, k) => {
                     if (k !== id && p.offset.value > offset.value) {
                         p.offset.value = p.offset.value + diffHeight
                     }
@@ -144,6 +158,7 @@ const DraggableItem: FC<Props> = function ({
     )
 
     return (
+        
         <PanGestureHandler {...{ onGestureEvent }}>
             <Animated.View
                 style={[

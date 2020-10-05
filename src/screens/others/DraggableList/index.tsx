@@ -2,45 +2,51 @@ import React, { useState } from 'react'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { View, Text, StyleSheet } from 'react-native'
 import { DraggableList, Config } from './DraggableList'
-import { Card, CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
+import { CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
 import { Colors } from '@src/theme'
-import Animated, { useSharedValue } from 'react-native-reanimated'
-import { config } from 'process'
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
-import { AnimatedCard } from '@src/components'
+import Animated from 'react-native-reanimated'
+import { RectButton } from 'react-native-gesture-handler'
+import { CardItem } from './CardItem'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    btn: {
-        height: 20,
-        width: 20,
+    btnsContainer: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 100,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    btnsContainer: {
-        marginLeft: 10,
-        marginTop: 10
+    btn: {
+        width: 100,
+        height: 50,
+        backgroundColor: Colors.primary,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    btnText: {
-        fontSize: 20,
-        color: Colors.white
-    }
+    btnText: {}
 })
 
 type CardType = {
+    id: string
     color: string
 }
 
 const DATA: CardType[] = [
     {
+        id: 'item-1',
         color: Colors.primary
     },
     {
+        id: 'item-2',
         color: Colors.secondary
     },
     {
+        id: 'item-3',
         color: Colors.tertiary
     }
 ]
@@ -50,42 +56,40 @@ export type Props = {}
 const DraggableListScreen: RNNFC<Props> = function ({}) {
     const [items, setItems] = useState<CardType[]>(DATA)
 
-    function _renderItem(
-        data: CardType,
-        { height }: { height: Animated.SharedValue<number> }
-    ) {
-        return (
-            <AnimatedCard
-                height={height}
-                style={{ backgroundColor: data.color }}>
-                <View style={styles.btnsContainer}>
-                    <BorderlessButton
-                        onPress={() => (height.value = height.value + 50)}
-                        style={styles.btn}>
-                        <Text style={styles.btnText}>+</Text>
-                    </BorderlessButton>
-                    <BorderlessButton
-                        onPress={() => (height.value = height.value - 50)}
-                        style={styles.btn}>
-                        <Text style={styles.btnText}>-</Text>
-                    </BorderlessButton>
-                </View>
-            </AnimatedCard>
-        )
+    function onPressAdd() {
+        setItems((old) => [
+            ...old,
+            { color: Colors.primary, id: `ìtem-${old.length}` }
+        ])
+    }
+
+    function onDelete(itemId: string) {
+        setItems((old) => [...old.filter((x) => x.id !== itemId)])
+    }
+
+    function _renderItem(data: CardType) {
+        return <CardItem data={data} onDelete={() => onDelete(data.id)} />
     }
 
     return (
-        <DraggableList
-            data={items}
-            renderItem={_renderItem}
-            config={{
-                spacingY: 30,
-                spacingEnd: 100,
-                height: CARD_HEIGHT,
-                width: CARD_WIDTH,
-                verticalOnly: true
-            }}
-        />
+        <View style={{ flex: 1 }}>
+            <DraggableList
+                data={items}
+                renderItem={_renderItem}
+                config={{
+                    spacingY: 30,
+                    spacingEnd: 100,
+                    height: CARD_HEIGHT,
+                    width: CARD_WIDTH,
+                    verticalOnly: true
+                }}
+            />
+            <View style={styles.btnsContainer}>
+                <RectButton onPress={onPressAdd} style={styles.btn}>
+                    <Text style={styles.btnText}>Add Item</Text>
+                </RectButton>
+            </View>
+        </View>
     )
 }
 

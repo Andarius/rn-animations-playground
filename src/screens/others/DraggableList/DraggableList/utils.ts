@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import Animated, {
     useAnimatedStyle,
     useDerivedValue,
-    useSharedValue
+    useSharedValue,
 } from 'react-native-reanimated'
 
 
@@ -12,7 +12,7 @@ export interface IItem {
     height: Animated.SharedValue<number>
 }
 
-export type ItemID = number
+export type ItemID = string
 export type Positions = IItem[]
 export type GestureState = 'IDLE' | 'ACTIVE' | 'DONE'
 
@@ -25,7 +25,7 @@ export type Config = {
     verticalOnly: boolean
 }
 
-export interface IDraggableItem<T> extends IItem {
+export interface IDraggableItem<T = {}> extends IItem {
     width: number
     id: number,
     data: T
@@ -34,6 +34,7 @@ export interface IDraggableItem<T> extends IItem {
 export const getItems = function <T>(data: T[], config: Config): IDraggableItem<T>[] {
     const items: IDraggableItem<T>[] = []
     let position = 0
+    console.log('getItems: ', data.length)
     for (const x of data) {
         items.push({
             height: useSharedValue(config.height),
@@ -68,3 +69,4 @@ export const isOverlapping = function (
     else return false
 }
 
+export const DragListContext = React.createContext<Map<ItemID, IItem>> (new Map())

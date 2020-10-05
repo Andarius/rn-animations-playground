@@ -61,6 +61,10 @@ const SCREENS = [
     {
         name: 'DraggableList',
         title: 'Draggable List'
+    },
+    {
+        name: 'DynamicItemsScreen',
+        title: 'Dynamic Items'
     }
 ]
 

@@ -5,7 +5,7 @@ import {
     WorkletScreen,
     DragToSortScreen
 } from './src/screens/lessons'
-import { DraggableListScreen } from './src/screens/others'
+import { DraggableListScreen, DynamicItemsScreen } from './src/screens/others'
 import { Colors } from './src/theme'
 import App from './App'
 
@@ -14,7 +14,8 @@ const _SCREENS = [
     { name: 'WorkletScreen', component: WorkletScreen },
     { name: 'GestureScreen', component: GestureScreen },
     { name: 'DragToSortScreen', component: DragToSortScreen },
-    { name: 'DraggableListScreen', component: DraggableListScreen }
+    { name: 'DraggableListScreen', component: DraggableListScreen },
+    { name: 'DynamicItemsScreen', component: DynamicItemsScreen }
 ]
 
 _SCREENS.forEach((v) => {
@@ -23,7 +24,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'DraggableListScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'DynamicItemsScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     topBar: {
