@@ -5,7 +5,7 @@ import {
     WorkletScreen,
     DragToSortScreen
 } from './src/screens/lessons'
-import { DraggableListScreen, DynamicItemsScreen } from './src/screens/others'
+import { DraggableListScreen, DynamicItemsScreen } from './src/screens/animations'
 import { Colors } from './src/theme'
 import App from './App'
 
@@ -24,9 +24,12 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'DynamicItemsScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
+    layout: {
+        backgroundColor: Colors.backgroundColor
+    },
     topBar: {
         title: {
             color: Colors.primary

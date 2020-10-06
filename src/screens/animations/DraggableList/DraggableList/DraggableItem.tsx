@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useContext } from 'react'
+import React, { FC, useEffect, useContext, useCallback } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import Animated, {
     useAnimatedGestureHandler,
@@ -9,7 +10,7 @@ import Animated, {
     //@ts-expect-error
     useAnimatedReaction
 } from 'react-native-reanimated'
-import { DragListContext, isOverlapping, IItem, Positions, GestureState, ItemID } from './utils'
+import { useDraggableItem, isOverlapping, GestureState, ItemID } from './utils'
 
 const springConfig: Animated.WithSpringConfig = {
     mass: 1,
@@ -25,10 +26,11 @@ export type Props = {
     id: ItemID
     spacingY: number
     verticalOnly: boolean
-    defaultHeight?: number
+    itemHeight: number
+    itemWidth: number
     defaultOffset?: number
-    items: Map<ItemID, IItem>,
-    updateItem: (itemId: ItemID, data: IItem) => void
+    // Value 
+    overlayTreshPercentage: number
 }
 
 const DraggableItem: FC<Props> = function ({
@@ -36,21 +38,17 @@ const DraggableItem: FC<Props> = function ({
     id,
     spacingY,
     verticalOnly,
-    defaultHeight = 50,
-    defaultOffset = 10,
-    items,
-    updateItem
+    itemHeight,
+    itemWidth,
+    defaultOffset,
+    overlayTreshPercentage
 }) {
-
-    // const items = useContext(DragListContext)
+    const { width } = useWindowDimensions()
 
     const offset = useSharedValue(defaultOffset ?? 0)
-    const height = useSharedValue(defaultHeight ?? 0)
+    const height = useSharedValue(itemHeight ?? 0)
 
-
-    if(!items.has(id))
-        updateItem(id, { offset, height })
-        // items.set(id, { offset, height })
+    const { items } = useDraggableItem(id, { offset, height})
 
 
     const gestureState = useSharedValue<GestureState>('IDLE')
@@ -62,12 +60,11 @@ const DraggableItem: FC<Props> = function ({
 
     const translateX = useDerivedValue(() => x.value)
     const translateY = useDerivedValue(() => {
-        if (gestureState.value === 'ACTIVE') return y.value + offset.value
+        if (gestureState.value === 'ACTIVE') 
+            return y.value + offset.value
         else return withSpring(offset.value, springConfig)
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
-
-
 
     const onGestureEvent = useAnimatedGestureHandler({
         onStart: () => {
@@ -78,17 +75,17 @@ const DraggableItem: FC<Props> = function ({
             // x.value = x.value + event.translationX
             x.value = verticalOnly ? 0 : event.translationX
             y.value = event.translationY
-            console.log('On active: ', items.size)
-            items.forEach((p, k) => {
+
+            items.map((p) => {
+                const _isOverlapping = isOverlapping(
+                    translateY.value,
+                    maxY.value,
+                    p.offset.value,
+                    p.offset.value + p.height.value,
+                    overlayTreshPercentage
+                )
                 if (
-                    k !== id &&
-                    isOverlapping(
-                        translateY.value,
-                        maxY.value,
-                        p.offset.value,
-                        p.offset.value + p.height.value
-                    )
-                ) {
+                    p.id !== id && _isOverlapping) {
                     // Move down
                     if (tmpOffset.value < p.offset.value) {
                         p.offset.value = tmpOffset.value
@@ -105,30 +102,26 @@ const DraggableItem: FC<Props> = function ({
         },
         onEnd: (event, ctx) => {
             gestureState.value = 'IDLE'
-            offset.value = tmpOffset.value // - diffHeight.value
+            offset.value = tmpOffset.value
             tmpOffset.value = 0
-            // diffHeight.value = 0
+
             // Move back into position
             x.value = withSpring(0, {
-                mass: 10,
-                stiffness: 300,
-                damping: 100,
-                overshootClamping: false,
-                restSpeedThreshold: 0.001,
-                restDisplacementThreshold: 0.001
+                ...springConfig,
                 // velocity: event.velocityX
             })
             y.value = withSpring(0, {
+                // ...springConfig,
                 mass: 10,
                 stiffness: 300,
                 damping: 100,
                 overshootClamping: false,
                 restSpeedThreshold: 0.001,
-                restDisplacementThreshold: 0.001
-                // velocity: event.velocityY
+                restDisplacementThreshold: 0.001,
+                velocity: event.velocityY
             })
         }
-    })
+    }, [items])
 
     const style = useAnimatedStyle(() => ({
         zIndex: gestureState.value === 'ACTIVE' ? 100 : 0,
@@ -140,22 +133,32 @@ const DraggableItem: FC<Props> = function ({
         ]
     }))
 
-    useAnimatedReaction(
-        () => {
-            return height.value
-        },
-        (newHeight: number) => {
-            const diffHeight = newHeight - prevHeight.value
-            if (diffHeight !== 0) {
-                items.forEach((p, k) => {
-                    if (k !== id && p.offset.value > offset.value) {
-                        p.offset.value = p.offset.value + diffHeight
-                    }
-                })
-                prevHeight.value = newHeight
-            }
+    useDerivedValue(() => {
+        const diffHeight = height.value - prevHeight.value
+        if (diffHeight !== 0) {
+            items.map((p) => {
+                if (p.id !== id && p.offset.value > offset.value) {
+                    p.offset.value = p.offset.value + diffHeight
+                }
+            })
+            prevHeight.value = height.value
         }
-    )
+        return height.value
+    }, [items])
+    
+    // useAnimatedReaction(
+    //     () => height.value,
+    //     (newHeight: number) => {
+    //         const diffHeight = newHeight - prevHeight.value
+    //         if (diffHeight !== 0) {
+    //             items.map((p) => {
+    //                 if (p.id !== id && p.offset.value > offset.value)
+    //                     p.offset.value = p.offset.value + diffHeight
+    //             })
+    //             prevHeight.value = newHeight
+    //         }
+    //     }
+    // )
 
     return (
         
@@ -165,11 +168,9 @@ const DraggableItem: FC<Props> = function ({
                     {
                         position: 'absolute',
                         top: 0,
-                        left: 0,
-                        right: 0,
+                        left:  (width - itemWidth) / 2,
                         alignItems: 'center',
-                        backgroundColor: 'blue',
-                        width: '100%'
+                        width: itemWidth
                     },
                     style
                 ]}>

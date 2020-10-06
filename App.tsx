@@ -6,8 +6,6 @@ import {
     ScrollView,
     View,
     Text,
-    StatusBar,
-    useWindowDimensions
 } from 'react-native'
 
 import { RectButton } from 'react-native-gesture-handler'
@@ -56,22 +54,21 @@ const SCREENS = [
         title: 'Lesson 11. Drag to Sort'
     },
     {
-        title: 'Custom'
+        title: 'Animations'
     },
     {
-        name: 'DraggableList',
+        name: 'DraggableListScreen',
         title: 'Draggable List'
     },
-    {
-        name: 'DynamicItemsScreen',
-        title: 'Dynamic Items'
-    }
+    // {
+    //     name: 'DynamicItemsScreen',
+    //     title: 'Dynamic Items'
+    // }
 ]
 
 type Props = {}
 
 const App: RNFC<Props> = function ({ componentId }) {
-    const { height } = useWindowDimensions()
 
     function goToScreen(screen: string) {
         Navigation.push(componentId, {
@@ -87,7 +84,7 @@ const App: RNFC<Props> = function ({ componentId }) {
                 <ScrollView
                     contentInsetAdjustmentBehavior="automatic"
                     style={styles.scrollView}
-                    contentContainerStyle={{}}>
+                    >
                     {SCREENS.map((x) => {
                         if (x.name)
                             return (
