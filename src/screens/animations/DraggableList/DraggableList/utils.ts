@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import { PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 
 
@@ -20,6 +21,7 @@ export type Config = {
     verticalOnly?: boolean
     overlayTreshPercentage?: number
     disabled?: boolean
+    activeOffsetY?: PanGestureHandlerProperties['activeOffsetY']
 }
 
 export const isOverlapping = function (

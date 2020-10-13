@@ -26,7 +26,8 @@ const DEFAULT_CONF: Required<Config> = {
     // TODO: remvove that
     itemHeight: 0,
     itemWidth: 0,
-    disabled: false
+    disabled: false,
+    activeOffsetY: []
 }
 
 export type Props<T> = {
@@ -79,6 +80,7 @@ const DraggableList = function <T extends DefaultItem>({
                             itemHeight={x.height ?? _config.itemHeight}
                             itemWidth={_config.itemWidth}
                             disabled={_config.disabled}
+                            activeOffsetY={_config.activeOffsetY}
                             overlayTreshPercentage={
                                 _config.overlayTreshPercentage
                             }>

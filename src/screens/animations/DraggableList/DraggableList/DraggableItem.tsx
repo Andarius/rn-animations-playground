@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useContext, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { PanGestureHandler } from 'react-native-gesture-handler'
+import { PanGestureHandler, PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated, {
     useAnimatedGestureHandler,
     useAnimatedStyle,
@@ -33,6 +33,7 @@ export type Props = {
     overlayTreshPercentage: number
     index: number
     disabled: boolean
+    activeOffsetY: PanGestureHandlerProperties['activeOffsetY']
 }
 
 const DraggableItem: FC<Props> = function ({
@@ -45,7 +46,8 @@ const DraggableItem: FC<Props> = function ({
     defaultOffset,
     overlayTreshPercentage,
     index,
-    disabled = false
+    disabled = false,
+    activeOffsetY
 }) {
     const { width } = useWindowDimensions()
 
@@ -75,7 +77,7 @@ const DraggableItem: FC<Props> = function ({
                 gestureState.value = 'ACTIVE'
                 tmpOffset.value = offset.value
             },
-            onActive: (event, ctx) => {
+            onActive: (event, _) => {
                 // x.value = x.value + event.translationX
                 x.value = verticalOnly ? 0 : event.translationX
                 y.value = event.translationY
@@ -107,7 +109,7 @@ const DraggableItem: FC<Props> = function ({
                     }
                 })
             },
-            onEnd: (event, ctx) => {
+            onEnd: (event, _) => {
                 gestureState.value = 'IDLE'
                 offset.value = tmpOffset.value
                 tmpOffset.value = 0
@@ -171,6 +173,7 @@ const DraggableItem: FC<Props> = function ({
     
     return (
         <PanGestureHandler 
+            activeOffsetY={activeOffsetY}
             enabled={!disabled}
             {...{ onGestureEvent }}>
             <Animated.View
