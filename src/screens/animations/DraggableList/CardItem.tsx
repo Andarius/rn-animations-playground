@@ -1,14 +1,16 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { AnimatedCard } from '@src/components'
+import { AnimatedCard, ReText } from '@src/components'
 
 import { Colors } from '@src/theme'
 import { useDraggableItem } from './DraggableList'
+import { useDerivedValue } from 'react-native-reanimated'
 
 export type CardType = {
     id: string
     color: string
+    height?: number
 }
 
 const styles = StyleSheet.create({
@@ -22,8 +24,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     btnsContainer: {
-        marginLeft: 10,
-        marginTop: 10,
+        position: 'absolute',
+        top: 10,
+        left: 0,
+        right: 0,
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
@@ -38,14 +42,22 @@ export type Props = {
     onDelete: () => void
 }
 
-const CardItem: FC<Props> = function ({ data, onDelete }) {
+const CardItem: FC<Props> = function ({ data, onDelete, children }) {
     // const height = useSharedValue(0)
     const { item, removeItem } = useDraggableItem(data.id)
+    const [position, setPosition ] = useState<number>(-1)
 
-    function _onDelete(){
+    function _onDelete() {
         removeItem()
         onDelete()
     }
+
+    const _ = useDerivedValue(() => {
+        if(item && item.position.value !== position){
+            setPosition(item.position.value)
+        }
+        return 0
+    }, [position, item])
 
     if (!item) return <View></View>
     else {
@@ -53,7 +65,15 @@ const CardItem: FC<Props> = function ({ data, onDelete }) {
         return (
             <AnimatedCard
                 height={height}
-                style={{ backgroundColor: data.color }}>
+                style={{
+                    backgroundColor: data.color,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                <View style={{ position: 'absolute', top: 5, right: 10 }}>
+                    {/* <ReText text={position} /> */}
+                    <Text style={{ color: Colors.white}}>{position}</Text>
+                </View>
                 <View style={styles.btnsContainer}>
                     <BorderlessButton
                         onPress={() => (height.value = height.value + 50)}
@@ -69,6 +89,7 @@ const CardItem: FC<Props> = function ({ data, onDelete }) {
                         <Text style={styles.btnText}>x</Text>
                     </BorderlessButton>
                 </View>
+                {children}
             </AnimatedCard>
         )
     }

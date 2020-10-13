@@ -29,8 +29,10 @@ export type Props = {
     itemHeight: number
     itemWidth: number
     defaultOffset?: number
-    // Value 
+    // Value
     overlayTreshPercentage: number
+    index: number
+    disabled: boolean
 }
 
 const DraggableItem: FC<Props> = function ({
@@ -41,15 +43,17 @@ const DraggableItem: FC<Props> = function ({
     itemHeight,
     itemWidth,
     defaultOffset,
-    overlayTreshPercentage
+    overlayTreshPercentage,
+    index,
+    disabled = false
 }) {
     const { width } = useWindowDimensions()
 
     const offset = useSharedValue(defaultOffset ?? 0)
     const height = useSharedValue(itemHeight ?? 0)
+    const position = useSharedValue(index)
 
-    const { items } = useDraggableItem(id, { offset, height})
-
+    const { items } = useDraggableItem(id, { offset, height, position })
 
     const gestureState = useSharedValue<GestureState>('IDLE')
     const x = useSharedValue(0)
@@ -60,68 +64,73 @@ const DraggableItem: FC<Props> = function ({
 
     const translateX = useDerivedValue(() => x.value)
     const translateY = useDerivedValue(() => {
-        if (gestureState.value === 'ACTIVE') 
-            return y.value + offset.value
+        if (gestureState.value === 'ACTIVE') return y.value + offset.value
         else return withSpring(offset.value, springConfig)
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
 
-    const onGestureEvent = useAnimatedGestureHandler({
-        onStart: () => {
-            gestureState.value = 'ACTIVE'
-            tmpOffset.value = offset.value
-        },
-        onActive: (event, ctx) => {
-            // x.value = x.value + event.translationX
-            x.value = verticalOnly ? 0 : event.translationX
-            y.value = event.translationY
+    const onGestureEvent = useAnimatedGestureHandler(
+        {
+            onStart: () => {
+                gestureState.value = 'ACTIVE'
+                tmpOffset.value = offset.value
+            },
+            onActive: (event, ctx) => {
+                // x.value = x.value + event.translationX
+                x.value = verticalOnly ? 0 : event.translationX
+                y.value = event.translationY
 
-            items.map((p) => {
-                const _isOverlapping = isOverlapping(
-                    translateY.value,
-                    maxY.value,
-                    p.offset.value,
-                    p.offset.value + p.height.value,
-                    overlayTreshPercentage
-                )
-                if (
-                    p.id !== id && _isOverlapping) {
-                    // Move down
-                    if (tmpOffset.value < p.offset.value) {
-                        p.offset.value = tmpOffset.value
-                        tmpOffset.value =
-                            tmpOffset.value + p.height.value + spacingY
-                    } else {
-                        const tmp = p.offset.value
-                        p.offset.value =
-                            p.offset.value + height.value + spacingY
-                        tmpOffset.value = tmp
+                items.map((p) => {
+                    const _isOverlapping = isOverlapping(
+                        translateY.value,
+                        maxY.value,
+                        p.offset.value,
+                        p.offset.value + p.height.value,
+                        overlayTreshPercentage
+                    )
+                    if (p.id !== id && _isOverlapping) {
+                        // Move down
+                        if (tmpOffset.value < p.offset.value) {
+                            p.offset.value = tmpOffset.value
+                            tmpOffset.value =
+                                tmpOffset.value + p.height.value + spacingY
+                        } else {
+                            const tmp = p.offset.value
+                            p.offset.value =
+                                p.offset.value + height.value + spacingY
+                            tmpOffset.value = tmp
+                        }
+
+                        const tmpPosition = p.position.value
+                        p.position.value = position.value
+                        position.value = tmpPosition
                     }
-                }
-            })
-        },
-        onEnd: (event, ctx) => {
-            gestureState.value = 'IDLE'
-            offset.value = tmpOffset.value
-            tmpOffset.value = 0
+                })
+            },
+            onEnd: (event, ctx) => {
+                gestureState.value = 'IDLE'
+                offset.value = tmpOffset.value
+                tmpOffset.value = 0
 
-            // Move back into position
-            x.value = withSpring(0, {
-                ...springConfig,
-                // velocity: event.velocityX
-            })
-            y.value = withSpring(0, {
-                // ...springConfig,
-                mass: 10,
-                stiffness: 300,
-                damping: 100,
-                overshootClamping: false,
-                restSpeedThreshold: 0.001,
-                restDisplacementThreshold: 0.001,
-                velocity: event.velocityY
-            })
-        }
-    }, [items])
+                // Move back into position
+                x.value = withSpring(0, {
+                    ...springConfig
+                    // velocity: event.velocityX
+                })
+                y.value = withSpring(0, {
+                    // ...springConfig,
+                    mass: 10,
+                    stiffness: 300,
+                    damping: 100,
+                    overshootClamping: false,
+                    restSpeedThreshold: 0.001,
+                    restDisplacementThreshold: 0.001,
+                    velocity: event.velocityY
+                })
+            }
+        },
+        [items, verticalOnly]
+    )
 
     const style = useAnimatedStyle(() => ({
         zIndex: gestureState.value === 'ACTIVE' ? 100 : 0,
@@ -145,7 +154,7 @@ const DraggableItem: FC<Props> = function ({
         }
         return height.value
     }, [items])
-    
+
     // useAnimatedReaction(
     //     () => height.value,
     //     (newHeight: number) => {
@@ -159,16 +168,17 @@ const DraggableItem: FC<Props> = function ({
     //         }
     //     }
     // )
-
+    
     return (
-        
-        <PanGestureHandler {...{ onGestureEvent }}>
+        <PanGestureHandler 
+            enabled={!disabled}
+            {...{ onGestureEvent }}>
             <Animated.View
                 style={[
                     {
                         position: 'absolute',
                         top: 0,
-                        left:  (width - itemWidth) / 2,
+                        left: (width - itemWidth) / 2,
                         alignItems: 'center',
                         width: itemWidth
                     },

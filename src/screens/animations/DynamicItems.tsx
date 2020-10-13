@@ -8,7 +8,7 @@ import {
     RectButton
 } from 'react-native-gesture-handler'
 
-import { useUniqueID } from '@src/utils'
+import { useUniqueID } from '@src/hooks'
 import { Card } from '@src/components'
 import { Colors } from '@src/theme'
 import Animated, {

@@ -1,28 +1,29 @@
 import React, { useState } from 'react'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { View } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { DraggableList } from './DraggableList'
 import { CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
 import { Colors } from '@src/theme'
 import { CardType, CardItem } from './CardItem'
-import { useUniqueID } from '@src/utils'
+import { useUniqueID } from '@src/hooks'
 import { useTopBarBtnPress } from '@src/hooks'
-
+import { Button } from '@src/components'
+import styles from './styles'
 
 const DATA: CardType[] = [
     {
         id: 'item-0',
-        color: Colors.primary
+        color: Colors.primary,
+        height: 100
+    },
+    {
+        id: 'item-1',
+        color: Colors.secondary,
+        height: 200
     }
-    // {
-    //     id: 'item-1',
-    //     color: Colors.secondary
-    // },
-    // {
-    //     id: 'item-2',
-    //     color: Colors.tertiary
-    // }
+
 ]
+
 
 export type Props = {}
 
@@ -30,6 +31,9 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
     const [items, setItems] = useState<CardType[]>(DATA)
 
     const { getID } = useUniqueID(DATA.length)
+
+    const [verticalOnly, setVerticalOnly] = useState<boolean>(false)
+    const [disabled, setDisabled] = useState<boolean>(false)
 
     function onPressAdd() {
         setItems((old) => [
@@ -43,7 +47,13 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
     }
 
     function _renderItem(data: CardType) {
-        return <CardItem data={data} onDelete={() => onDelete(data.id)} />
+        return (
+            <CardItem data={data} onDelete={() => onDelete(data.id)}>
+                <Text style={{ color: Colors.white, fontSize: 18 }}>
+                    {data.id}
+                </Text>
+            </CardItem>
+        )
     }
 
     useTopBarBtnPress(componentId, (event) => {
@@ -55,17 +65,32 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
     return (
         <View style={{ flex: 1 }}>
             <DraggableList
-                style={{ marginTop: 20 }}
+                style={{ paddingTop: 20 }}
                 data={items}
                 renderItem={_renderItem}
                 config={{
                     spacingY: 30,
-                    spacingEnd: 100,
+                    spacingEnd: 300,
                     itemHeight: CARD_HEIGHT,
                     itemWidth: CARD_WIDTH,
-                    verticalOnly: false
+                    verticalOnly: verticalOnly,
+                    disabled: disabled
                 }}
             />
+
+            <View style={styles.btnsContainer}>
+                <Button style={styles.btn}
+                    labelStyle={styles.labelText}
+                    label={verticalOnly ? 'X/Y axis' : 'X axis only'}
+                    onPress={() => setVerticalOnly((old) => !old)}
+                />
+
+                <Button style={styles.btn}
+                    labelStyle={styles.labelText}
+                    label={disabled ? 'Enable' : 'Disable'}
+                    onPress={() => setDisabled((old) => !old)}
+                />
+            </View>
         </View>
     )
 }

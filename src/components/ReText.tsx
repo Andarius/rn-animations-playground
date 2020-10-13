@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 
 export type Props = {
-    text: Animated.SharedValue<string>
+    text: Animated.SharedValue<string | number>
     style?: Animated.AnimateProps<TextStyle, TextProps>['style']
 }
 

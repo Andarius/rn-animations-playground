@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
 import { Colors } from '@src/theme'
 
@@ -20,13 +20,15 @@ const styles = StyleSheet.create({
 
 export type Props = RectButtonProperties & {
     label: string
+    style?: StyleProp<ViewStyle>
+    labelStyle?:  StyleProp<TextStyle>
 }
 
 const Button: FC<Props> = function (props) {
-    const { label, ...rest } = props
+    const { label, style, labelStyle, ...rest } = props
     return (
-        <RectButton style={styles.container} {...rest}>
-            <Text style={styles.labelText}> { label }</Text>
+        <RectButton style={[styles.container, style]} {...rest}>
+            <Text style={[styles.labelText, labelStyle]}> { label }</Text>
         </RectButton>
     )
 }

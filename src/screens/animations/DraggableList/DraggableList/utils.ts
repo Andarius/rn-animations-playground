@@ -5,6 +5,7 @@ import Animated from 'react-native-reanimated'
 export interface IItem {
     offset: Animated.SharedValue<number>
     height: Animated.SharedValue<number>
+    position: Animated.SharedValue<number>
 }
 
 export type ItemID = string
@@ -15,9 +16,10 @@ export type Config = {
     spacingY?: number
     spacingEnd?: number
     itemWidth: number
-    itemHeight: number
+    itemHeight?: number
     verticalOnly?: boolean
     overlayTreshPercentage?: number
+    disabled?: boolean
 }
 
 export const isOverlapping = function (
@@ -28,6 +30,8 @@ export const isOverlapping = function (
     threshPerc: number = 0.5
 ) {
     'worklet'
+
+    // const thresh = ((maxY2 - y2) > (maxY- y) ? (maxY2 - y2): (maxY- y) ) * Math.min(threshPerc, 1)
     const thresh = (maxY2 - y2) * Math.min(threshPerc, 1)
     // console.log(`[${y}, ${maxY}] | [${y2}, ${maxY2}]`)
     if (y > y2 && y < maxY2 - thresh) return true
@@ -45,33 +49,20 @@ const getMaxItem = function(items: IItem[]){
     return maxItem
 }
 
-export const getTotalHeight = function (items: IItem[]) {
-    'worklet'
-    const maxItem = getMaxItem(items)
-    return maxItem ? maxItem.offset.value + maxItem.height.value : 0
-}
+// export const getTotalHeight = function (items: IItem[]) {
+//     'worklet'
+//     const maxItem = getMaxItem(items)
+//     return maxItem ? maxItem.offset.value + maxItem.height.value : 0
+// }
 
 
 export type DefaultItem = {
     id: string
-    height?: Animated.SharedValue<number>
-    offset?: Animated.SharedValue<number>
+    height?: number
+    offset?: number
 }
 
-export const getDefaultOffsets = function(
-    data: DragListContextItem[],
-    spacingY: number
-) {
-    const items: Map<string, number> = new Map()
-    let position = 0
-    for (const x of data) {
-        console.log('x.height.value: ', x.height.value)
-        items.set(x.id, (x.height.value + spacingY) * position)
-        position += 1
-    }
 
-    return items
-}
 
 
 

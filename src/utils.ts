@@ -1,12 +1,14 @@
 import { useRef } from 'react'
+import Animated, {
+    useSharedValue as REAuseSharedValue,
 
-export const useUniqueID = function (initValue: number = 0) {
-    const _counter = useRef<number>(initValue)
-    function getID(prefix?: string) {
-        const id: string = `${prefix}${_counter.current}`
-        _counter.current += 1
-        return id
+} from 'react-native-reanimated'
+
+export function useSharedValue<T>(value: T, shouldRebuild = false) {
+    const ref = useRef<T | null>(null);
+    if (ref.current === null || shouldRebuild) {
+      ref.current = value;
     }
-
-    return { getID }
-}
+  
+    return REAuseSharedValue(ref.current);
+  }
