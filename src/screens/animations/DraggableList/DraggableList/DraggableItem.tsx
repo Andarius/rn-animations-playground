@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useContext, useCallback } from 'react'
+import React, { FC } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated, {
