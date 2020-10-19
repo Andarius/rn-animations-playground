@@ -41,7 +41,7 @@ export const isOverlapping = function (
     else return false
 }
 
-const getMaxItem = function(items: IItem[]){
+const getMaxItem = function (items: IItem[]) {
     'worklet'
     let maxItem: IItem | undefined = undefined
     for (const x of items) {
@@ -97,9 +97,9 @@ export const useDraggableItem = function (
     function updateItem(item: IItem) {
         setItems((old) => {
             const maxItem = getMaxItem(old)
-            if(maxItem){
+            if (maxItem) {
                 item.offset.value = maxItem.offset.value + maxItem.height.value + verticalSpacing
-            }                
+            }
             const newList = [...old.filter((x) => x.id !== itemID),
             { id: itemID, ...item }
             ]
@@ -109,8 +109,8 @@ export const useDraggableItem = function (
 
     function removeItem() {
         setItems((old) => {
-            for(const x of old){
-                if(x.id !== itemID && x.offset.value > _item.offset.value)
+            for (const x of old) {
+                if (x.id !== itemID && x.offset.value > _item.offset.value)
                     x.offset.value = x.offset.value - _item.height.value - verticalSpacing
             }
             return [...old.filter((x) => x.id !== itemID)]
@@ -124,4 +124,19 @@ export const useDraggableItem = function (
     }, [items])
 
     return { item: _item, items, updateItem, removeItem }
+}
+
+export const getOffsets = function (
+    data: DefaultItem[],
+    itemHeight: number = 0,
+    spacingY: number = 0
+): number[] {
+    const offsets = []
+    let lastOffset = 0
+    for (const item of data) {
+        offsets.push(lastOffset)
+        lastOffset = lastOffset + (item.height || itemHeight) + spacingY
+    }
+
+    return offsets
 }

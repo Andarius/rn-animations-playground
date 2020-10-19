@@ -14,7 +14,7 @@ import {
     Config,
     DragListContextItem,
     DefaultItem,
-    IItem
+    getOffsets
 } from './utils'
 
 const DEFAULT_CONF: Required<Config> = {
@@ -57,10 +57,11 @@ const DraggableList = function <T extends DefaultItem>({
         height: totalHeight.value
     }))
 
+    const offsets = getOffsets(data, config.itemHeight, config.spacingY)
+
     return (
         <ScrollView style={style}>
             <Animated.View style={[animatedStyle, 
-                // { backgroundColor: 'red' }
                 ]}>
                 <DragListContext.Provider
                     value={{
@@ -73,7 +74,7 @@ const DraggableList = function <T extends DefaultItem>({
                             key={x.id}
                             id={x.id}
                             index={i}
-                            defaultOffset={x.offset}
+                            defaultOffset={x.offset ?? offsets[i]}
                             spacingY={_config.spacingY}
                             verticalOnly={_config.verticalOnly}
                             itemHeight={x.height ?? _config.itemHeight}

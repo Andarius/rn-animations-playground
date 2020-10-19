@@ -20,6 +20,16 @@ const DATA: CardType[] = [
         id: 'item-1',
         color: Colors.secondary,
         height: 200
+    },
+    {
+        id: 'item-2',
+        color: Colors.secondary,
+        height: 100
+    },
+    {
+        id: 'item-4',
+        color: Colors.secondary,
+        height: 100
     }
 
 ]
@@ -30,7 +40,7 @@ export type Props = {}
 const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
     const [items, setItems] = useState<CardType[]>(DATA)
 
-    const { getID } = useUniqueID(DATA.length)
+    const { getID } = useUniqueID(DATA.length + 1)
 
     const [verticalOnly, setVerticalOnly] = useState<boolean>(false)
     const [disabled, setDisabled] = useState<boolean>(false)
@@ -81,7 +91,7 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
             <View style={styles.btnsContainer}>
                 <Button style={styles.btn}
                     labelStyle={styles.labelText}
-                    label={verticalOnly ? 'X/Y axis' : 'X axis only'}
+                    label={verticalOnly ? 'X/Y axis' : 'Y axis only'}
                     onPress={() => setVerticalOnly((old) => !old)}
                 />
 
