@@ -11,27 +11,26 @@ import { Button } from '@src/components'
 import styles from './styles'
 
 const DATA: CardType[] = [
-    {
-        id: 'item-0',
-        color: Colors.primary,
-        height: 100
-    },
-    {
-        id: 'item-1',
-        color: Colors.secondary,
-        height: 200
-    },
-    {
-        id: 'item-2',
-        color: Colors.secondary,
-        height: 100
-    },
-    {
-        id: 'item-4',
-        color: Colors.secondary,
-        height: 100
-    }
-
+    // {
+    //     id: 'item-0',
+    //     color: Colors.primary,
+    //     height: 100
+    // },
+    // {
+    //     id: 'item-1',
+    //     color: Colors.secondary,
+    //     height: 200
+    // },
+    // {
+    //     id: 'item-2',
+    //     color: Colors.secondary,
+    //     height: 100
+    // },
+    // {
+    //     id: 'item-4',
+    //     color: Colors.secondary,
+    //     height: 100
+    // }
 ]
 
 

@@ -10,7 +10,7 @@ export interface IItem {
 }
 
 export type ItemID = string
-export type GestureState = 'IDLE' | 'ACTIVE' | 'DONE'
+export type GestureState = 'IDLE' | 'ACTIVE' | 'DONE' | 'CREATED'
 
 
 export type Config = {

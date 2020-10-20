@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
     StyleProp,
     ViewStyle,
@@ -57,7 +57,7 @@ const DraggableList = function <T extends DefaultItem>({
         height: totalHeight.value
     }))
 
-    const offsets = getOffsets(data, config.itemHeight, config.spacingY)
+    const initialOffsets = useRef(getOffsets(data, config.itemHeight, config.spacingY)).current
 
     return (
         <ScrollView style={style}>
@@ -74,7 +74,7 @@ const DraggableList = function <T extends DefaultItem>({
                             key={x.id}
                             id={x.id}
                             index={i}
-                            defaultOffset={x.offset ?? offsets[i]}
+                            defaultOffset={x.offset ?? initialOffsets[i]}
                             spacingY={_config.spacingY}
                             verticalOnly={_config.verticalOnly}
                             itemHeight={x.height ?? _config.itemHeight}

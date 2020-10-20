@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated, {
@@ -57,7 +57,7 @@ const DraggableItem: FC<Props> = function ({
 
     const { items } = useDraggableItem(id, { offset, height, position })
 
-    const gestureState = useSharedValue<GestureState>('IDLE')
+    const gestureState = useSharedValue<GestureState>('CREATED')
     const x = useSharedValue(0)
     const y = useSharedValue(0)
 
@@ -67,6 +67,7 @@ const DraggableItem: FC<Props> = function ({
     const translateX = useDerivedValue(() => x.value)
     const translateY = useDerivedValue(() => {
         if (gestureState.value === 'ACTIVE') return y.value + offset.value
+        else if(gestureState.value === 'CREATED') return offset.value
         else return withSpring(offset.value, springConfig)
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
@@ -143,6 +144,13 @@ const DraggableItem: FC<Props> = function ({
             //   { scale: withSpring(gestureActive.value ? 1.1 : 1) },
         ]
     }))
+
+    useEffect(() => {
+        setTimeout(() => {
+            gestureState.value = 'IDLE'
+        }, 500)
+        
+    }, [])
 
     useDerivedValue(() => {
         const diffHeight = height.value - prevHeight.value
