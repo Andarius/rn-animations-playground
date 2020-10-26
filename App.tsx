@@ -60,6 +60,10 @@ const SCREENS = [
         name: 'DraggableListScreen',
         title: 'Draggable List'
     },
+    {
+        name: 'GalleryScreen',
+        title: 'Images Gallery'
+    },
     // {
     //     name: 'DynamicItemsScreen',
     //     title: 'Dynamic Items'

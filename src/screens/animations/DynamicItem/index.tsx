@@ -1,10 +1,9 @@
-import React, { FC, useContext, useEffect, useRef, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { Text, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import {
     BorderlessButton,
     PanGestureHandler,
-    PanGestureHandlerGestureEvent,
     RectButton
 } from 'react-native-gesture-handler'
 

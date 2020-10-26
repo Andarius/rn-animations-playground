@@ -67,6 +67,7 @@ const DraggableItem: FC<Props> = function ({
     const translateX = useDerivedValue(() => x.value)
     const translateY = useDerivedValue(() => {
         if (gestureState.value === 'ACTIVE') return y.value + offset.value
+        // Will not animated on mount
         else if(gestureState.value === 'CREATED') return offset.value
         else return withSpring(offset.value, springConfig)
     })

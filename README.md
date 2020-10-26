@@ -8,4 +8,9 @@ Boilerplate project with RNN, RNGH and RNReanimated v2
 
 ### 1. Draggable List
 
-![video](./gifs/draggable.gif)
+![video](./gifs/draggable.gif)  
+
+
+### 2. Gallery Slider
+
+![video](./gifs/gallery.gif)  

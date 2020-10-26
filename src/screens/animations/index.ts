@@ -1,2 +1,3 @@
 export { DraggableListScreen } from './DraggableList'
-export { DynamicItemsScreen } from './DynamicItems'
+export { DynamicItemsScreen } from './DynamicItem'
+export { GalleryScreen } from './Gallery'

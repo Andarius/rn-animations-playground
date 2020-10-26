@@ -113,7 +113,7 @@ DraggableListScreen.options = {
             {
                 id: 'addBtn',
                 color: Colors.primary,
-                icon: require('@img/plus-20.png')
+                icon: require('@img/icons/plus-20.png')
             }
         ]
     }
