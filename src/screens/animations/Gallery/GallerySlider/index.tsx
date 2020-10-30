@@ -1,11 +1,13 @@
-import { useSharedValue } from '@src/utils'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { View, useWindowDimensions } from 'react-native'
 import Animated, {
+    useSharedValue,
+    useAnimatedReaction,
     //@ts-expect-error
-    useAnimatedReaction
+    runOnJS
 } from 'react-native-reanimated'
 import { GalleryItem, Offset } from './GalleryItem'
+import { getArrayDiff } from '@src/utils'
 
 export type Props<T> = {
     data: T[]
@@ -28,18 +30,43 @@ const GallerySlider = function <T extends GalleryItemType>({
 
     const isMoving = useSharedValue<boolean>(false)
     const currentIndex = currentPage ?? useSharedValue<number>(0)
-    const offsets: Offset[] = data.map((_, i) => ({
-        x: useSharedValue<number>(i === 0 ? 0 : width),
-        translateX: useSharedValue<number>(0),
-        tmpX: useSharedValue<number>(0)
-    }))
+    const ids = useRef<number[]>([])
+    const [offsets, setOffsets] = useState<(Offset & { id: number })[]>([])
 
     useAnimatedReaction(
         () => currentIndex.value,
         (newIndex: number) => {
-            if (onIndexChange) onIndexChange(newIndex)
+            if (onIndexChange) runOnJS(onIndexChange)(newIndex)
         }
     )
+
+    function onInit(id: number, offset: Offset){
+        if(!ids.current.includes(id))
+            ids.current.push(id)
+        
+        setOffsets((old) => {
+            const _ids = old.map((x) => x.id)
+            if(_ids.includes(id))
+                return old
+            else
+                return [...old, { id, ...offset}]
+        })
+    }
+
+    useEffect(() => {
+        const changedIds = getArrayDiff(ids.current, data.map((x) => x.id))
+        if(changedIds.length > 0){
+            const removedItems = data.length < ids.current.length
+            if(removedItems)
+                setOffsets((old) => {
+                    const cp = [...old.filter((x) => !changedIds.includes(x.id) )]
+                    ids.current = cp.map((x) => x.id)
+                    cp[0].x.value = 0
+                    currentIndex.value = 0
+                    return cp
+                })
+        }
+    }, [data])
 
     return (
         <View style={{ height }}>
@@ -47,10 +74,11 @@ const GallerySlider = function <T extends GalleryItemType>({
                 <GalleryItem
                     key={x.id}
                     index={i}
+                    id={x.id}
                     currentIndex={currentIndex}
                     height={height}
-                    offset={offsets[i]}
                     isMoving={isMoving}
+                    onInit={onInit}
                     prevOffset={i === 0 ? undefined : offsets[i - 1]}
                     nextOffset={i === data.length ? undefined : offsets[i + 1]}>
                     {renderItem(x)}

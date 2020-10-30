@@ -7,12 +7,11 @@ import Animated, {
     useDerivedValue,
     useSharedValue,
     withSpring,
-    //@ts-expect-error
     useAnimatedReaction
 } from 'react-native-reanimated'
 import { useDraggableItem, isOverlapping, GestureState, ItemID } from './utils'
 
-const springConfig: Animated.WithSpringConfig = {
+const SPRING_CONFIG: Animated.WithSpringConfig = {
     mass: 1,
     stiffness: 150,
     damping: 30,
@@ -69,7 +68,7 @@ const DraggableItem: FC<Props> = function ({
         if (gestureState.value === 'ACTIVE') return y.value + offset.value
         // Will not animated on mount
         else if(gestureState.value === 'CREATED') return offset.value
-        else return withSpring(offset.value, springConfig)
+        else return withSpring(offset.value, SPRING_CONFIG)
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
 
@@ -83,7 +82,6 @@ const DraggableItem: FC<Props> = function ({
                 // x.value = x.value + event.translationX
                 x.value = verticalOnly ? 0 : event.translationX
                 y.value = event.translationY
-
                 items.map((p) => {
                     const _isOverlapping = isOverlapping(
                         translateY.value,
@@ -117,12 +115,10 @@ const DraggableItem: FC<Props> = function ({
                 tmpOffset.value = 0
 
                 // Move back into position
-                x.value = withSpring(0, {
-                    ...springConfig
-                    // velocity: event.velocityX
-                })
+                const springConfig = SPRING_CONFIG
+                springConfig.velocity = event.velocityX
+                x.value = withSpring(0, springConfig)
                 y.value = withSpring(0, {
-                    // ...springConfig,
                     mass: 10,
                     stiffness: 300,
                     damping: 100,
@@ -153,32 +149,19 @@ const DraggableItem: FC<Props> = function ({
         
     }, [])
 
-    useDerivedValue(() => {
-        const diffHeight = height.value - prevHeight.value
-        if (diffHeight !== 0) {
-            items.map((p) => {
-                if (p.id !== id && p.offset.value > offset.value) {
-                    p.offset.value = p.offset.value + diffHeight
-                }
-            })
-            prevHeight.value = height.value
+    useAnimatedReaction(
+        () => height.value,
+        (newHeight: number) => {
+            const diffHeight = newHeight - prevHeight.value
+            if (diffHeight !== 0) {
+                items.map((p) => {
+                    if (p.id !== id && p.offset.value > offset.value)
+                        p.offset.value = p.offset.value + diffHeight
+                })
+                prevHeight.value = newHeight
+            }
         }
-        return height.value
-    }, [items])
-
-    // useAnimatedReaction(
-    //     () => height.value,
-    //     (newHeight: number) => {
-    //         const diffHeight = newHeight - prevHeight.value
-    //         if (diffHeight !== 0) {
-    //             items.map((p) => {
-    //                 if (p.id !== id && p.offset.value > offset.value)
-    //                     p.offset.value = p.offset.value + diffHeight
-    //             })
-    //             prevHeight.value = newHeight
-    //         }
-    //     }
-    // )
+    , [items])
     
     return (
         <PanGestureHandler 

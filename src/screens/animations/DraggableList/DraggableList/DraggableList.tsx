@@ -60,7 +60,7 @@ const DraggableList = function <T extends DefaultItem>({
     const initialOffsets = useRef(getOffsets(data, config.itemHeight, config.spacingY)).current
 
     return (
-        <ScrollView style={style}>
+        <ScrollView contentContainerStyle={style}>
             <Animated.View style={[animatedStyle, 
                 ]}>
                 <DragListContext.Provider

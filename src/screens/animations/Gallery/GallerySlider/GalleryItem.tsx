@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import {
     PanGestureHandler,
@@ -9,7 +9,7 @@ import Animated, {
     useAnimatedStyle,
     useDerivedValue,
     withSpring,
-    //@ts-expect-error
+    useSharedValue,
     useAnimatedReaction
 } from 'react-native-reanimated'
 
@@ -25,6 +25,7 @@ export type Offset = {
     tmpX: Animated.SharedValue<number>
 }
 
+// Shamelessly taken from https://github.com/terrysahaidak/react-native-gallery-toolkit/blob/master/src/Pager.tsx
 function stiffnessFromTension(oValue: number) {
     return (oValue - 30) * 3.62 + 194
 }
@@ -42,40 +43,48 @@ const SPRING_CONFIG: Animated.WithSpringConfig = {
 }
 
 export type Props = {
+    id: number
     index: number
     currentIndex: Animated.SharedValue<number>
-    offset: Offset
+    // offset: Offset
     prevOffset?: Offset
     nextOffset?: Offset
     height: number
     isMoving: Animated.SharedValue<boolean>
+    onInit: (id: number, offset: Offset) => void
 }
 
 const GalleryItem: FC<Props> = function ({
+    id,
     children,
     index,
     currentIndex,
-    offset,
+    // offset,
     prevOffset,
     nextOffset,
     height,
-    isMoving
+    isMoving,
+    onInit
 }) {
     const { width } = useWindowDimensions()
 
-    const { x, translateX, tmpX } = offset
+    const x = useSharedValue<number>(index === 0 ? 0 : width)
+    const translateX = useSharedValue<number>(0)
+    const tmpX = useSharedValue<number>(0)
 
     const _translateX = useDerivedValue(() => x.value + translateX.value)
+
+    useEffect(() => {
+        onInit(id, { x, translateX, tmpX })
+    }, [])
 
     useAnimatedReaction(
         () => translateX.value,
         (newTranslate: number) => {
-            // console.log(`[${index}]new translate: `, newTranslate)
             if (
                 translateX.value !== 0 &&
                 Math.abs(Math.round(newTranslate)) === Math.round(width)
             ) {
-                // console.log(`[${index}] reset !`)
                 translateX.value = 0
                 x.value = tmpX.value
                 if (x.value === 0) currentIndex.value = index
@@ -129,9 +138,9 @@ const GalleryItem: FC<Props> = function ({
                 if (prevOffset)
                     prevOffset.translateX.value = withSpring(0, config)
             } else {
-                isMoving.value = true
                 if (moveRight) {
                     if (!prevOffset) return
+                    isMoving.value = true
                     // console.log('moving right ==>')
                     tmpX.value = width
                     translateX.value = withSpring(width, config)
@@ -139,6 +148,7 @@ const GalleryItem: FC<Props> = function ({
                     prevOffset.translateX.value = withSpring(width, config)
                 } else {
                     if (!nextOffset) return
+                    isMoving.value = true
                     // console.log('moving left <==')
                     tmpX.value = -width
                     translateX.value = withSpring(-width, config)
