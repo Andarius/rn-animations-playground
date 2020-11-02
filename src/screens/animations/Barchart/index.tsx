@@ -6,6 +6,8 @@ import { BarChart, DataItem } from './BarChart'
 import { Button } from '@src/components'
 
 const BARCHART_HEIGHT = 200
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

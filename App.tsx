@@ -65,8 +65,8 @@ const SCREENS = [
         title: 'Images Gallery'
     },
     {
-        name: 'BarchartScreen',
-        title: 'Barchart'
+        name: 'BarChartScreen',
+        title: 'BarChart'
     },
     // {
     //     name: 'DynamicItemsScreen',
