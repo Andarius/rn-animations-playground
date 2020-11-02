@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp, Text } from 'react-native'
 import Animated, {
     color,
@@ -49,6 +49,7 @@ type BarProps = {
     minHeight: number
     maxHeight: number
     animate?: boolean
+    mounted: Animated.SharedValue<boolean>
 }
 
 const BarItem: FC<BarProps> = function ({
@@ -60,17 +61,20 @@ const BarItem: FC<BarProps> = function ({
     maxValue,
     minHeight,
     maxHeight,
-    animate
+    animate,
+    mounted
 }) {
     // const _height = useSharedValue<number>(0)
+
     const _height = interpolate(
         value,
         [minValue, maxValue],
         [minHeight, maxHeight - TEXT_HEIGHT],
         Animated.Extrapolate.CLAMP
     )
+
     const height = useDerivedValue(() => {
-        return animate ? withTiming(_height, { duration: 300 }): _height
+        return animate ? (mounted.value ? withTiming(_height, { duration: 300 }): 0): _height
     })
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -139,6 +143,11 @@ const BarChart: FC<Props> = function ({
         Math.min(...values),
         Math.max(...values)
     ]
+    // Needed to smooth at first and see the animation on mount
+    const mounted = useSharedValue<boolean>(false)
+    useEffect(() => {
+        mounted.value = true
+    }, [])
 
     return (
         <View style={[styles.container, style]}>
@@ -158,6 +167,7 @@ const BarChart: FC<Props> = function ({
                     {...{ label, labelColor, barColor, minHeight, maxHeight, animate }}
                     minValue={normalize ? 0 : minValue}
                     maxValue={normalize ? 1 : maxValue}
+                    mounted={mounted}
                 />
             ))}
         </View>
