@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 
@@ -91,8 +91,7 @@ export const useDraggableItem = function (
     item?: IItem,
 ) {
     const { items, setItems, verticalSpacing } = useContext(DragListContext)
-
-    const _item = items.filter((x) => x.id === itemID)[0]
+    const [_item, setItem] = useState<IItem>()
 
     function updateItem(item: IItem) {
         setItems((old) => {
@@ -110,8 +109,8 @@ export const useDraggableItem = function (
     function removeItem() {
         setItems((old) => {
             for (const x of old) {
-                if (x.id !== itemID && x.offset.value > _item.offset.value)
-                    x.offset.value = x.offset.value - _item.height.value - verticalSpacing
+                if (x.id !== itemID && x.offset.value > _item!.offset.value)
+                    x.offset.value = x.offset.value - _item!.height.value - verticalSpacing
             }
             return [...old.filter((x) => x.id !== itemID)]
         })
@@ -119,8 +118,12 @@ export const useDraggableItem = function (
 
     useEffect(() => {
         // On new item added
-        if (!_item && item)
+        if (!_item && item){
             updateItem(item)
+            setItem(item)
+        }
+        // _item.current = items.filter((x) => x.id === itemID)[0]
+        // console.log(_item.current)
     }, [items])
 
     return { item: _item, items, updateItem, removeItem }

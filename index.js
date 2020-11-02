@@ -16,7 +16,8 @@ const _SCREENS = [
     { name: 'DragToSortScreen', component: DragToSortScreen },
     { name: 'DraggableListScreen', component: AnimScreens.DraggableListScreen },
     { name: 'DynamicItemsScreen', component: AnimScreens.DynamicItemsScreen },
-    { name: 'GalleryScreen', component: AnimScreens.GalleryScreen }
+    { name: 'GalleryScreen', component: AnimScreens.GalleryScreen },
+    { name: 'BarChartScreen', component: AnimScreens.BarChartScreen }
 ]
 
 _SCREENS.forEach((v) => {
@@ -25,7 +26,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'DraggableListScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {

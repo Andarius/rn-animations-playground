@@ -4,13 +4,17 @@ import { View, Text, StyleSheet } from 'react-native'
 import { DraggableList } from './DraggableList'
 import { CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
 import { Colors } from '@src/theme'
-import { CardType, CardItem } from './CardItem'
+import { CardType, CardItem, CardItemMemo } from './CardItem'
 import { useUniqueID } from '@src/hooks'
 import { useTopBarBtnPress } from '@src/hooks'
 import { Button } from '@src/components'
 import styles from './styles'
 
-const DATA: CardType[] = [
+const DATA: CardType[] = [...Array(10).keys()].map((x) => ({
+        id: `item-${x}`,
+        color: Colors.primary,
+        height: 100
+}))
     // {
     //     id: 'item-0',
     //     color: Colors.primary,
@@ -31,7 +35,7 @@ const DATA: CardType[] = [
     //     color: Colors.secondary,
     //     height: 100
     // }
-]
+
 
 
 export type Props = {}
@@ -55,13 +59,9 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
         setItems((old) => [...old.filter((x) => x.id !== itemId)])
     }
 
-    function _renderItem(data: CardType) {
+    function _renderItem(data: CardType) {        
         return (
-            <CardItem data={data} onDelete={() => onDelete(data.id)}>
-                <Text style={{ color: Colors.white, fontSize: 18 }}>
-                    {data.id}
-                </Text>
-            </CardItem>
+            <CardItemMemo data={data} onDelete={() => onDelete(data.id)}/>
         )
     }
 

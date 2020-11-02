@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useContext, useMemo, useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { AnimatedCard, ReText } from '@src/components'
@@ -49,14 +49,15 @@ export type Props = {
 
 const CardItem: FC<Props> = function ({ data, onDelete, children }) {
     // const height = useSharedValue(0)
-    const { item, removeItem } = useDraggableItem(data.id)
+    console.log('render: ', data.id)
+    const { item, removeItem, items } = useDraggableItem(data.id)
     const [position, setPosition] = useState<number>(-1)
-
     function _onDelete() {
         removeItem()
         onDelete()
     }
 
+    console.log(item)
     // useAnimatedReaction(
     //     () => item?.position.value,
     //     (_position: number | undefined) => {
@@ -66,11 +67,11 @@ const CardItem: FC<Props> = function ({ data, onDelete, children }) {
     //     [position, item]
     // )
 
-    const _ = useDerivedValue(() => {
-        if(item && item.position.value !== position)
-            runOnJS(setPosition)(item.position.value)
-        return 0
-    }, [position, item])
+    // const _ = useDerivedValue(() => {
+    //     if (item && item.position.value !== position)
+    //         runOnJS(setPosition)(item.position.value)
+    //     return 0
+    // }, [position, item])
 
     if (!item) return <View></View>
     else {
@@ -102,10 +103,18 @@ const CardItem: FC<Props> = function ({ data, onDelete, children }) {
                         <Text style={styles.btnText}>x</Text>
                     </BorderlessButton>
                 </View>
-                {children}
+                <Text style={{ color: Colors.white, fontSize: 18 }}>
+                    {data.id}
+                </Text>
             </AnimatedCard>
         )
     }
 }
 
-export { CardItem }
+const equals = function (prev: Props, next: Props) {
+    return true //JSON.stringify(prev.data) === JSON.stringify(next.data)
+}
+
+const CardItemMemo = React.memo(CardItem, equals)
+
+export { CardItem, CardItemMemo }
