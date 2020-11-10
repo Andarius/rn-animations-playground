@@ -56,10 +56,10 @@ const SCREENS = [
     {
         title: 'Animations'
     },
-    {
-        name: 'DraggableListScreen',
-        title: 'Draggable List'
-    },
+    // {
+    //     name: 'DraggableListScreen',
+    //     title: 'Draggable List'
+    // },
     {
         name: 'GalleryScreen',
         title: 'Images Gallery'
@@ -67,6 +67,10 @@ const SCREENS = [
     {
         name: 'BarChartScreen',
         title: 'BarChart'
+    },
+    {
+        name: 'CalendarScreen',
+        title: 'Calendar'
     },
     // {
     //     name: 'DynamicItemsScreen',
