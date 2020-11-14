@@ -1,23 +1,22 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import {
     PanGestureHandler,
     PanGestureHandlerGestureEvent
 } from 'react-native-gesture-handler'
 import Animated, {
+    //@ts-expect-error
+    runOnJS,
     useAnimatedGestureHandler,
+    useAnimatedReaction,
     useAnimatedStyle,
     useDerivedValue,
-    withSpring,
-    useSharedValue,
-    useAnimatedReaction,
-    //@ts-expect-error
-    runOnJS
+    withSpring
 } from 'react-native-reanimated'
 
 const styles = StyleSheet.create({
     container: {
-        ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFillObject
     }
 })
 
@@ -85,7 +84,7 @@ const Pager: FC<Props> = function ({
                 tmpX.value = 0
                 isMoving.value = false
             }
-        },
+        }
     )
 
     const onGestureEvent = useAnimatedGestureHandler<

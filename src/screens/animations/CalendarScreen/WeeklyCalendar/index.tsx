@@ -1,29 +1,25 @@
-import { Colors } from '@src/theme'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import {
     StyleProp,
     StyleSheet,
     TextStyle,
     useWindowDimensions,
-    View,
-    ViewStyle
+    View
 } from 'react-native'
-import {
-    PanGestureHandler,
-    PanGestureHandlerGestureEvent
-} from 'react-native-gesture-handler'
 import Animated, {
     //@ts-expect-error
     makeMutable,
-    useSharedValue,
     useAnimatedStyle,
-    useAnimatedGestureHandler
+    useSharedValue
 } from 'react-native-reanimated'
 import { DayItem, Dot } from './DayItem'
 import { Offset, Pager, SwipeDirection } from './Pager'
-import { getNextWeek, getPreviousWeek, getWeekDays, getDate } from './utils'
+import { getNextWeek, getPreviousWeek } from './utils'
+import { getDate, getWeekDays } from './utils'
+import { useEffectSkipFirst } from '@src/hooks'
 
-export type { Dot }
+export type { Dot }
+export { WeeklyCalendar }
 
 const styles = StyleSheet.create({
     container: {
@@ -45,6 +41,7 @@ export type Props = {
     markedDates?: Map<string, Dot[]>
     titleStyle?: StyleProp<TextStyle>
     textStyle?: StyleProp<TextStyle>
+    onPressDate?: (date: Date) => void
 }
 
 const WeeklyCalendar: FC<Props> = function ({
@@ -54,10 +51,11 @@ const WeeklyCalendar: FC<Props> = function ({
     selectedColor,
     markedDates,
     titleStyle,
-    textStyle
+    textStyle,
+    onPressDate
 }) {
     const [_currentDate, setCurrentDate] = useState(currentDate)
-
+    const currentMonth = _currentDate.getMonth()
     const currentWeek = getWeekDays(_currentDate)
     const prevWeek = getPreviousWeek(_currentDate)
     const nextWeek = getNextWeek(_currentDate)
@@ -65,6 +63,10 @@ const WeeklyCalendar: FC<Props> = function ({
     useEffect(() => {
         onDateChanged(_currentDate)
     }, [_currentDate])
+
+    useEffectSkipFirst(() => {
+        setCurrentDate(currentDate)
+    }, [currentDate])
 
     const weeks = [prevWeek, currentWeek, nextWeek]
 
@@ -98,10 +100,15 @@ const WeeklyCalendar: FC<Props> = function ({
             offset.translateX.value = 0
         })
     }
+
     const weeklyHeight = useSharedValue(80)
 
+    const style = useAnimatedStyle(() => ({
+        height: weeklyHeight.value
+    }))
+
     return (
-        <>
+        <Animated.View style={[style]}>
             {weeks.map((week, i) => (
                 <Pager
                     height={weeklyHeight}
@@ -124,10 +131,14 @@ const WeeklyCalendar: FC<Props> = function ({
                             return (
                                 <DayItem
                                     {...{ selectedColor, titleStyle, textStyle }}
+                                    isCurrentMonth={x.getMonth() === currentMonth}
                                     dots={markedDates?.get(_date) ?? []}
                                     key={getDate(x)}
                                     date={x}
-                                    onPress={() => setCurrentDate(x)}
+                                    onPress={() => {
+                                        setCurrentDate(x)
+                                        if(onPressDate) onPressDate(x)
+                                    }}
                                     isCurrent={
                                         getDate(x) === getDate(_currentDate)
                                     }
@@ -137,8 +148,8 @@ const WeeklyCalendar: FC<Props> = function ({
                     </View>
                 </Pager>
             ))}
-        </>
+        </Animated.View>
     )
 }
 
-export { WeeklyCalendar }
+

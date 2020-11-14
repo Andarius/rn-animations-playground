@@ -1,15 +1,6 @@
-import React, { FC } from 'react'
-import {
-    View,
-    StyleSheet,
-    Text,
-    ViewProps,
-    TextStyle,
-    StyleProp
-} from 'react-native'
-import { Colors } from '@src/theme'
-
 import { RectBtnRadius } from '@src/components'
+import React, { FC } from 'react'
+import { StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native'
 
 const LOCALES = require('./locales.json')
 
@@ -23,7 +14,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     dayOfWeekText: {
-        color: Colors.white
+        color: 'white'
     },
     dayOfMonth: {
         height: 40,
@@ -35,26 +26,29 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     selectedDayOfMonth: {
-        backgroundColor: Colors.secondary
+        backgroundColor: 'white'
     },
     dayOfMonthText: {
         fontSize: 16,
-        color: Colors.white
+        color: 'white'
     },
     // Dots
     dotsContainer: {
         flexDirection: 'row',
         position: 'absolute',
-        top: 3,
+        top: 5,
         left: 0,
         right: 0,
         justifyContent: 'center'
     },
     dot: {
-        width: 5,
-        height: 5,
+        width: 4,
+        height: 4,
         borderRadius: 20,
         marginHorizontal: 1
+    },
+    otherMonth: {
+        opacity: 0.5
     }
 })
 
@@ -75,6 +69,7 @@ export type Props = {
     dots: Dot[]
     titleStyle?: StyleProp<TextStyle>
     textStyle?: StyleProp<TextStyle>
+    isCurrentMonth: boolean
 }
 
 const DayItem: FC<Props> = function ({
@@ -83,8 +78,9 @@ const DayItem: FC<Props> = function ({
     isCurrent = false,
     selectedColor,
     dots,
-    titleStyle, 
-    textStyle
+    titleStyle,
+    textStyle,
+    isCurrentMonth
 }) {
     const dayOfWeek = date.getDay()
     const dayOfMonth = date.getDate()
@@ -112,7 +108,9 @@ const DayItem: FC<Props> = function ({
                         <Dot key={i} color={x.color} />
                     ))}
                 </View>
-                <Text style={[styles.dayOfMonthText, textStyle]}>{dayOfMonth}</Text>
+                <Text style={[styles.dayOfMonthText, !isCurrentMonth && styles.otherMonth, textStyle]}>
+                    {dayOfMonth}
+                </Text>
             </RectBtnRadius>
         </View>
     )

@@ -27,7 +27,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'CalendarScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {
