@@ -91,8 +91,8 @@ const WeeklyCalendar: FC<Props> = function ({
     ]).current
 
     function onDoneMoving(direction: SwipeDirection) {
-        if (direction === 'left') setCurrentDate(prevWeek[0])
-        else setCurrentDate(nextWeek[0])
+        const newDate = direction === 'left' ? prevWeek[0]: nextWeek[0] 
+        setCurrentDate(newDate)
 
         offsets.map((offset, i) => {
             offset.x.value = i === 0 ? -width : i === 1 ? 0 : width
@@ -114,7 +114,7 @@ const WeeklyCalendar: FC<Props> = function ({
                     height={weeklyHeight}
                     index={i}
                     onDoneMoving={onDoneMoving}
-                    key={`${i}-${getDate(week[0])}`}
+                    key={`week-${i}`}
                     {...{ isMoving }}
                     offset={offsets[i]}
                     prevOffset={i === 0 ? undefined : offsets[i - 1]}
@@ -126,14 +126,14 @@ const WeeklyCalendar: FC<Props> = function ({
                         onLayout={({ nativeEvent }) => {
                             weeklyHeight.value = nativeEvent.layout.height
                         }}>
-                        {week.map((x) => {
+                        {week.map((x, j) => {
                             const _date = getDate(x)
                             return (
                                 <DayItem
                                     {...{ selectedColor, titleStyle, textStyle }}
                                     isCurrentMonth={x.getMonth() === currentMonth}
                                     dots={markedDates?.get(_date) ?? []}
-                                    key={getDate(x)}
+                                    key={`day-${j}`}
                                     date={x}
                                     onPress={() => {
                                         setCurrentDate(x)
