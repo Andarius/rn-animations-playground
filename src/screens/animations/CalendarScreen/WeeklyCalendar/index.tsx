@@ -15,7 +15,11 @@ import { DayItem, Dot } from './DayItem'
 import { getNextWeek, getPreviousWeek } from './utils'
 import { getDate, getWeekDays } from './utils'
 import { useEffectSkipFirst } from '@src/hooks'
-import { Pages, RenderProps, Direction } from '../../InfinitePagerScreen/Pages'
+import {
+    Paginate,
+    RenderProps,
+    Direction
+} from '../../InfinitePagerScreen/Paginate'
 
 export type { Dot }
 export { WeeklyCalendar }
@@ -112,54 +116,12 @@ const WeeklyCalendar: FC<Props> = function ({
 
     return (
         <Animated.View style={[style]}>
-            <Pages
+            <Paginate
                 data={weeks}
                 itemHeight={weeklyHeight}
                 onDoneMoving={onDoneMoving}
                 renderItem={renderItem}
             />
-            {/* {offsets.map((offset, i) => (
-                <Pager
-                    key={`week-${i}`}
-                    offsets={offsets}
-                    offset={offset}
-                    width={width}
-                    onDoneMoving={onDoneMoving}
-                    height={weeklyHeight}
-                    initPositions={initPositions}>
-                    <View
-                        style={[styles.header, { backgroundColor, width }]}
-                        onLayout={({ nativeEvent }) => {
-                            weeklyHeight.value = nativeEvent.layout.height
-                        }}>
-                        {weeks[offset.position.value].map((x, j) => {
-                            const _date = getDate(x)
-                            return (
-                                <DayItem
-                                    {...{
-                                        selectedColor,
-                                        titleStyle,
-                                        textStyle
-                                    }}
-                                    isCurrentMonth={
-                                        x.getMonth() === currentMonth
-                                    }
-                                    dots={markedDates?.get(_date) ?? []}
-                                    key={`day-${j}`}
-                                    date={x}
-                                    onPress={() => {
-                                        setCurrentDate(x)
-                                        if (onPressDate) onPressDate(x)
-                                    }}
-                                    isCurrent={
-                                        getDate(x) === getDate(_currentDate)
-                                    }
-                                />
-                            )
-                        })}
-                    </View>
-                </Pager>
-            ))} */}
         </Animated.View>
     )
 }

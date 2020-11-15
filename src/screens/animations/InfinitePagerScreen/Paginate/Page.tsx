@@ -72,7 +72,7 @@ export type Props = {
     initPositions: number[]
 }
 
-const Pager: FC<Props> = function ({
+const Page: FC<Props> = function ({
     offset,
     width,
     height,
@@ -162,4 +162,4 @@ const Pager: FC<Props> = function ({
     )
 }
 
-export { Pager }
+export { Page }

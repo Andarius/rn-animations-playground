@@ -1,13 +1,11 @@
-import React, { FC, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Text, useWindowDimensions } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { Offset, Pager, Direction } from './Pager'
 
-import { makeMutable } from 'react-native-reanimated'
-import { Button, ReText } from '@src/components'
+import { Button } from '@src/components'
 import { Colors } from '@src/theme'
 import { OffsetsInfo } from './OffsetInfos'
-import { Pages } from './Pages'
+import { Paginate, Direction, Offset } from './Paginate'
 
 const ITEM_HEIGHT = 100
 const styles = StyleSheet.create({
@@ -91,7 +89,7 @@ const InfinitePagerScreen: RNNFC<Props> = function ({}) {
 
             <OffsetsInfo offsets={offsets_1} />
             <View style={{ height: ITEM_HEIGHT }}>
-                <Pages
+                <Paginate
                     data={data}
                     itemHeight={ITEM_HEIGHT}
                     itemWidth={itemWidth}
@@ -119,7 +117,7 @@ const InfinitePagerScreen: RNNFC<Props> = function ({}) {
             {/* Full width */}
             <OffsetsInfo offsets={offsets_2} />
             <View style={{ height: ITEM_HEIGHT }}>
-                <Pages
+                <Paginate
                     data={data}
                     itemHeight={ITEM_HEIGHT}
                     onDoneMoving={onDoneMoving}

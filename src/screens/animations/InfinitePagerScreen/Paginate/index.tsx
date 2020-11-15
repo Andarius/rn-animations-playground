@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Animated, { makeMutable } from 'react-native-reanimated'
-import { Offset, Pager, Direction } from './Pager'
+import { Offset, Page, Direction } from './Page'
 
-export type { Direction }
+export type { Direction, Offset }
 
 export type RenderProps<T> = {
     item: T
@@ -22,7 +22,7 @@ export type Props<T> = {
     onInit?: (offsets: Offset[]) => void
 }
 
-const Pages = function <T extends any>({
+const Paginate = function <T extends any>({
     data,
     renderItem,
     initPositions,
@@ -61,7 +61,7 @@ const Pages = function <T extends any>({
     return (
         <>
             {offsets.map((offset, i) => (
-                <Pager
+                <Page
                     key={i}
                     offset={offset}
                     width={_itemWidth}
@@ -74,10 +74,10 @@ const Pages = function <T extends any>({
                         offsetIndex: i,
                         offset
                     })}
-                </Pager>
+                </Page>
             ))}
         </>
     )
 }
 
-export { Pages }
+export { Paginate }
