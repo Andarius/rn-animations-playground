@@ -72,6 +72,10 @@ const SCREENS = [
         name: 'CalendarScreen',
         title: 'Calendar'
     },
+    {
+        name: 'InfinitePagerScreen',
+        title: 'Pager'
+    },
     // {
     //     name: 'DynamicItemsScreen',
     //     title: 'Dynamic Items'

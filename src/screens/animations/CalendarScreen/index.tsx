@@ -44,15 +44,6 @@ const CalendarScreen: RNNFC<Props> = function ({}) {
                     </Text>
                 </View>
             </View>
-            {/* <FlatList
-                    renderItem={({ item, index }) => (
-                        <View style={{ height: 20 }}>
-                            <Text style={{ color: 'black' }}>{item}</Text>
-                        </View>
-                    )}
-                    keyExtractor={(item) => item.toString()}
-                    data={[...Array(200).keys()].map((x) => x)}
-            /> */}
         </View>
     )
 }

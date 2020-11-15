@@ -18,7 +18,8 @@ const _SCREENS = [
     { name: 'DynamicItemsScreen', component: AnimScreens.DynamicItemsScreen },
     { name: 'GalleryScreen', component: AnimScreens.GalleryScreen },
     { name: 'BarChartScreen', component: AnimScreens.BarChartScreen },
-    { name: 'CalendarScreen', component: AnimScreens.CalendarScreen }
+    { name: 'CalendarScreen', component: AnimScreens.CalendarScreen },
+    { name: 'InfinitePagerScreen', component: AnimScreens.InfinitePagerScreen }
 ]
 
 _SCREENS.forEach((v) => {

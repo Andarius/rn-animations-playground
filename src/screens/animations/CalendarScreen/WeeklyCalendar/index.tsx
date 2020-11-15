@@ -7,16 +7,15 @@ import {
     View
 } from 'react-native'
 import Animated, {
-    //@ts-expect-error
     makeMutable,
     useAnimatedStyle,
     useSharedValue
 } from 'react-native-reanimated'
 import { DayItem, Dot } from './DayItem'
-import { Offset, Pager, SwipeDirection } from './Pager'
 import { getNextWeek, getPreviousWeek } from './utils'
-import { getDate, getWeekDays } from './utils'
+import { getDate, getWeekDays } from './utils'
 import { useEffectSkipFirst } from '@src/hooks'
+import { Pages, RenderProps, Direction } from '../../InfinitePagerScreen/Pages'
 
 export type { Dot }
 export { WeeklyCalendar }
@@ -71,34 +70,10 @@ const WeeklyCalendar: FC<Props> = function ({
     const weeks = [prevWeek, currentWeek, nextWeek]
 
     const { width } = useWindowDimensions()
-    const isMoving = useSharedValue<boolean>(false)
-    const offsets = useRef<Offset[]>([
-        {
-            x: makeMutable(-width),
-            tmpX: makeMutable(0),
-            translateX: makeMutable(0)
-        },
-        {
-            x: makeMutable(0),
-            tmpX: makeMutable(0),
-            translateX: makeMutable(0)
-        },
-        {
-            x: makeMutable(width),
-            tmpX: makeMutable(0),
-            translateX: makeMutable(0)
-        }
-    ]).current
 
-    function onDoneMoving(direction: SwipeDirection) {
-        const newDate = direction === 'left' ? prevWeek[0]: nextWeek[0] 
+    function onDoneMoving(direction: Direction) {
+        const newDate = direction === 'right' ? prevWeek[0] : nextWeek[0]
         setCurrentDate(newDate)
-
-        offsets.map((offset, i) => {
-            offset.x.value = i === 0 ? -width : i === 1 ? 0 : width
-            offset.tmpX.value = 0
-            offset.translateX.value = 0
-        })
     }
 
     const weeklyHeight = useSharedValue(80)
@@ -107,37 +82,74 @@ const WeeklyCalendar: FC<Props> = function ({
         height: weeklyHeight.value
     }))
 
+    function renderItem({ item }: RenderProps<Date[]>) {
+        return (
+            <View
+                style={[styles.header, { backgroundColor, width }]}
+                onLayout={({ nativeEvent }) => {
+                    weeklyHeight.value = nativeEvent.layout.height
+                }}>
+                {item.map((x, j) => {
+                    const _date = getDate(x)
+                    return (
+                        <DayItem
+                            {...{ selectedColor, titleStyle, textStyle }}
+                            isCurrentMonth={x.getMonth() === currentMonth}
+                            dots={markedDates?.get(_date) ?? []}
+                            key={`day-${j}`}
+                            date={x}
+                            onPress={() => {
+                                setCurrentDate(x)
+                                if (onPressDate) onPressDate(x)
+                            }}
+                            isCurrent={getDate(x) === getDate(_currentDate)}
+                        />
+                    )
+                })}
+            </View>
+        )
+    }
+
     return (
         <Animated.View style={[style]}>
-            {weeks.map((week, i) => (
+            <Pages
+                data={weeks}
+                itemHeight={weeklyHeight}
+                onDoneMoving={onDoneMoving}
+                renderItem={renderItem}
+            />
+            {/* {offsets.map((offset, i) => (
                 <Pager
-                    height={weeklyHeight}
-                    index={i}
-                    onDoneMoving={onDoneMoving}
                     key={`week-${i}`}
-                    {...{ isMoving }}
-                    offset={offsets[i]}
-                    prevOffset={i === 0 ? undefined : offsets[i - 1]}
-                    nextOffset={
-                        i === offsets.length - 1 ? undefined : offsets[i + 1]
-                    }>
+                    offsets={offsets}
+                    offset={offset}
+                    width={width}
+                    onDoneMoving={onDoneMoving}
+                    height={weeklyHeight}
+                    initPositions={initPositions}>
                     <View
-                        style={[styles.header, { backgroundColor }]}
+                        style={[styles.header, { backgroundColor, width }]}
                         onLayout={({ nativeEvent }) => {
                             weeklyHeight.value = nativeEvent.layout.height
                         }}>
-                        {week.map((x, j) => {
+                        {weeks[offset.position.value].map((x, j) => {
                             const _date = getDate(x)
                             return (
                                 <DayItem
-                                    {...{ selectedColor, titleStyle, textStyle }}
-                                    isCurrentMonth={x.getMonth() === currentMonth}
+                                    {...{
+                                        selectedColor,
+                                        titleStyle,
+                                        textStyle
+                                    }}
+                                    isCurrentMonth={
+                                        x.getMonth() === currentMonth
+                                    }
                                     dots={markedDates?.get(_date) ?? []}
                                     key={`day-${j}`}
                                     date={x}
                                     onPress={() => {
                                         setCurrentDate(x)
-                                        if(onPressDate) onPressDate(x)
+                                        if (onPressDate) onPressDate(x)
                                     }}
                                     isCurrent={
                                         getDate(x) === getDate(_currentDate)
@@ -147,9 +159,7 @@ const WeeklyCalendar: FC<Props> = function ({
                         })}
                     </View>
                 </Pager>
-            ))}
+            ))} */}
         </Animated.View>
     )
 }
-
-
