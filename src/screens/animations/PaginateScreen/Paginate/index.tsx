@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
-import Animated, { makeMutable } from 'react-native-reanimated'
+import Animated, { 
+    //@ts-expect-error
+    makeMutable 
+} from 'react-native-reanimated'
 import { Offset, Page, Direction } from './Page'
 
 export type { Direction, Offset }
@@ -20,6 +23,7 @@ export type Props<T> = {
     itemHeight: number | Animated.SharedValue<number>
     onDoneMoving?: (direction: Direction) => void
     onInit?: (offsets: Offset[]) => void
+    maxSize?: number
 }
 
 const Paginate = function <T extends any>({

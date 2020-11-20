@@ -1,16 +1,9 @@
-import React, { FC, useContext, useMemo, useState } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import { BorderlessButton } from 'react-native-gesture-handler'
-import { AnimatedCard, ReText } from '@src/components'
-
+import { AnimatedCard } from '@src/components'
 import { Colors } from '@src/theme'
+import React, { FC, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { BorderlessButton } from 'react-native-gesture-handler'
 import { useDraggableItem } from './DraggableList'
-import {
-    useAnimatedReaction,
-    useDerivedValue,
-    //@ts-expect-error
-    runOnJS
-} from 'react-native-reanimated'
 
 export type CardType = {
     id: string

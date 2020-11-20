@@ -49,7 +49,7 @@ const DATA = [0, 1, 2]
 
 export type Props = {}
 
-const InfinitePagerScreen: RNNFC<Props> = function ({}) {
+const PaginateScreen: RNNFC<Props> = function ({}) {
     const { width } = useWindowDimensions()
     const [data, setData] = useState<number[]>(DATA)
 
@@ -161,7 +161,7 @@ const InfinitePagerScreen: RNNFC<Props> = function ({}) {
     )
 }
 
-InfinitePagerScreen.options = {
+PaginateScreen.options = {
     topBar: {
         title: {
             text: 'Infinite Pager'
@@ -169,4 +169,4 @@ InfinitePagerScreen.options = {
     }
 }
 
-export { InfinitePagerScreen }
+export { PaginateScreen }

@@ -5,6 +5,7 @@ import {
     PanGestureHandlerGestureEvent
 } from 'react-native-gesture-handler'
 import Animated, {
+    //@ts-expect-error
     runOnJS,
     useAnimatedGestureHandler,
     useAnimatedStyle,
@@ -81,7 +82,7 @@ const Page: FC<Props> = function ({
     onDoneMoving,
     initPositions
 }) {
-    const { x, translateX } = offset
+    const { x, translateX, position } = offset
 
     const _translateX = useDerivedValue(() => x.value + translateX.value)
 

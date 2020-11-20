@@ -3,7 +3,8 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 import {
     GestureScreen,
     WorkletScreen,
-    DragToSortScreen
+    DragToSortScreen,
+    Worklets2Screen
 } from './src/screens/lessons'
 import * as AnimScreens from './src/screens/animations'
 import { Colors } from './src/theme'
@@ -12,6 +13,7 @@ import App from './App'
 const _SCREENS = [
     { name: 'WelcomeScreen', component: App },
     { name: 'WorkletScreen', component: WorkletScreen },
+    { name: 'Worklet2Screen', component: Worklets2Screen },
     { name: 'GestureScreen', component: GestureScreen },
     { name: 'DragToSortScreen', component: DragToSortScreen },
     { name: 'DraggableListScreen', component: AnimScreens.DraggableListScreen },
@@ -19,7 +21,8 @@ const _SCREENS = [
     { name: 'GalleryScreen', component: AnimScreens.GalleryScreen },
     { name: 'BarChartScreen', component: AnimScreens.BarChartScreen },
     { name: 'CalendarScreen', component: AnimScreens.CalendarScreen },
-    { name: 'InfinitePagerScreen', component: AnimScreens.InfinitePagerScreen }
+    { name: 'PaginateScreen', component: AnimScreens.PaginateScreen },
+    { name: 'SeletectableListScreen', component: AnimScreens.SelectableListScreen }
 ]
 
 _SCREENS.forEach((v) => {
@@ -28,7 +31,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'CalendarScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'SeletectableListScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {

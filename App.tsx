@@ -43,15 +43,19 @@ const SCREENS = [
     },
     {
         name: 'WorkletScreen',
-        title: 'Lesson 1. Worklets'
+        title: 'Worklets'
+    },
+    {
+        name: 'Worklet2Screen',
+        title: 'Worklets 2'
     },
     {
         name: 'GestureScreen',
-        title: 'Lesson 2. Gesture'
+        title: 'Gesture'
     },
     {
         name: 'DragToSortScreen',
-        title: 'Lesson 11. Drag to Sort'
+        title: ' Drag to Sort'
     },
     {
         title: 'Animations'
@@ -73,9 +77,13 @@ const SCREENS = [
         title: 'Calendar'
     },
     {
-        name: 'InfinitePagerScreen',
-        title: 'Pager'
+        name: 'PaginateScreen',
+        title: 'Paginate'
     },
+    {
+        name: 'SelectableListScreen',
+        title: 'Selectable List'
+    }
     // {
     //     name: 'DynamicItemsScreen',
     //     title: 'Dynamic Items'

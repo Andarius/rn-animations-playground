@@ -8,9 +8,8 @@ import Animated, {
     useAnimatedGestureHandler,
     useAnimatedStyle,
     useDerivedValue,
-    withSpring,
     useSharedValue,
-    useAnimatedReaction
+    withSpring
 } from 'react-native-reanimated'
 
 const styles = StyleSheet.create({
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
 export type Offset = {
     x: Animated.SharedValue<number>
     translateX: Animated.SharedValue<number>
-    tmpX: Animated.SharedValue<number>
 }
 
 // Shamelessly taken from https://github.com/terrysahaidak/react-native-gallery-toolkit/blob/master/src/Pager.tsx
@@ -70,41 +68,38 @@ const GalleryItem: FC<Props> = function ({
 
     const x = useSharedValue<number>(index === 0 ? 0 : width)
     const translateX = useSharedValue<number>(0)
-    const tmpX = useSharedValue<number>(0)
 
     const _translateX = useDerivedValue(() => x.value + translateX.value)
 
     useEffect(() => {
-        onInit(id, { x, translateX, tmpX })
+        onInit(id, { x, translateX })
     }, [])
 
-    useAnimatedReaction(
-        () => translateX.value,
-        (newTranslate: number) => {
-            if (
-                translateX.value !== 0 &&
-                Math.abs(Math.round(newTranslate)) === Math.round(width)
-            ) {
-                translateX.value = 0
-                x.value = tmpX.value
-                if (x.value === 0) currentIndex.value = index
-                tmpX.value = 0
-                isMoving.value = false
-            }
-        }
-    )
+    // useAnimatedReaction(
+    //     () => translateX.value,
+    //     (newTranslate: number) => {
+    //         if (
+    //             translateX.value !== 0 &&
+    //             Math.abs(Math.round(newTranslate)) === Math.round(width)
+    //         ) {
+    //             translateX.value = 0
+    //             x.value = tmpX.value
+    //             if (x.value === 0) currentIndex.value = index
+    //             tmpX.value = 0
+    //             isMoving.value = false
+    //         }
+    //     }
+    // )
 
     const onGestureEvent = useAnimatedGestureHandler<
         PanGestureHandlerGestureEvent,
         { isMoving: boolean }
     >({
         onStart: () => {},
-        onActive: (event, ctx) => {
-            ctx.isMoving = isMoving.value
+        onActive: (event) => {
             if (
                 (!prevOffset && event.translationX > 0) ||
-                (!nextOffset && event.translationX < 0) ||
-                isMoving.value
+                (!nextOffset && event.translationX < 0)
             ) {
             } else {
                 translateX.value = event.translationX
@@ -140,20 +135,36 @@ const GalleryItem: FC<Props> = function ({
             } else {
                 if (moveRight) {
                     if (!prevOffset) return
-                    isMoving.value = true
                     // console.log('moving right ==>')
-                    tmpX.value = width
-                    translateX.value = withSpring(width, config)
-                    prevOffset.tmpX.value = 0
-                    prevOffset.translateX.value = withSpring(width, config)
+                    translateX.value = withSpring(width, config, () => {
+                        currentIndex.value = index - 1
+                        translateX.value = 0
+                        x.value = width
+                    })
+                    prevOffset.translateX.value = withSpring(
+                        width,
+                        config,
+                        () => {
+                            prevOffset.x.value = 0
+                            prevOffset.translateX.value = 0
+                        }
+                    )
                 } else {
                     if (!nextOffset) return
-                    isMoving.value = true
                     // console.log('moving left <==')
-                    tmpX.value = -width
-                    translateX.value = withSpring(-width, config)
-                    nextOffset.tmpX.value = 0
-                    nextOffset.translateX.value = withSpring(-width, config)
+                    translateX.value = withSpring(-width, config, () => {
+                        currentIndex.value = index + 1
+                        translateX.value = 0
+                        x.value = -width
+                    })
+                    nextOffset.translateX.value = withSpring(
+                        -width,
+                        config,
+                        () => {
+                            nextOffset.x.value = 0
+                            nextOffset.translateX.value = 0
+                        }
+                    )
                 }
             }
         }

@@ -7,6 +7,7 @@ import {
     View
 } from 'react-native'
 import Animated, {
+    //@ts-expect-error
     makeMutable,
     useAnimatedStyle,
     useSharedValue
@@ -19,7 +20,7 @@ import {
     Paginate,
     RenderProps,
     Direction
-} from '../../InfinitePagerScreen/Paginate'
+} from '../../PaginateScreen/Paginate'
 
 export type { Dot }
 export { WeeklyCalendar }
@@ -57,11 +58,16 @@ const WeeklyCalendar: FC<Props> = function ({
     textStyle,
     onPressDate
 }) {
+    
+    const { width } = useWindowDimensions()
+
     const [_currentDate, setCurrentDate] = useState(currentDate)
     const currentMonth = _currentDate.getMonth()
     const currentWeek = getWeekDays(_currentDate)
     const prevWeek = getPreviousWeek(_currentDate)
     const nextWeek = getNextWeek(_currentDate)
+
+    const weeks = [prevWeek, currentWeek, nextWeek]
 
     useEffect(() => {
         onDateChanged(_currentDate)
@@ -71,10 +77,7 @@ const WeeklyCalendar: FC<Props> = function ({
         setCurrentDate(currentDate)
     }, [currentDate])
 
-    const weeks = [prevWeek, currentWeek, nextWeek]
-
-    const { width } = useWindowDimensions()
-
+    
     function onDoneMoving(direction: Direction) {
         const newDate = direction === 'right' ? prevWeek[0] : nextWeek[0]
         setCurrentDate(newDate)

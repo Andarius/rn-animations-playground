@@ -2,7 +2,7 @@ import { Button } from '@src/components'
 import { Colors } from '@src/theme'
 import React, { useState } from 'react'
 import { Image, Text, useWindowDimensions, View } from 'react-native'
-import { TapGestureHandler, BaseButton } from 'react-native-gesture-handler'
+import { BaseButton } from 'react-native-gesture-handler'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { GallerySlider } from './GallerySlider'
 
@@ -51,10 +51,10 @@ const ALBUM_2: ImageType[] = [
 const GalleryScreen: RNNFC<Props> = function ({}) {
     const { width } = useWindowDimensions()
 
-    const [height, setHeight] = useState<number>(400)
+    const [height, _setHeight] = useState<number>(400)
     const [currentPage, setCurrentPage] = useState(0)
     const [images, setImages] = useState(ALBUM_1)
-    const [currentAlbum, setCurrentAlbum] = useState<1 | 2>(1)
+    const [_currentAlbum, setCurrentAlbum] = useState<1 | 2>(1)
 
     return (
         <View style={styles.container}>

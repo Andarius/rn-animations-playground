@@ -1,13 +1,13 @@
+import { getArrayDiff } from '@src/utils'
 import React, { useEffect, useRef, useState } from 'react'
-import { View, useWindowDimensions } from 'react-native'
+import { useWindowDimensions, View } from 'react-native'
 import Animated, {
-    useSharedValue,
-    useAnimatedReaction,
     //@ts-expect-error
-    runOnJS
+    runOnJS,
+    useAnimatedReaction,
+    useSharedValue
 } from 'react-native-reanimated'
 import { GalleryItem, Offset } from './GalleryItem'
-import { getArrayDiff } from '@src/utils'
 
 export type Props<T> = {
     data: T[]
@@ -31,7 +31,7 @@ const GallerySlider = function <T extends GalleryItemType>({
     const isMoving = useSharedValue<boolean>(false)
     const currentIndex = currentPage ?? useSharedValue<number>(0)
     const ids = useRef<number[]>([])
-    const [offsets, setOffsets] = useState<(Offset & { id: number })[]>([])
+    const [offsets, setOffsets] = useState<(Offset & { id: number })[]>([])
 
     useAnimatedReaction(
         () => currentIndex.value,
@@ -40,29 +40,39 @@ const GallerySlider = function <T extends GalleryItemType>({
         }
     )
 
-    function onInit(id: number, offset: Offset){
-        if(!ids.current.includes(id))
-            ids.current.push(id)
-        
+    function onInit(id: number, offset: Offset) {
+        if (!ids.current.includes(id)) ids.current.push(id)
+
         setOffsets((old) => {
             const _ids = old.map((x) => x.id)
-            if(_ids.includes(id))
-                return old
-            else
-                return [...old, { id, ...offset}]
+            if (_ids.includes(id)) return old
+            else return [...old, { id, ...offset }]
         })
     }
 
     useEffect(() => {
-        const changedIds = getArrayDiff(ids.current, data.map((x) => x.id))
-        if(changedIds.length > 0){
+        const changedIds = getArrayDiff(
+            ids.current,
+            data.map((x) => x.id)
+        )
+
+        offsets.map((x, i) => {
+            x.x.value = i === currentIndex.value ? 0 : width
+            x.translateX.value = 0
+        })
+
+        if (changedIds.length > 0) {
             const removedItems = data.length < ids.current.length
-            if(removedItems)
+            if (removedItems)
                 setOffsets((old) => {
-                    const cp = [...old.filter((x) => !changedIds.includes(x.id) )]
+                    const cp = [
+                        ...old.filter((x) => !changedIds.includes(x.id))
+                    ]
                     ids.current = cp.map((x) => x.id)
-                    cp[0].x.value = 0
-                    currentIndex.value = 0
+                    if (cp.length > 0) {
+                        cp[0].x.value = 0
+                        currentIndex.value = 0
+                    }
                     return cp
                 })
         }
