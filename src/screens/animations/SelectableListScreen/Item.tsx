@@ -1,7 +1,7 @@
 import React, { FC, useRef, ReactNode } from 'react'
 import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native'
 import { Colors } from '@src/theme'
-import Animated, { useAnimatedStyle } from 'react-native-reanimated'
+import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import {
     LongPressGestureHandler,
     State,
@@ -69,7 +69,8 @@ const Item: FC<Props> = function ({
             ? Colors.tertiary
             : isSelectMode.value
             ? Colors.secondary
-            : Colors.primary
+            : Colors.primary,
+        // transform: [ { translateX: withTiming(isSelectMode.value ? 50: 0, { duraiton: 200})}]
     }))
     return (
         <LongPressBtn onLongPress={onLongPress} onPress={onPress}>

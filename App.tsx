@@ -81,7 +81,7 @@ const SCREENS = [
         title: 'Paginate'
     },
     {
-        name: 'SelectableListScreen',
+        name: 'SeletectableListScreen',
         title: 'Selectable List'
     }
     // {

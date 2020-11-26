@@ -5,7 +5,6 @@ import {
     PanGestureHandlerGestureEvent
 } from 'react-native-gesture-handler'
 import Animated, {
-    //@ts-expect-error
     runOnJS,
     useAnimatedGestureHandler,
     useAnimatedStyle,

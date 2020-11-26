@@ -5,7 +5,6 @@ import {
     NavigationFunctionComponent as RNNFC
 } from 'react-native-navigation'
 import { useAnimatedReaction,
-    //@ts-expect-error
     runOnJS
 } from 'react-native-reanimated'
 import { Item } from './Item'
@@ -34,7 +33,7 @@ const SelectableListScreen: RNNFC<Props> = function ({ componentId }) {
         console.log('press: ', item)
     }
 
-    const { selected, isSelectMode, onLongPress, onPress } = useSelected<Item, Item['id']>({
+    const { selected, isSelectMode, onLongPress, onPress } = useSelected({
         onPress: _onPress,
         selectFn: (x) => x.id
     })

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Animated, { 
-    //@ts-expect-error
     makeMutable 
 } from 'react-native-reanimated'
 import { Offset, Page, Direction } from './Page'

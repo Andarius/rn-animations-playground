@@ -2,7 +2,6 @@ import { getArrayDiff } from '@src/utils'
 import React, { useEffect, useRef, useState } from 'react'
 import { useWindowDimensions, View } from 'react-native'
 import Animated, {
-    //@ts-expect-error
     runOnJS,
     useAnimatedReaction,
     useSharedValue

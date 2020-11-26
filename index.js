@@ -31,7 +31,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'SeletectableListScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {

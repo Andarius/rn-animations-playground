@@ -7,8 +7,6 @@ import {
     View
 } from 'react-native'
 import Animated, {
-    //@ts-expect-error
-    makeMutable,
     useAnimatedStyle,
     useSharedValue
 } from 'react-native-reanimated'
