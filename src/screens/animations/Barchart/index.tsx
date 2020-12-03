@@ -40,40 +40,32 @@ const styles = StyleSheet.create({
 
 const DATA: DataItem[] = [
     {
-        value: 207015,
-        label: 'May'
+      "value": 204633,
+      "label": "Mai"
     },
     {
-        value: 195234,
-        label: 'Apr'
+      "value": 195234,
+      "label": "Ju."
     },
     {
-        value: 204633,
-        label: 'May'
+      "value": 436693,
+      "label": "Jui"
     },
     {
-        value: 195234,
-        label: 'June'
+      "value": 164580,
+      "label": "Ao."
     },
     {
-        value: 436693,
-        label: 'Jul.'
+      "value": 151261,
+      "label": "Se."
     },
     {
-        value: 164580,
-        label: 'Aug.'
+      "value": 207015,
+      "label": "Oc."
     },
     {
-        value: 151261,
-        label: 'Sept.'
-    },
-    {
-        value: 207015,
-        label: 'Oct.'
-    },
-    {
-        value: 0,
-        label: 'Nov.'
+      "value": 43098,
+      "label": "No."
     }
 ]
 
@@ -85,12 +77,14 @@ type Config = {
     minValue?: number
     maxValue?: number
     minHeight?: number
+    minNormValue?: number
 }
 
 const CONFIG_1 = {
     data: DATA,
     animate: true,
-    maxHeight: BARCHART_HEIGHT
+    maxHeight: BARCHART_HEIGHT,
+    minNormValue: 0
 }
 
 const DATA2: DataItem[] = [
@@ -108,7 +102,7 @@ const CONFIG_2 = {
     minValue: Math.min(...DATA2.map((x) => x.value)),
     maxValue: Math.max(...DATA2.map((x) => x.value)),
     maxHeight: 50,
-    minHeight: 50 / 2
+    minHeight: 50 / 2,
 }
 
 const CONFIG: Config = CONFIG_1
@@ -148,6 +142,7 @@ const BarChartScreen: RNNFC<Props> = function ({}) {
                     normalize={CONFIG?.normalize}
                     minValue={CONFIG?.minValue}
                     maxValue={CONFIG?.maxValue}
+                    minNormValue={CONFIG?.minNormValue}
                 />
             </View>
 

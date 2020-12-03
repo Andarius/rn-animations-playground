@@ -28,15 +28,15 @@ const CalendarScreen: RNNFC<Props> = function ({}) {
     const [currentDate, setCurrentDate] = useState(new Date('2020-11-10'))
     return (
         <View style={styles.container}>
-                <WeeklyCalendar
-                    currentDate={currentDate}
-                    onDateChanged={setCurrentDate}
-                    backgroundColor={Colors.primary}
-                    selectedColor={Colors.secondary}
-                    markedDates={markedDates}
-                    // textStyle={{ color: Colors.tertiary}}
-                    // titleStyle={{ color: Colors.tertiary}}
-                />
+            <WeeklyCalendar
+                currentDate={currentDate}
+                onDateChanged={setCurrentDate}
+                backgroundColor={Colors.primary}
+                selectedColor={Colors.secondary}
+                markedDates={markedDates}
+                // textStyle={{ color: Colors.tertiary}}
+                // titleStyle={{ color: Colors.tertiary}}
+            />
             <View style={{ flex: 1 }}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>

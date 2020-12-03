@@ -122,6 +122,7 @@ export type Props = {
     normalize?: boolean
     defaultNormValue?: number
     animate?: boolean
+    minNormValue?: number
 }
 
 const BarChart: FC<Props> = function ({
@@ -136,11 +137,12 @@ const BarChart: FC<Props> = function ({
     normalize = true,
     // should be between 0 and 1
     defaultNormValue = 0.5,
+    minNormValue = undefined,
     animate = true
 }) {
     const values = data.map((x) => x.value)
     const [normMinValue, normMaxValue] = [
-        Math.min(...values),
+        minNormValue ?? Math.min(...values),
         Math.max(...values)
     ]
     // Needed to smooth at first and see the animation on mount
