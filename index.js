@@ -7,6 +7,7 @@ import {
     Worklets2Screen
 } from './src/screens/lessons'
 import * as AnimScreens from './src/screens/animations'
+import { Menu } from './src/screens/animations/TopbarMenuScreen/Menu'
 import { Colors } from './src/theme'
 import App from './App'
 
@@ -22,7 +23,12 @@ const _SCREENS = [
     { name: 'BarChartScreen', component: AnimScreens.BarChartScreen },
     { name: 'CalendarScreen', component: AnimScreens.CalendarScreen },
     { name: 'PaginateScreen', component: AnimScreens.PaginateScreen },
-    { name: 'SeletectableListScreen', component: AnimScreens.SelectableListScreen }
+    {
+        name: 'SeletectableListScreen',
+        component: AnimScreens.SelectableListScreen
+    },
+    { name: 'TopbarMenuScreen', component: AnimScreens.TopbarMenuScreen },
+    { name: 'MenuOverlay', component: Menu }
 ]
 
 _SCREENS.forEach((v) => {
@@ -31,7 +37,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'TopbarMenuScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {
