@@ -87,6 +87,10 @@ const SCREENS = [
     {
         name: 'TopbarMenuScreen',
         title: 'Topbar Menu'
+    }, 
+    {
+        name: 'ViewPagerHeaderScreen',
+        title: 'ViewPager Header'
     }
     // {
     //     name: 'DynamicItemsScreen',

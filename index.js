@@ -28,7 +28,11 @@ const _SCREENS = [
         component: AnimScreens.SelectableListScreen
     },
     { name: 'TopbarMenuScreen', component: AnimScreens.TopbarMenuScreen },
-    { name: 'MenuOverlay', component: Menu }
+    { name: 'MenuOverlay', component: Menu },
+    {
+        name: 'ViewPagerHeaderScreen',
+        component: AnimScreens.ViewPagerHeaderScreen
+    }
 ]
 
 _SCREENS.forEach((v) => {
@@ -37,7 +41,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'TopbarMenuScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'ViewPagerHeaderScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {
