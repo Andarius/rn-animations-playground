@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 const SCREENS = [
     {
-        title: 'Lessons'
+        title: 'Reanimated utils'
     },
     {
         name: 'WorkletScreen',

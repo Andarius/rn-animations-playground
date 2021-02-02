@@ -7,7 +7,7 @@ import {
     Worklets2Screen
 } from './src/screens/lessons'
 import * as AnimScreens from './src/screens/animations'
-import { Menu } from './src/screens/animations/TopbarMenuScreen/Menu'
+import { ShowMore } from './src/screens/animations/TopbarMenuScreen/ShowMore'
 import { Colors } from './src/theme'
 import App from './App'
 
@@ -28,7 +28,7 @@ const _SCREENS = [
         component: AnimScreens.SelectableListScreen
     },
     { name: 'TopbarMenuScreen', component: AnimScreens.TopbarMenuScreen },
-    { name: 'MenuOverlay', component: Menu },
+    { name: 'ShowMore', component: ShowMore },
     {
         name: 'ViewPagerHeaderScreen',
         component: AnimScreens.ViewPagerHeaderScreen
@@ -41,7 +41,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'ViewPagerHeaderScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {
@@ -49,7 +49,8 @@ Navigation.setDefaultOptions({
     },
     topBar: {
         title: {
-            color: Colors.primary
+            color: Colors.primary,
+            alignment: 'center'
         },
         backButton: {
             visible: true,

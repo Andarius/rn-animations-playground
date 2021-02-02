@@ -6,7 +6,7 @@ import {
 import { View, StyleSheet, Text } from 'react-native'
 import { Colors } from '@src/theme'
 import { useTopBarBtnPress } from '@src/hooks'
-import { Props as MenuProps } from './Menu'
+import { Props as MenuProps } from './ShowMore'
 
 const styles = StyleSheet.create({
     container: {
@@ -25,7 +25,7 @@ const TopbarMenuScreen: RNNFC<Props> = function ({ componentId }) {
         if (buttonId === 'more-btn') {
             Navigation.showOverlay({
                 component: {
-                    name: 'MenuOverlay',
+                    name: 'ShowMore',
                     passProps: {
                         btns: [
                             {

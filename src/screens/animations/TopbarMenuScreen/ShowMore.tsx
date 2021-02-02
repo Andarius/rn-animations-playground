@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
     Navigation,
     NavigationFunctionComponent as RNNFC
@@ -10,12 +10,12 @@ import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from '
 
 export const BTN_HEIGHT = 50
 export const ICON_SIZE = 22
+
 const styles = StyleSheet.create({
     container: {
         flex: 1
     },
     menu: {
-        minWidth: 200,
         backgroundColor: Colors.white,
         borderRadius: 10,
         position: 'absolute',
@@ -23,12 +23,14 @@ const styles = StyleSheet.create({
         right: 15,
         elevation: 2,
         overflow: 'hidden'
+        // paddingHorizontal: 20
     },
     btn: {
         flexDirection: 'row',
         height: BTN_HEIGHT,
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        paddingRight: 10
     },
     iconContainer: {
         width: 60,
@@ -50,45 +52,49 @@ type Btn = {
     onPress: () => void
     icon: number
     text: string
+    testID?: string
 }
 
 export type Props = {
     btns: Btn[]
+    width?: number
 }
 
-const Menu: RNNFC<Props> = function ({ componentId, btns }) {
-    function onDismiss() {
-        Navigation.dismissOverlay(componentId)
-    }
+const ShowMore: RNNFC<Props> = function ({ componentId, btns, width = 100 }) {
+
 
     const height = useSharedValue<number>(0)
-
     const opacity = useSharedValue<number>(1)
 
     useEffect(() => {
-        height.value = withTiming(btns.length * BTN_HEIGHT, {
-            duration: 300,
-            easing: Easing.inOut(Easing.cubic)
-        })
+        height.value = btns.length * BTN_HEIGHT
     }, [])
 
     const animatedStyle = useAnimatedStyle(() => ({
-        height: height.value,
+        height: withTiming(height.value, {
+            duration: 200,
+            easing: Easing.inOut(Easing.cubic)
+        }),
         opacity: opacity.value
     }))
+
+    async function _onDismiss() {
+        await Navigation.dismissOverlay(componentId)
+    }
 
 
     return (
         <BaseButton
             rippleColor="transparent"
             style={styles.container}
-            onPress={onDismiss}>
-            <Animated.View style={[styles.menu, animatedStyle]}>
-                {btns.map(({ icon, text, onPress }, i) => (
+            onPress={_onDismiss}>
+            <Animated.View style={[styles.menu, { minWidth: width }, animatedStyle]}>
+                {btns.map(({ icon, text, onPress, testID }, i) => (
                     <RectButton
+                        testID={testID}
                         onPress={() => {
                             onPress()
-                            onDismiss()
+                            _onDismiss()
                         }}
                         key={i}
                         style={styles.btn}>
@@ -103,7 +109,7 @@ const Menu: RNNFC<Props> = function ({ componentId, btns }) {
     )
 }
 
-Menu.options = {
+ShowMore.options = {
     layout: {
         componentBackgroundColor: 'transparent'
     },
@@ -112,4 +118,4 @@ Menu.options = {
     }
 }
 
-export { Menu }
+export { ShowMore }
