@@ -10,25 +10,22 @@ import { styles } from './styles'
 
 export type Props = {}
 
-export type ImageType = { id: number; uri: string; color: string }
+export type ImageType = { id: number; uri: number; color: string }
 
 const ALBUM_1: ImageType[] = [
     {
         id: 1,
-        uri:
-            'https://scontent-cdg2-1.cdninstagram.com/v/t51.2885-15/e35/121274938_345550346665420_1671739911150743503_n.jpg?_nc_ht=scontent-cdg2-1.cdninstagram.com&_nc_cat=104&_nc_ohc=F0TY2DJ-rW4AX9F3yji&_nc_tp=18&oh=41e4f4d17a76abf450be3d919b44651e&oe=5FC06371',
+        uri: require('@img/choubs_1.jpg'),
         color: Colors.primary
     },
     {
         id: 2,
-        uri:
-            'https://scontent-cdg2-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118464728_232457208077423_1476398399154015353_n.jpg?_nc_ht=scontent-cdg2-1.cdninstagram.com&_nc_cat=111&_nc_ohc=98qCcOjdVk4AX-HrbIO&_nc_tp=15&oh=8f44cdd3b9bbf374874a58df91e10800&oe=5FC12C91',
+        uri: require('@img/choubs_2.jpg'),
         color: Colors.secondary
     },
     {
         id: 3,
-        uri:
-            'https://scontent-cdg2-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/90352431_2584119308540344_3763045772634574830_n.jpg?_nc_ht=scontent-cdg2-1.cdninstagram.com&_nc_cat=104&_nc_ohc=hAhsg_4yOiIAX-Wv-iV&_nc_tp=15&oh=81e500001e17279316604f97841b24b8&oe=5FC1D938',
+        uri: require('@img/choubs_3.jpg'),
         color: Colors.tertiary
     }
 ]
@@ -36,26 +33,24 @@ const ALBUM_1: ImageType[] = [
 const ALBUM_2: ImageType[] = [
     {
         id: 4,
-        uri:
-            'https://scontent-cdg2-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/84566518_1037220686650919_7030534366096078664_n.jpg?_nc_ht=scontent-cdg2-1.cdninstagram.com&_nc_cat=111&_nc_ohc=G3NGNxXTfR8AX8uqHRb&_nc_tp=15&oh=8dadf5d0b56d05114e2e945858ca1269&oe=5FC17293',
+        uri: require('@img/choubs_2.jpg'),
         color: Colors.primary
     },
     {
         id: 5,
-        uri:
-            'https://scontent-cdt1-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/89259695_574913473101901_7566127440172063945_n.jpg?_nc_ht=scontent-cdt1-1.cdninstagram.com&_nc_cat=101&_nc_ohc=YxkaBLNIYPcAX9JV5g0&_nc_tp=15&oh=93dc7a2b1372f29e5115bdb5739e1d5c&oe=5FC4A58F',
+        uri: require('@img/choubs_3.jpg'),
         color: Colors.secondary
     }
 ]
 
-const GalleryScreen: RNNFC<Props> = function ({}) {
+const GalleryScreen: RNNFC<Props> = function ({ }) {
     const { width } = useWindowDimensions()
 
     const [height] = useState<number>(400)
     const [currentPage, setCurrentPage] = useState(0)
     const [images, setImages] = useState(ALBUM_1)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_currentAlbum, setCurrentAlbum] = useState<1 | 2>(1)
+    const [_currentAlbum, setCurrentAlbum] = useState<1 | 2>(1)
 
     return (
         <View style={styles.container}>
@@ -66,12 +61,14 @@ const GalleryScreen: RNNFC<Props> = function ({}) {
                 renderItem={(item) => (
                     <BaseButton
                         rippleColor="transparent"
+                        // style={{ backgroundColor: 'red' }}
                         onPress={() => {
-                            console.log('pressed: ', item.id)
+                            console.log('pressed: ', item.id, item.uri)
                         }}>
                         <Image
                             style={{ height, resizeMode: 'contain', width }}
-                            source={{ uri: item.uri }}
+                            source={item.uri}
+                            onError={(error) => console.log('error: ', error.nativeEvent)}
                         />
                     </BaseButton>
                 )}
