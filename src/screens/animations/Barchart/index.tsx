@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { Colors } from '@src/theme'
-import { BarChart, DataItem } from './BarChart'
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from '@src/components'
+import { Colors } from '@src/theme'
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
+import { BarChart, DataItem } from './BarChart'
 
 const BARCHART_HEIGHT = 200
 
@@ -40,32 +41,32 @@ const styles = StyleSheet.create({
 
 const DATA: DataItem[] = [
     {
-      "value": 204633,
-      "label": "Mai"
+      'value': 204633,
+      'label': 'Mai'
     },
     {
-      "value": 195234,
-      "label": "Ju."
+      'value': 195234,
+      'label': 'Ju.'
     },
     {
-      "value": 436693,
-      "label": "Jui"
+      'value': 436693,
+      'label': 'Jui'
     },
     {
-      "value": 164580,
-      "label": "Ao."
+      'value': 164580,
+      'label': 'Ao.'
     },
     {
-      "value": 151261,
-      "label": "Se."
+      'value': 151261,
+      'label': 'Se.'
     },
     {
-      "value": 207015,
-      "label": "Oc."
+      'value': 207015,
+      'label': 'Oc.'
     },
     {
-      "value": 43098,
-      "label": "No."
+      'value': 43098,
+      'label': 'No.'
     }
 ]
 

@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react'
+import { Colors } from '@src/theme'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import {
     NavigationFunctionComponent as RNNFC
 } from 'react-native-navigation'
-import { View, StyleSheet, Text } from 'react-native'
-import { Colors } from '@src/theme'
-import { ViewPagerHeader, Item } from './ViewPagerHeader'
+import { Item, ViewPagerHeader } from './ViewPagerHeader'
 
 
 const styles = StyleSheet.create({
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 export type Props = {}
 
-const ViewPagerHeaderScreen: RNNFC<Props> = function ({ componentId }) {
+const ViewPagerHeaderScreen: RNNFC<Props> = function ({  }) {
     const [currentTab, setCurrentTab] = useState<number>(0)
     const headers: Item<number>[] = [
         {

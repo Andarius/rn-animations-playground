@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Navigation } from 'react-native-navigation'
 
 const useTopBarHeight = function (defaultHeight: number = 80) {
-    const [topBarHeight, setTopBarHeight] = useState(defaultHeight)
+    const [_topBarHeight, setTopBarHeight] = useState(defaultHeight)
 
     useEffect(() => {
         Navigation.constants().then(({ topBarHeight, statusBarHeight }) => {
@@ -10,7 +10,7 @@ const useTopBarHeight = function (defaultHeight: number = 80) {
         })
     }, [])
 
-    return topBarHeight
+    return _topBarHeight
 
 }
 export { useTopBarHeight }

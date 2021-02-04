@@ -1,8 +1,8 @@
-import { RectButton } from 'react-native-gesture-handler'
 import { Colors } from '@src/theme'
 import { getIndex } from '@src/utils'
 import React from 'react'
-import { StyleSheet, useWindowDimensions, Text, View } from 'react-native'
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 

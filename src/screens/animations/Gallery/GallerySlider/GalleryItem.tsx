@@ -73,7 +73,7 @@ const GalleryItem: FC<Props> = function ({
 
     useEffect(() => {
         onInit(id, { x, translateX })
-    }, [])
+    }, [id, onInit, translateX, x])
 
     // useAnimatedReaction(
     //     () => translateX.value,

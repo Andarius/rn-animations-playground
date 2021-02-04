@@ -1,19 +1,19 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { Text, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import { Card } from '@src/components'
+import { useUniqueID } from '@src/hooks'
+import { Colors } from '@src/theme'
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react'
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import {
     BorderlessButton,
     PanGestureHandler,
     RectButton
 } from 'react-native-gesture-handler'
-
-import { useUniqueID } from '@src/hooks'
-import { Card } from '@src/components'
-import { Colors } from '@src/theme'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import Animated, {
     useAnimatedGestureHandler,
     useSharedValue
 } from 'react-native-reanimated'
+
 
 const styles = StyleSheet.create({
     container: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 export type Props = {}
 
 type AnimatedItem = {
-    id: Item['id']    
+    id: Item['id']
     offset: Animated.SharedValue<number>
 }
 
@@ -73,7 +73,7 @@ const useDraggableItem = function (
 
     const item = items.filter((x) => x.id === itemID)[0]
 
-    function updateItem(item: Omit<AnimatedItem, 'id'>) {
+    const updateItem = useCallback((_item: Omit<AnimatedItem, 'id'>) => {
         console.log('adding: ', itemID)
         setItems((old) => {
             const newList = [...old.filter((x) => x.id !== itemID),
@@ -81,7 +81,7 @@ const useDraggableItem = function (
             ]
             return newList
         })
-    }
+    }, [itemID, offset, setItems])
 
     function removeItem() {
         console.log('removing: ', itemID)
@@ -91,9 +91,9 @@ const useDraggableItem = function (
     }
 
     useEffect(() => {
-        if(!item)
+        if (!item)
             updateItem({ offset })
-    }, [items])
+    }, [item, items, offset, updateItem])
 
     return { item, items, updateItem, removeItem }
 }
@@ -104,7 +104,7 @@ const CardItem: FC<{
     onRemove: () => void
 }> = function ({ style, id, onRemove }) {
     const offset = useSharedValue(0)
-    const { item, items, removeItem } = useDraggableItem(id, offset)
+    const { items, removeItem } = useDraggableItem(id, offset)
 
     function onPressDelete() {
         onRemove()
@@ -113,8 +113,8 @@ const CardItem: FC<{
 
     const onGestureEvent = useAnimatedGestureHandler(
         {
-            onStart: (_, ctx) => {},
-            onActive: (event, ctx) => {
+            onStart: (_, _ctx) => {},
+            onActive: (_event, _ctx) => {
                 console.log('active: ', items.length)
                 items.map((x) => {
                     console.log(x)
@@ -123,7 +123,7 @@ const CardItem: FC<{
                 //     console.log(k)
                 // })
             },
-            onEnd: (event) => {}
+            onEnd: (_event) => {}
         }
     )
 

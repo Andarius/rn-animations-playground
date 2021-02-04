@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import {
     Navigation,
-    NavigationButtonPressedEvent,
+    NavigationButtonPressedEvent
 } from 'react-native-navigation'
 
 export type OnTopBtnPressed = (event: NavigationButtonPressedEvent) => void
@@ -15,5 +15,5 @@ export const useTopBarBtnPress = function (
                 onTopBtnPressed(event)
         })
         return () => topBtnListener.remove()
-    }, [onTopBtnPressed])
+    }, [componentId, onTopBtnPressed])
 }

@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
-import { useSharedValue } from 'react-native-reanimated'
+import { ScrollView } from 'react-native'
+import { makeMutable } from 'react-native-reanimated'
 import { SortableItem } from './SortableItem'
 
 
@@ -12,7 +12,7 @@ export type Props = {
 const SortableList: FC<Props> = function ({ children, item }) {
     const { height } = item
     const offsets = children.map((_, index) => ({
-        y: useSharedValue(index * height)
+        y: makeMutable(index * height)
     }))
 
     return (

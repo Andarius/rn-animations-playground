@@ -3,13 +3,16 @@ import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated, {
     useAnimatedGestureHandler,
-    useAnimatedStyle,
+
+
+
+
+    useAnimatedReaction, useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
-    withSpring,
-    useAnimatedReaction
+    withSpring
 } from 'react-native-reanimated'
-import { useDraggableItem, isOverlapping, GestureState, ItemID } from './utils'
+import { GestureState, isOverlapping, ItemID, useDraggableItem } from './utils'
 
 const SPRING_CONFIG: Animated.WithSpringConfig = {
     mass: 1,
@@ -67,7 +70,7 @@ const DraggableItem: FC<Props> = function ({
     const translateY = useDerivedValue(() => {
         if (gestureState.value === 'ACTIVE') return y.value + offset.value
         // Will not animated on mount
-        else if(gestureState.value === 'CREATED') return offset.value
+        else if (gestureState.value === 'CREATED') return offset.value
         else return withSpring(offset.value, SPRING_CONFIG)
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
@@ -146,8 +149,7 @@ const DraggableItem: FC<Props> = function ({
         setTimeout(() => {
             gestureState.value = 'IDLE'
         }, 500)
-        
-    }, [])
+    }, [gestureState])
 
     useAnimatedReaction(
         () => height.value,
@@ -162,9 +164,8 @@ const DraggableItem: FC<Props> = function ({
             }
         }
     , [items])
-    
     return (
-        <PanGestureHandler 
+        <PanGestureHandler
             activeOffsetY={activeOffsetY}
             enabled={!disabled}
             {...{ onGestureEvent }}>

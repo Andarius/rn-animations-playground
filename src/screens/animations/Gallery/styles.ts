@@ -1,11 +1,9 @@
-import { StyleSheet } from 'react-native'
-import { Colors } from '@src/theme'
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         // justifyContent: 'center'
-        
     },
     imagesContainer: {
         marginTop: 100,

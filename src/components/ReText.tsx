@@ -1,13 +1,6 @@
 import React, { FC } from 'react'
-import { View, StyleSheet, TextInput, TextStyle, TextProps } from 'react-native'
-import Animated, { useAnimatedProps } from 'react-native-reanimated'
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-})
+import { TextInput, TextProps, TextStyle } from 'react-native'
+import Animated, { useAnimatedProps } from 'react-native-reanimated'
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 
@@ -28,6 +21,7 @@ const ReText: FC<Props> = function ({ text, style }) {
         <AnimatedTextInput
             underlineColorAndroid="transparent"
             editable={false}
+            //@ts-ignore
             value={text.value}
             style={style}
             {...{ animatedProps }}

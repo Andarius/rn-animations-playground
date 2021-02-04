@@ -75,7 +75,7 @@ const GallerySlider = function <T extends GalleryItemType>({
                     return cp
                 })
         }
-    }, [data])
+    }, [currentIndex, data, offsets, width])
 
     return (
         <View style={{ height }}>

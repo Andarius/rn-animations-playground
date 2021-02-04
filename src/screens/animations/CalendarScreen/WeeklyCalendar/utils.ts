@@ -5,7 +5,7 @@
 export const getMonday = function (d: Date) {
     const newDate = new Date(d)
     var day = newDate.getDay(),
-        diff = newDate.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+        diff = newDate.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
 
     return new Date(newDate.setDate(diff))
 }

@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native'
 import { Colors } from '@src/theme'
+import React, { FC } from 'react'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 export const CARD_WIDTH = 330
 export const CARD_HEIGHT = 170

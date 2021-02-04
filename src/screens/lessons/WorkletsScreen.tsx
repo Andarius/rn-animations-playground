@@ -1,22 +1,19 @@
-import React, { FC } from 'react'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { View, StyleSheet, Platform, Text } from 'react-native'
-
 import { Button, ReText } from '@src/components'
+import { Colors } from '@src/theme'
+import React from 'react'
+import { Platform, StyleSheet, View } from 'react-native'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import Animated, {
     runOnUI,
     useSharedValue
 } from 'react-native-reanimated'
-import { Colors } from '@src/theme'
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    text: {
-        color: Colors.secondary
     }
 })
 
@@ -24,7 +21,7 @@ export type Props = {}
 
 const formatDateTime = function (datetime: Date) {
     'worklet'
-    
+
     return datetime.toLocaleDateString('fr-FR', {
         weekday: 'long',
         year: 'numeric',

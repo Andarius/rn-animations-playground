@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
+import React, { useState } from 'react'
+import { FlatList, StyleSheet, View } from 'react-native'
 import {
     Navigation,
     NavigationFunctionComponent as RNNFC
 } from 'react-native-navigation'
-import { useAnimatedReaction,
-    runOnJS
+import {
+    runOnJS, useAnimatedReaction
 } from 'react-native-reanimated'
 import { Item } from './Item'
 import { useSelected } from './utils'
@@ -24,7 +24,7 @@ type Item = {
 export type Props = {}
 
 const SelectableListScreen: RNNFC<Props> = function ({ componentId }) {
-    const [data, setData] = useState<Item[]>(
+    const [data] = useState<Item[]>(
         [...Array(100).keys()].map((x) => ({ value: x, id: x.toString() }))
     )
 

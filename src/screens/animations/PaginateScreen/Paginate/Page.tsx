@@ -81,7 +81,7 @@ const Page: FC<Props> = function ({
     onDoneMoving,
     initPositions
 }) {
-    const { x, translateX, position } = offset
+    const { x, translateX } = offset
 
     const _translateX = useDerivedValue(() => x.value + translateX.value)
 
@@ -97,7 +97,7 @@ const Page: FC<Props> = function ({
     >({
         onStart: () => {},
         onActive: (event) => {
-            offsets.map((x) => (x.translateX.value = event.translationX))
+            offsets.map((_x) => (_x.translateX.value = event.translationX))
         },
         onEnd: (event) => {
             const velocityThresh = Math.abs(event.velocityX) > 100
@@ -110,12 +110,12 @@ const Page: FC<Props> = function ({
             const moveRight = event.translationX > 0
 
             if (!shouldSwap) {
-                offsets.map((x) => (x.translateX.value = withSpring(0, config)))
+                offsets.map((_x) => (_x.translateX.value = withSpring(0, config)))
             } else {
                 if (moveRight)
                     offsets.map(
-                        (x, i) =>
-                            (x.translateX.value = withSpring(
+                        (_x, i) =>
+                            (_x.translateX.value = withSpring(
                                 width.value,
                                 config,
                                 () => {
@@ -132,8 +132,8 @@ const Page: FC<Props> = function ({
                     )
                 else
                     offsets.map(
-                        (x, i) =>
-                            (x.translateX.value = withSpring(
+                        (_x, i) =>
+                            (_x.translateX.value = withSpring(
                                 -width.value,
                                 config,
                                 () => {

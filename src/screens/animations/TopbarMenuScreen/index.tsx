@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react'
+import { useTopBarBtnPress } from '@src/hooks'
+import { Colors } from '@src/theme'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import {
     Navigation,
     NavigationFunctionComponent as RNNFC
 } from 'react-native-navigation'
-import { View, StyleSheet, Text } from 'react-native'
-import { Colors } from '@src/theme'
-import { useTopBarBtnPress } from '@src/hooks'
 import { Props as MenuProps } from './ShowMore'
 
 const styles = StyleSheet.create({

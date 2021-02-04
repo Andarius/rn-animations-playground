@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { View, StyleSheet } from 'react-native'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import Animated, {
     useAnimatedGestureHandler,
@@ -13,11 +12,7 @@ export type Offset = {
     y: Animated.SharedValue<number>
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-})
+
 
 export type Props = {
     index: number
@@ -56,7 +51,6 @@ const SortableItem: FC<Props> = function ({
         onActive: (event) => {
             x.value = event.translationX
             y.value = safeOffsetY.value + event.translationY
-            
             // Moving others
             const offsetY = Math.round(y.value / height) * height
             offsets.forEach((o, i) => {

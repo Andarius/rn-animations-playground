@@ -1,13 +1,11 @@
-import React, { FC, useRef, ReactNode } from 'react'
-import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native'
 import { Colors } from '@src/theme'
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import React, { FC, ReactNode, useRef } from 'react'
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import {
     LongPressGestureHandler,
-    State,
-    RectButtonProperties,
-    RectButton
+    RectButton, RectButtonProperties, State
 } from 'react-native-gesture-handler'
+import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 
 const styles = StyleSheet.create({
     container: {

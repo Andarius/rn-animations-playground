@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { View, Text, StyleSheet } from 'react-native'
-import { DraggableList } from './DraggableList'
-import { CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
-import { Colors } from '@src/theme'
-import { CardType, CardItem, CardItemMemo } from './CardItem'
-import { useUniqueID } from '@src/hooks'
-import { useTopBarBtnPress } from '@src/hooks'
 import { Button } from '@src/components'
+import { CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
+import { useTopBarBtnPress, useUniqueID } from '@src/hooks'
+import { Colors } from '@src/theme'
+import React, { useState } from 'react'
+import { View } from 'react-native'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
+import { CardItemMemo, CardType } from './CardItem'
+import { DraggableList } from './DraggableList'
 import styles from './styles'
 
 const DATA: CardType[] = [...Array(10).keys()].map((x) => ({
@@ -59,7 +58,7 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
         setItems((old) => [...old.filter((x) => x.id !== itemId)])
     }
 
-    function _renderItem(data: CardType) {        
+    function _renderItem(data: CardType) {
         return (
             <CardItemMemo data={data} onDelete={() => onDelete(data.id)}/>
         )

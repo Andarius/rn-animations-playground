@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { View, StyleProp, ViewStyle, StyleSheet } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import {
-    RectButton,
-    LongPressGestureHandler,
-    State,
-    RectButtonProperties
+    LongPressGestureHandler, RectButton,
+
+
+    RectButtonProperties, State
 } from 'react-native-gesture-handler'
 
 const _extractViewProps = function (style: ViewStyle): [ViewStyle, ViewStyle] {

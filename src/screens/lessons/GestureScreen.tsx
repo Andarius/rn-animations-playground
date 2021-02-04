@@ -1,18 +1,18 @@
+import { clamp } from '@src/animUtils'
+import { Card, CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
+import { useTopBarHeight } from '@src/hooks'
+import { Colors } from '@src/theme'
 import React from 'react'
-import { View, StyleSheet, useWindowDimensions } from 'react-native'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import Animated, {
     useAnimatedGestureHandler,
     useAnimatedStyle,
     useSharedValue,
-    withDecay,
+    withDecay
 } from 'react-native-reanimated'
 
-import { Card, CARD_WIDTH, CARD_HEIGHT } from '@src/components/Card'
-import { Colors } from '@src/theme'
-import { useTopBarHeight } from '@src/hooks'
-import { clamp } from '@src/animUtils'
 
 const styles = StyleSheet.create({
     container: {

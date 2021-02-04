@@ -12,9 +12,6 @@ export type CardType = {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     btn: {
         height: 20,
         width: 20,
@@ -40,17 +37,17 @@ export type Props = {
     onDelete: () => void
 }
 
-const CardItem: FC<Props> = function ({ data, onDelete, children }) {
+const CardItem: FC<Props> = function ({ data, onDelete }) {
     // const height = useSharedValue(0)
     console.log('render: ', data.id)
-    const { item, removeItem, items } = useDraggableItem(data.id)
-    const [position, setPosition] = useState<number>(-1)
+    const { item, removeItem } = useDraggableItem(data.id)
+    const [position] = useState<number>(-1)
     function _onDelete() {
         removeItem()
         onDelete()
     }
 
-    console.log(item)
+
     // useAnimatedReaction(
     //     () => item?.position.value,
     //     (_position: number | undefined) => {
@@ -66,7 +63,7 @@ const CardItem: FC<Props> = function ({ data, onDelete, children }) {
     //     return 0
     // }, [position, item])
 
-    if (!item) return <View></View>
+    if (!item) return <View/>
     else {
         const { height } = item
         return (
@@ -104,7 +101,7 @@ const CardItem: FC<Props> = function ({ data, onDelete, children }) {
     }
 }
 
-const equals = function (prev: Props, next: Props) {
+const equals = function (_prev: Props, _next: Props) {
     return true //JSON.stringify(prev.data) === JSON.stringify(next.data)
 }
 

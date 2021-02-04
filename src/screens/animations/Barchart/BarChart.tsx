@@ -1,14 +1,14 @@
-import React, { FC, useEffect, useState } from 'react'
-import { View, StyleSheet, ViewStyle, StyleProp, Text } from 'react-native'
-import Animated, {
-    color,
-    useAnimatedStyle,
-    useSharedValue,
-    withTiming,
-    interpolate,
-    useDerivedValue
-} from 'react-native-reanimated'
 import { Colors } from '@src/theme'
+import React, { FC, useEffect } from 'react'
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
+import Animated, {
+    interpolate, useAnimatedStyle,
+
+
+
+    useDerivedValue, useSharedValue,
+    withTiming
+} from 'react-native-reanimated'
 
 const TEXT_HEIGHT = 20
 const styles = StyleSheet.create({
@@ -74,7 +74,7 @@ const BarItem: FC<BarProps> = function ({
     )
 
     const height = useDerivedValue(() => {
-        return animate ? (mounted.value ? withTiming(_height, { duration: 300 }): 0): _height
+        return animate ? (mounted.value ? withTiming(_height, { duration: 300 }) : 0) : _height
     })
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -149,7 +149,7 @@ const BarChart: FC<Props> = function ({
     const mounted = useSharedValue<boolean>(false)
     useEffect(() => {
         mounted.value = true
-    }, [])
+    }, [mounted])
 
     return (
         <View style={[styles.container, style]}>

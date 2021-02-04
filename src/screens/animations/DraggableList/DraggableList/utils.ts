@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 
@@ -43,7 +43,7 @@ export const isOverlapping = function (
 
 const getMaxItem = function (items: IItem[]) {
     'worklet'
-    let maxItem: IItem | undefined = undefined
+    let maxItem: IItem | undefined
     for (const x of items) {
         if (maxItem === undefined) maxItem = x
         else if (x.offset.value > maxItem.offset.value) maxItem = x
@@ -93,18 +93,18 @@ export const useDraggableItem = function (
     const { items, setItems, verticalSpacing } = useContext(DragListContext)
     const [_item, setItem] = useState<IItem>()
 
-    function updateItem(item: IItem) {
+    const updateItem = useCallback((newItem: IItem) => {
         setItems((old) => {
             const maxItem = getMaxItem(old)
             if (maxItem) {
-                item.offset.value = maxItem.offset.value + maxItem.height.value + verticalSpacing
+                newItem.offset.value = maxItem.offset.value + maxItem.height.value + verticalSpacing
             }
             const newList = [...old.filter((x) => x.id !== itemID),
-            { id: itemID, ...item }
+            { id: itemID, ...newItem }
             ]
             return newList
         })
-    }
+    }, [itemID, setItems, verticalSpacing])
 
     function removeItem() {
         setItems((old) => {
@@ -124,7 +124,7 @@ export const useDraggableItem = function (
         }
         // _item.current = items.filter((x) => x.id === itemID)[0]
         // console.log(_item.current)
-    }, [items])
+    }, [_item, item, items, updateItem])
 
     return { item: _item, items, updateItem, removeItem }
 }

@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native'
 import { Colors } from '@src/theme'
+import React, { FC } from 'react'
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native'
 import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 
 export const CARD_WIDTH = 330

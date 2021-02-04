@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { Colors } from '@src/theme'
-import { runOnUI, useDerivedValue, useSharedValue } from 'react-native-reanimated'
-import { RectButton } from 'react-native-gesture-handler'
 import { ReText } from '@src/components'
+import { Colors } from '@src/theme'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
+import { useDerivedValue, useSharedValue } from 'react-native-reanimated'
 
 const styles = StyleSheet.create({
     container: {
@@ -40,7 +40,6 @@ const Worklets2Screen: RNNFC<Props> = function ({}) {
         // })()
         foo.value = 'bar'
         list.value = ['32']
-        
     }
 
     function onPress2() {
@@ -58,7 +57,6 @@ const Worklets2Screen: RNNFC<Props> = function ({}) {
         return list.value.join('-')
     }, [list])
 
-    
     console.log('render ')
     return (
         <View style={styles.container}>

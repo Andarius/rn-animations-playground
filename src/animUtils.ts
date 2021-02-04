@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 
 export const clamp = (
     value: number,
@@ -6,4 +7,4 @@ export const clamp = (
 ) => {
     "worklet";
     return Math.min(Math.max(lowerBound, value), upperBound);
-};
+}

@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
-import { Text, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native'
-import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
 import { Colors } from '@src/theme'
+import React, { FC } from 'react'
+import { StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native'
+import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
 
 const styles = StyleSheet.create({
     container: {

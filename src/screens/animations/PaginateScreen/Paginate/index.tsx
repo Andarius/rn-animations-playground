@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
-import Animated, { 
-    makeMutable 
+import Animated, {
+    makeMutable
 } from 'react-native-reanimated'
-import { Offset, Page, Direction } from './Page'
+import { Direction, Offset, Page } from './Page'
 
 export type { Direction, Offset }
+export { Paginate }
 
 export type RenderProps<T> = {
     item: T
@@ -59,7 +60,7 @@ const Paginate = function <T extends any>({
 
     useEffect(() => {
         if (onInit) onInit(offsets)
-    }, [])
+    }, [offsets, onInit])
 
     return (
         <>
@@ -83,4 +84,4 @@ const Paginate = function <T extends any>({
     )
 }
 
-export { Paginate }
+

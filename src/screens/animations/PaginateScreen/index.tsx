@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, Text, useWindowDimensions } from 'react-native'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-
 import { Button } from '@src/components'
 import { Colors } from '@src/theme'
+import React, { useState } from 'react'
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { OffsetsInfo } from './OffsetInfos'
-import { Paginate, Direction, Offset } from './Paginate'
+import { Direction, Offset, Paginate } from './Paginate'
+
 
 const ITEM_HEIGHT = 100
 const styles = StyleSheet.create({

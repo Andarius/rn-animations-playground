@@ -1,15 +1,12 @@
-import React from 'react'
-import { View, StyleSheet, useWindowDimensions } from 'react-native'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-
-import { Card, CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
+import { Card, CARD_HEIGHT } from '@src/components/Card'
 import { Colors } from '@src/theme'
+import React from 'react'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { SortableList } from './SortableList'
 
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     cardContainer: {
         height: CARD_HEIGHT,
         width: '100%',

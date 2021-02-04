@@ -1,4 +1,4 @@
-import Animated, { useSharedValue } from "react-native-reanimated"
+import Animated, { useSharedValue } from 'react-native-reanimated'
 
 type Props<ItemType, ItemKeyType> = {
     onPress: (x: ItemType) => void,
@@ -30,36 +30,36 @@ function useSelected<ItemType, ItemKeyType = ItemType>({
     }
 
     function onLongPress(item: ItemType) {
-        if(isSelectMode.value)
+        if (isSelectMode.value)
             exitSelectMode()
-        else 
+        else
             enterSelectMode(item)
     }
 
     function exitSelectMode(){
         selected.value = []
         isSelectMode.value = false
-        if(onExit)
+        if (onExit)
             onExit()
     }
 
     function enterSelectMode(item: ItemType){
         isSelectMode.value = true
         selected.value = [_getKey(item)]
-        if(onEnter)
+        if (onEnter)
             onEnter()
     }
 
     function _onPress(item: ItemType) {
-        if(isSelectMode.value){
+        if (isSelectMode.value){
             const key = _getKey(item)
             let arr
-            if(selected.value.includes(key))
+            if (selected.value.includes(key))
                 arr = selected.value.filter((x) => x !== key)
             else
                 arr = [...selected.value, key]
             selected.value = arr
-            if(arr.length === 0)
+            if (arr.length === 0)
                 exitSelectMode()
         }
         else onPress(item)
@@ -68,4 +68,4 @@ function useSelected<ItemType, ItemKeyType = ItemType>({
     return { selected, isSelectMode, onLongPress, onPress: _onPress }
 }
 
-export { useSelected }
+export { useSelected }

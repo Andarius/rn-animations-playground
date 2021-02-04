@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { useEffectSkipFirst } from '@src/hooks'
+import React, { FC, useEffect, useState } from 'react'
 import {
     StyleProp,
     StyleSheet,
@@ -10,24 +11,17 @@ import Animated, {
     useAnimatedStyle,
     useSharedValue
 } from 'react-native-reanimated'
-import { DayItem, Dot } from './DayItem'
-import { getNextWeek, getPreviousWeek } from './utils'
-import { getDate, getWeekDays } from './utils'
-import { useEffectSkipFirst } from '@src/hooks'
 import {
-    Paginate,
-    RenderProps,
-    Direction
+    Direction, Paginate,
+    RenderProps
 } from '../../PaginateScreen/Paginate'
+import { DayItem, Dot } from './DayItem'
+import { getDate, getNextWeek, getPreviousWeek, getWeekDays } from './utils'
 
 export type { Dot }
 export { WeeklyCalendar }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row'
-    },
     header: {
         flexWrap: 'wrap',
         flexDirection: 'row',
@@ -56,7 +50,7 @@ const WeeklyCalendar: FC<Props> = function ({
     textStyle,
     onPressDate
 }) {
-    
+
     const { width } = useWindowDimensions()
 
     const [_currentDate, setCurrentDate] = useState(currentDate)
@@ -69,13 +63,13 @@ const WeeklyCalendar: FC<Props> = function ({
 
     useEffect(() => {
         onDateChanged(_currentDate)
-    }, [_currentDate])
+    }, [_currentDate, onDateChanged])
 
     useEffectSkipFirst(() => {
         setCurrentDate(currentDate)
     }, [currentDate])
 
-    
+
     function onDoneMoving(direction: Direction) {
         const newDate = direction === 'right' ? prevWeek[0] : nextWeek[0]
         setCurrentDate(newDate)

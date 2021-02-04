@@ -1,17 +1,14 @@
-import React, { FC } from 'react'
-import { NavigationFunctionComponent as RNFC } from 'react-native-navigation'
+import { Colors } from '@src/index'
+import React from 'react'
 import {
     SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
+    ScrollView, StyleSheet,
+    Text, View
 } from 'react-native'
-
 import { RectButton } from 'react-native-gesture-handler'
-import { Navigation } from 'react-native-navigation'
+import { Navigation, NavigationFunctionComponent as RNFC } from 'react-native-navigation'
 
-import { Colors } from '@src/index'
+
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -87,7 +84,7 @@ const SCREENS = [
     {
         name: 'TopbarMenuScreen',
         title: 'Topbar Menu'
-    }, 
+    },
     {
         name: 'ViewPagerHeaderScreen',
         title: 'ViewPager Header'

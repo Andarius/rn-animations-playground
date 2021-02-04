@@ -1,9 +1,9 @@
-import React, { FC, useState } from 'react'
-import { View, StyleSheet, Text, FlatList } from 'react-native'
-import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { Colors } from '@src/theme'
-
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { Dot, WeeklyCalendar } from './WeeklyCalendar'
+
 
 const styles = StyleSheet.create({
     container: {

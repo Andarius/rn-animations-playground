@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react'
 import {
-    StyleProp,
-    ViewStyle,
-    ScrollView
+    ScrollView, StyleProp,
+    ViewStyle
 } from 'react-native'
 import Animated, {
     useAnimatedStyle,
@@ -10,10 +9,9 @@ import Animated, {
 } from 'react-native-reanimated'
 import { DraggableItem } from './DraggableItem'
 import {
-    DragListContext,
     Config,
+    DefaultItem, DragListContext,
     DragListContextItem,
-    DefaultItem,
     getOffsets
 } from './utils'
 
@@ -61,8 +59,7 @@ const DraggableList = function <T extends DefaultItem>({
 
     return (
         <ScrollView contentContainerStyle={style}>
-            <Animated.View style={[animatedStyle, 
-                ]}>
+            <Animated.View style={[animatedStyle]}>
                 <DragListContext.Provider
                     value={{
                         items,

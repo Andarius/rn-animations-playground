@@ -91,7 +91,7 @@ const DayItem: FC<Props> = function ({
         <View style={styles.container}>
             <View style={styles.dayOfWeek}>
                 <Text style={[styles.dayOfWeekText, titleStyle]}>
-                    {LOCALES['fr'].dayNamesShort[dayOfWeek]}
+                    {LOCALES.fr.dayNamesShort[dayOfWeek]}
                 </Text>
             </View>
             <RectBtnRadius

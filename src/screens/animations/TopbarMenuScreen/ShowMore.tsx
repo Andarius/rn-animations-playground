@@ -1,11 +1,11 @@
+import { Colors } from '@src/theme'
 import React, { useEffect } from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { BaseButton, RectButton } from 'react-native-gesture-handler'
 import {
     Navigation,
     NavigationFunctionComponent as RNNFC
 } from 'react-native-navigation'
-import { View, StyleSheet, Image, Text } from 'react-native'
-import { Colors } from '@src/theme'
-import { BaseButton, RectButton } from 'react-native-gesture-handler'
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 export const BTN_HEIGHT = 50
@@ -68,7 +68,7 @@ const ShowMore: RNNFC<Props> = function ({ componentId, btns, width = 100 }) {
 
     useEffect(() => {
         height.value = btns.length * BTN_HEIGHT
-    }, [])
+    }, [btns, height])
 
     const animatedStyle = useAnimatedStyle(() => ({
         height: withTiming(height.value, {

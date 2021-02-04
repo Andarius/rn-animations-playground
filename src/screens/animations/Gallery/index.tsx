@@ -5,8 +5,8 @@ import { Image, Text, useWindowDimensions, View } from 'react-native'
 import { BaseButton } from 'react-native-gesture-handler'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { GallerySlider } from './GallerySlider'
-
 import { styles } from './styles'
+
 
 export type Props = {}
 
@@ -51,9 +51,10 @@ const ALBUM_2: ImageType[] = [
 const GalleryScreen: RNNFC<Props> = function ({}) {
     const { width } = useWindowDimensions()
 
-    const [height, _setHeight] = useState<number>(400)
+    const [height] = useState<number>(400)
     const [currentPage, setCurrentPage] = useState(0)
     const [images, setImages] = useState(ALBUM_1)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_currentAlbum, setCurrentAlbum] = useState<1 | 2>(1)
 
     return (
@@ -104,11 +105,10 @@ const GalleryScreen: RNNFC<Props> = function ({}) {
                     label={'Switch images'}
                     onPress={() => {
                         setCurrentAlbum((old) => {
-                            const currAlbum = old === 1 ? 2: 1
-                            setImages(currAlbum === 1 ? ALBUM_2: ALBUM_1)
+                            const currAlbum = old === 1 ? 2 : 1
+                            setImages(currAlbum === 1 ? ALBUM_2 : ALBUM_1)
                             return currAlbum
                         })
-                        
                     }}
                 />
                 {images.length < ALBUM_1.length && (

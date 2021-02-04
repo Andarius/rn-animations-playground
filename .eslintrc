@@ -1,0 +1,29 @@
+{
+    "root": true,
+    "extends": "@react-native-community",
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "react",
+        "react-native",
+        "@typescript-eslint"
+    ],
+    // "parserOptions": {
+    //     "ecmaFeatures": {
+    //         "jsx": true
+    //     }
+    // },
+    "env": {
+        "jest": true
+        //     "react-native/react-native": true
+    },
+    "rules": {
+        "react-native/no-unused-styles": 1,
+        "prettier/prettier": "off",
+        "semi": "off",
+        "comma-dangle": "off",
+        "react-native/no-inline-styles": "off",
+        "curly": "off",
+        "radix": "off"
+    }
+}
+  
