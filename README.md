@@ -23,6 +23,7 @@ Boilerplate project with RNN, RNGH and RNReanimated v2
 
 ![video](./gifs/viewpagerheader.gif)  
 
-### 5. Topbar Menu
+
+### 5. Topbar Menu  
 
 ![video](./gifs/topbar-menu.gif)  
