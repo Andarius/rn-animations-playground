@@ -3,16 +3,12 @@ import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerProperties } from 'react-native-gesture-handler'
 import Animated, {
     useAnimatedGestureHandler,
-
-
-
-
     useAnimatedReaction, useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
     withSpring
 } from 'react-native-reanimated'
-import { GestureState, isOverlapping, ItemID, useDraggableItem } from './utils'
+import { GestureState, IDraggableItem, isOverlapping, ItemID } from './utils'
 
 const SPRING_CONFIG: Animated.WithSpringConfig = {
     mass: 1,
@@ -28,14 +24,19 @@ export type Props = {
     id: ItemID
     spacingY: number
     verticalOnly: boolean
-    itemHeight: number
+
+    height: Animated.SharedValue<number>
+    position: Animated.SharedValue<number>
+    offset: Animated.SharedValue<number>
+
     itemWidth: number
-    defaultOffset?: number
+    // defaultOffset?: number
     // Value
     overlayTreshPercentage: number
     index: number
     disabled: boolean
-    activeOffsetY: PanGestureHandlerProperties['activeOffsetY']
+    activeOffsetY?: PanGestureHandlerProperties['activeOffsetY']
+    items: IDraggableItem[]
 }
 
 const DraggableItem: FC<Props> = function ({
@@ -43,21 +44,17 @@ const DraggableItem: FC<Props> = function ({
     id,
     spacingY,
     verticalOnly,
-    itemHeight,
+    height,
+    position,
+    offset,
     itemWidth,
-    defaultOffset,
     overlayTreshPercentage,
-    index,
     disabled = false,
-    activeOffsetY
+    activeOffsetY,
+    items
 }) {
     const { width } = useWindowDimensions()
 
-    const offset = useSharedValue(defaultOffset ?? 0)
-    const height = useSharedValue(itemHeight ?? 0)
-    const position = useSharedValue(index)
-
-    const { items } = useDraggableItem(id, { offset, height, position })
 
     const gestureState = useSharedValue<GestureState>('CREATED')
     const x = useSharedValue(0)
@@ -176,7 +173,7 @@ const DraggableItem: FC<Props> = function ({
                         top: 0,
                         left: (width - itemWidth) / 2,
                         alignItems: 'center',
-                        width: itemWidth
+                        width: itemWidth,
                     },
                     style
                 ]}>

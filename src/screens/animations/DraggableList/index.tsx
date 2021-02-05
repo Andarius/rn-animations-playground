@@ -1,90 +1,83 @@
+
 import { Button } from '@src/components'
 import { CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
-import { useTopBarBtnPress, useUniqueID } from '@src/hooks'
+import { useTopBarBtnPress, useTopBarHeight, useUniqueID } from '@src/hooks'
 import { Colors } from '@src/theme'
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { useWindowDimensions, View } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import { CardItemMemo, CardType } from './CardItem'
-import { DraggableList } from './DraggableList'
+import { CardItem } from './CardItem'
+import { DefaultItem, DraggableList, RenderProps } from './DraggableList'
 import styles from './styles'
 
-const DATA: CardType[] = [...Array(10).keys()].map((x) => ({
-        id: `item-${x}`,
+type Card = DefaultItem & {
+    color: string
+}
+const CARDS: Card[] = [
+    {
+        id: 'item-0',
         color: Colors.primary,
-        height: 100
-}))
-    // {
-    //     id: 'item-0',
-    //     color: Colors.primary,
-    //     height: 100
-    // },
-    // {
-    //     id: 'item-1',
-    //     color: Colors.secondary,
-    //     height: 200
-    // },
-    // {
-    //     id: 'item-2',
-    //     color: Colors.secondary,
-    //     height: 100
-    // },
-    // {
-    //     id: 'item-4',
-    //     color: Colors.secondary,
-    //     height: 100
-    // }
-
-
+    },
+    {
+        id: 'item-1',
+        color: Colors.secondary
+    }
+]
 
 export type Props = {}
 
 const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
-    const [items, setItems] = useState<CardType[]>(DATA)
 
-    const { getID } = useUniqueID(DATA.length + 1)
+    const {  height } = useWindowDimensions()
+
+    const [cards, setCards] = useState<Card[]>(CARDS)
 
     const [verticalOnly, setVerticalOnly] = useState<boolean>(false)
     const [disabled, setDisabled] = useState<boolean>(false)
 
-    function onPressAdd() {
-        setItems((old) => [
-            ...old,
-            { color: Colors.primary, id: getID('item-') }
-        ])
-    }
-
-    function onDelete(itemId: string) {
-        setItems((old) => [...old.filter((x) => x.id !== itemId)])
-    }
-
-    function _renderItem(data: CardType) {
-        return (
-            <CardItemMemo data={data} onDelete={() => onDelete(data.id)}/>
-        )
-    }
+    const { getID } = useUniqueID(CARDS.length)
+    const topbarHeight = useTopBarHeight()
 
     useTopBarBtnPress(componentId, (event) => {
-        if (event.buttonId === 'addBtn') {
-            onPressAdd()
+        if (event.buttonId === 'add') {
+            setCards((old) => [
+                ...old,
+                { color: Colors.primary, id: getID('item-') }
+            ])
         }
     })
 
+    function onDelete(itemID: string | number) {
+        setCards((old) => [...old.filter((x) => x.id !== itemID)])
+    }
+
+    function _renderItem({ data, item }: RenderProps<Card>) {
+        return (
+            <CardItem
+                data={data}
+                item={item}
+                onDelete={() => onDelete(data.id)}
+            />
+        )
+    }
+
     return (
         <View style={{ flex: 1 }}>
+
             <DraggableList
-                style={{ paddingTop: 20 }}
-                data={items}
+                data={cards}
                 renderItem={_renderItem}
                 config={{
                     spacingY: 30,
-                    spacingEnd: 300,
-                    itemHeight: CARD_HEIGHT,
-                    itemWidth: CARD_WIDTH,
+                    spacingEnd: 0,
+                    defaultItemHeight: CARD_HEIGHT,
+                    defaultItemWidth: CARD_WIDTH,
                     verticalOnly: verticalOnly,
-                    disabled: disabled
+                    disabled: disabled,
+                    minHeight: height - topbarHeight
                 }}
             />
+
 
             <View style={styles.btnsContainer}>
                 <Button style={styles.btn}
@@ -110,7 +103,7 @@ DraggableListScreen.options = {
         },
         rightButtons: [
             {
-                id: 'addBtn',
+                id: 'add',
                 color: Colors.primary,
                 icon: require('@img/icons/plus-20.png')
             }
