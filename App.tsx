@@ -1,6 +1,7 @@
 import { Colors } from '@src/index'
 import React from 'react'
 import {
+    Platform,
     SafeAreaView,
     ScrollView, StyleSheet,
     Text, View
@@ -145,7 +146,7 @@ App.options = {
     topBar: {
         title: {
             text: 'RN Animations',
-            alignment: 'center'
+            alignment: Platform.select({ ios: 'center', android: undefined })
         },
         backButton: { visible: false }
     }
