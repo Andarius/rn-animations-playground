@@ -31,7 +31,7 @@ export interface IItem {
 export interface IDraggableItem extends IItem { id: ItemID }
 
 export type DefaultItem = {
-    id: ItemID
+    // id: ItemID
     height?: number
     offset?: number
 }
@@ -53,22 +53,23 @@ export const getOffsets = function (
 }
 
 
-const initItems = function (data: DefaultItem[],
-                            defaultHeight: number,
-                            spacingY: number): IDraggableItem[] {
+const initItems = function<T extends DefaultItem>(data: T[],
+    keyExtractor: (x: T) => ItemID,
+    defaultHeight: number,
+    spacingY: number): IDraggableItem[] {
     const offsets = getOffsets(data, defaultHeight, spacingY)
     return data.map((x, i) => ({
-        id: x.id,
+        id: keyExtractor(x),
         position: makeMutable(i),
         offset: makeMutable(offsets[i]),
         height: makeMutable(x.height ?? defaultHeight),
     }))
 }
 
-const checkDiff = function<T extends DefaultItem>(data: T[], dataMap: Map<ItemID, T>){
-    const newItems = data.filter((x) => !dataMap.has(x.id))
-    const _ids = new Set(data.map((x) => x.id))
-    const deletedItems: T[] = Array.from(dataMap.values()).filter((x) => !_ids.has(x.id))
+const checkDiff = function <T extends DefaultItem>(data: T[], keyExtractor: (x: T) => ItemID, dataMap: Map<ItemID, T>) {
+    const newItems = data.filter((x) => !dataMap.has(keyExtractor(x)))
+    const _ids = new Set(data.map((x) => keyExtractor(x)))
+    const deletedItems: T[] = Array.from(dataMap.values()).filter((x) => !_ids.has(keyExtractor(x)))
     return {
         newItems,
         deletedItems
@@ -76,21 +77,25 @@ const checkDiff = function<T extends DefaultItem>(data: T[], dataMap: Map<ItemID
 }
 
 
-export function useDraggableItems<T extends DefaultItem>(data: T[], config: Required<Config>) {
+export function useDraggableItems<T extends DefaultItem>(
+    data: T[],
+    keyExtractor: (x: T) => string,
+    config: Required<Config>) {
 
-    const _dataMap = useRef<Map<ItemID, T>>(new Map(data.map((x) => [x.id, x])))
+    const _dataMap = useRef<Map<ItemID, T>>(new Map(data.map((x) => [keyExtractor(x), x])))
 
     const [items, setItems] = useState<IDraggableItem[]>(() =>
         initItems(data,
-                config.defaultItemHeight,
-                config.spacingY)
-                )
+            keyExtractor,
+            config.defaultItemHeight,
+            config.spacingY)
+    )
 
 
     const totalHeight = useDerivedValue(() => {
         const _height = items.map(({ height }) => height.value).reduce((p, n) => p + n, 0) +
-                        items.length * config.spacingY +
-                        config.spacingEnd
+            items.length * config.spacingY +
+            config.spacingEnd
         return _height
     }, [items, config])
 
@@ -104,54 +109,54 @@ export function useDraggableItems<T extends DefaultItem>(data: T[], config: Requ
 
 
     const _addNewItems = useCallback((newItems: T[]) => {
-        newItems.map((x) => _dataMap.current.set(x.id, x))
+        newItems.map((x) => _dataMap.current.set(keyExtractor(x), x))
         setItems((old) => {
             const lastMaxOffset = Math.max(...old.map((x) => x.offset.value + x.height.value)) + config.spacingY
             const lastPosition = Math.max(...old.map((x) => x.position.value))
             const newOffsets = getOffsets(newItems, config.defaultItemHeight,
                 config.spacingY,
                 lastMaxOffset
-                )
+            )
             return [
                 ...old,
                 ...newItems.map((x, i) => ({
-                    id: x.id,
+                    id: keyExtractor(x),
                     position: makeMutable(lastPosition + 1 + i),
                     offset: makeMutable(newOffsets[i]),
                     height: makeMutable(x.height ?? config.defaultItemHeight)
                 }))
             ]
         })
-    }, [_dataMap, config])
+    }, [_dataMap, config, keyExtractor])
 
     const _deleteItems = useCallback((deletedItems: T[]) => {
-        const deletedIds = new Set(deletedItems.map((x) => x.id))
+        const deletedIds = new Set(deletedItems.map((x) => keyExtractor(x)))
         setItems((old) => {
             let deletedHeight = 0
             let deletedCount = 0
             const newItems: IDraggableItem[] = []
             old.sort((a, b) => a.position.value - b.position.value)
-               .map((x) => {
-                if (deletedIds.has(x.id)){
-                    deletedHeight += x.height.value + config.spacingY
-                    deletedCount += 1
-                }
-                else {
-                    x.offset.value -= deletedHeight
-                    x.position.value -= deletedCount
-                    newItems.push(x)
-                }
-            })
+                .map((x) => {
+                    if (deletedIds.has(x.id)) {
+                        deletedHeight += x.height.value + config.spacingY
+                        deletedCount += 1
+                    }
+                    else {
+                        x.offset.value -= deletedHeight
+                        x.position.value -= deletedCount
+                        newItems.push(x)
+                    }
+                })
             return newItems
         })
         Array.from(deletedIds.values()).map((x) => _dataMap.current.delete(x))
-    }, [_dataMap, config])
+    }, [_dataMap, config, keyExtractor])
 
     useEffect(() => {
-        const { newItems, deletedItems} = checkDiff(data, _dataMap.current)
+        const { newItems, deletedItems } = checkDiff(data, keyExtractor, _dataMap.current)
         if (newItems.length > 0) _addNewItems(newItems)
         if (deletedItems.length > 0) _deleteItems(deletedItems)
-    }, [data, _addNewItems, _deleteItems])
+    }, [data, _addNewItems, _deleteItems, keyExtractor])
 
 
 

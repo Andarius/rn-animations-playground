@@ -36,6 +36,7 @@ export type RenderProps<T> = {
 export type Props<T> = {
     data: T[]
     renderItem: (props: RenderProps<T>) => React.ReactElement
+    keyExtractor: (x: T) => string
     config?: Config
     style?: StyleProp<ViewStyle>
 }
@@ -43,12 +44,13 @@ export type Props<T> = {
 const DraggableList = function <T extends DefaultItem>({
     data,
     renderItem,
+    keyExtractor,
     config,
     style
 }: Props<T>) {
     const _config: Required<Config> = useMemo(() => ({ ...DEFAULT_CONF, ...config }), [config])
 
-    const { items, totalHeight, getData } = useDraggableItems(data, _config)
+    const { items, totalHeight, getData } = useDraggableItems(data, keyExtractor, _config)
 
     const animatedStyle = useAnimatedStyle(() => ({
         height: Math.max(totalHeight.value, _config.minHeight)

@@ -11,6 +11,7 @@ import { DefaultItem, DraggableList, RenderProps } from './DraggableList'
 import styles from './styles'
 
 type Card = DefaultItem & {
+    id: string
     color: string
 }
 const CARDS: Card[] = [
@@ -67,6 +68,7 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
             <DraggableList
                 data={cards}
                 renderItem={_renderItem}
+                keyExtractor={(x) => x.id}
                 config={{
                     spacingY: 30,
                     spacingEnd: 0,
