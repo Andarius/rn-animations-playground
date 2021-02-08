@@ -10,6 +10,7 @@ import {
     Config,
     DefaultItem,
     IDraggableItem,
+    ItemID,
     useDraggableItems
 } from './utils'
 
@@ -34,7 +35,7 @@ export type RenderProps<T> = {
 }
 
 export type DraggableListRef = {
-    getPositions: () => Map<string, number>
+    getPositions: () => ItemID[]
 }
 
 export type Props<T> = {
@@ -62,8 +63,9 @@ const DraggableList = function <T>({
         height: Math.max(totalHeight.value, _config.minHeight)
     }), [_config])
 
-    const _getPositions = function(){
-        return new Map(items.map((x) => [x.id, x.position.value]))
+    const _getPositions = function(): ItemID[] {
+        return items.sort((a, b) => a.position.value - b.position.value)
+                    .map((x) => x.id)
     }
 
     useImperativeHandle(listRef, () => ({
