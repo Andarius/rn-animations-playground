@@ -3,11 +3,11 @@ import { Button } from '@src/components'
 import { CARD_HEIGHT, CARD_WIDTH } from '@src/components/Card'
 import { useTopBarBtnPress, useTopBarHeight, useUniqueID } from '@src/hooks'
 import { Colors } from '@src/theme'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useWindowDimensions, View } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { CardItem } from './CardItem'
-import { DefaultItem, DraggableList, RenderProps } from './DraggableList'
+import { DefaultItem, DraggableList, DraggableListRef, RenderProps } from './DraggableList'
 import styles from './styles'
 
 type Card = DefaultItem & {
@@ -32,6 +32,7 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
     const {  height } = useWindowDimensions()
 
     const [cards, setCards] = useState<Card[]>(CARDS)
+    const listRef = useRef<DraggableListRef>()
 
     const [verticalOnly, setVerticalOnly] = useState<boolean>(false)
     const [disabled, setDisabled] = useState<boolean>(false)
@@ -66,6 +67,7 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
         <View style={{ flex: 1 }}>
 
             <DraggableList
+                listRef={listRef}
                 data={cards}
                 renderItem={_renderItem}
                 keyExtractor={(x) => x.id}
@@ -92,6 +94,17 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
                     labelStyle={styles.labelText}
                     label={disabled ? 'Enable' : 'Disable'}
                     onPress={() => setDisabled((old) => !old)}
+                />
+
+                <Button style={styles.btn}
+                    labelStyle={styles.labelText}
+                    label={'Log positions'}
+                    onPress={() => {
+                        const positions = listRef.current?.getPositions()
+                        if (positions){
+                            console.log([...Array.from(positions)])
+                        }
+                    }}
                 />
             </View>
         </View>

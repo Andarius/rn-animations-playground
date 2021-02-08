@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useImperativeHandle, useMemo } from 'react'
 import {
     ScrollView,
     StyleProp,
@@ -33,20 +33,26 @@ export type RenderProps<T> = {
     item: IDraggableItem
 }
 
+export type DraggableListRef = {
+    getPositions: () => Map<string, number>
+}
+
 export type Props<T> = {
     data: T[]
     renderItem: (props: RenderProps<T>) => React.ReactElement
     keyExtractor: (x: T) => string
     config?: Config
     style?: StyleProp<ViewStyle>
+    listRef?: React.MutableRefObject<DraggableListRef | undefined>
 }
 
-const DraggableList = function <T extends DefaultItem>({
+const DraggableList = function <T>({
     data,
     renderItem,
     keyExtractor,
     config,
-    style
+    style,
+    listRef
 }: Props<T>) {
     const _config: Required<Config> = useMemo(() => ({ ...DEFAULT_CONF, ...config }), [config])
 
@@ -55,6 +61,16 @@ const DraggableList = function <T extends DefaultItem>({
     const animatedStyle = useAnimatedStyle(() => ({
         height: Math.max(totalHeight.value, _config.minHeight)
     }), [_config])
+
+    const _getPositions = function(){
+        return new Map(items.map((x) => [x.id, x.position.value]))
+    }
+
+    useImperativeHandle(listRef, () => ({
+        getPositions: _getPositions
+    }))
+
+
 
     return (
         <ScrollView contentContainerStyle={style}>
@@ -82,7 +98,4 @@ const DraggableList = function <T extends DefaultItem>({
             </Animated.View>
         </ScrollView>
     )
-
 }
-
-
