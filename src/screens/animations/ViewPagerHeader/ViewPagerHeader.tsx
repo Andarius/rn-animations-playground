@@ -1,7 +1,7 @@
 import { Colors } from '@src/theme'
 import { getIndex } from '@src/utils'
 import React from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { StyleProp, StyleSheet, Text, TextStyle, useWindowDimensions, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
@@ -47,12 +47,14 @@ export type Props<T> = {
 
     btnHeight?: number
     indicatorWidth?: number
+    textStyle?: StyleProp<TextStyle>
 }
 
 const ViewPagerHeader = function <T extends string | number>({
     items, currentValue, onPress,
     indicatorWidth = 80,
-    btnHeight = 45
+    btnHeight = 45,
+    textStyle
 }: Props<T>) {
 
     const { width } = useWindowDimensions()
@@ -88,6 +90,7 @@ const ViewPagerHeader = function <T extends string | number>({
                         <Text
                             style={[
                                 styles.text,
+                                textStyle,
                                 currentValue === data && styles.selectedText
                             ]}>
                             {text}

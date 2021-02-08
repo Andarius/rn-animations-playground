@@ -70,8 +70,6 @@ const DraggableList = function <T>({
         getPositions: _getPositions
     }))
 
-
-
     return (
         <ScrollView contentContainerStyle={style}>
             <Animated.View style={[animatedStyle]}>

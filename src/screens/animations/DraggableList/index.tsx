@@ -98,7 +98,7 @@ const DraggableListScreen: RNNFC<Props> = function ({ componentId }) {
 
                 <Button style={styles.btn}
                     labelStyle={styles.labelText}
-                    label={'Log positions'}
+                    label="Log positions"
                     onPress={() => {
                         const positions = listRef.current?.getPositions()
                         if (positions){
