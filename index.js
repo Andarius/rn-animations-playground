@@ -1,15 +1,15 @@
-import { Navigation } from 'react-native-navigation'
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
-import {
-    GestureScreen,
-    WorkletScreen,
-    DragToSortScreen,
-    Worklets2Screen
-} from './src/screens/lessons'
+import { Navigation } from 'react-native-navigation'
+import App from './App'
 import * as AnimScreens from './src/screens/animations'
 import { ShowMore } from './src/screens/animations/TopbarMenuScreen/ShowMore'
+import {
+    DragToSortScreen,
+    GestureScreen,
+    Worklets2Screen,
+    WorkletScreen
+} from './src/screens/lessons'
 import { Colors } from './src/theme'
-import App from './App'
 
 const _SCREENS = [
     { name: 'WelcomeScreen', component: App },
@@ -32,6 +32,10 @@ const _SCREENS = [
     {
         name: 'ViewPagerHeaderScreen',
         component: AnimScreens.ViewPagerHeaderScreen
+    },
+    {
+        name: 'LineGraphScreen',
+        component: AnimScreens.LineGraphScreen
     }
 ]
 
@@ -41,7 +45,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'LineGraphScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {

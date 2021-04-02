@@ -89,6 +89,10 @@ const SCREENS = [
     {
         name: 'ViewPagerHeaderScreen',
         title: 'ViewPager Header'
+    },
+    {
+        name: 'LineGraphScreen',
+        title: 'Line Graph'
     }
     // {
     //     name: 'DynamicItemsScreen',

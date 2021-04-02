@@ -1,29 +1,39 @@
-import React, { FC } from 'react'
-import { TextInput, TextProps, TextStyle } from 'react-native'
+import React from 'react'
+import {
+    StyleSheet,
+    TextInput,
+    TextProps as RNTextProps,
+    TextStyle
+} from 'react-native'
 import Animated, { useAnimatedProps } from 'react-native-reanimated'
 
-const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
+const styles = StyleSheet.create({
+    baseStyle: {
+        color: 'black'
+    }
+})
+Animated.addWhitelistedNativeProps({ text: true })
 
-export type Props = {
-    text: Animated.SharedValue<string | number>
-    style?: Animated.AnimateProps<TextStyle, TextProps>['style']
+interface TextProps {
+    text: Animated.SharedValue<string>
+    //@ts-expect-error
+    style?: Animated.AnimateProps<TextStyle, RNTextProps>['style']
 }
 
-const ReText: FC<Props> = function ({ text, style }) {
-
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
+const ReText = (props: TextProps) => {
+    const { text, style } = { style: {}, ...props }
     const animatedProps = useAnimatedProps(() => {
         return {
             text: text.value
         }
     })
-
     return (
+        //@ts-expect-error
         <AnimatedTextInput
-            underlineColorAndroid="transparent"
             editable={false}
-            //@ts-ignore
             value={text.value}
-            style={style}
+            style={[styles.baseStyle, style]}
             {...{ animatedProps }}
         />
     )
