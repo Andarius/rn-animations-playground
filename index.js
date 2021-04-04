@@ -8,7 +8,7 @@ import {
     GestureScreen,
     Worklets2Screen,
     WorkletScreen
-} from './src/screens/lessons'
+} from './src/screens/playground'
 import { Colors } from './src/theme'
 
 const _SCREENS = [
@@ -36,6 +36,10 @@ const _SCREENS = [
     {
         name: 'LineGraphScreen',
         component: AnimScreens.LineGraphScreen
+    },
+    {
+        name: 'GraphModal',
+        component: AnimScreens.GraphModal
     }
 ]
 

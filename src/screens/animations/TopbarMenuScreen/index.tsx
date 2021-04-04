@@ -1,6 +1,7 @@
 import { useTopBarBtnPress } from '@src/hooks'
+import { OnTopBtnPressed } from '@src/hooks/useTopbarEvent'
 import { Colors } from '@src/theme'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import {
     Navigation,
@@ -21,34 +22,43 @@ export type Props = {}
 const TopbarMenuScreen: RNNFC<Props> = function ({ componentId }) {
     const [btnPressed, setBtnPressed] = useState<number | undefined>(undefined)
 
-    useTopBarBtnPress(componentId, ({ buttonId }) => {
-        if (buttonId === 'more-btn') {
-            Navigation.showOverlay({
-                component: {
-                    name: 'ShowMore',
-                    passProps: {
-                        btns: [
-                            {
-                                icon: require('@img/icons/plus-20.png'),
-                                onPress: () => setBtnPressed(1),
-                                text: 'Button 1'
-                            },
-                            {
-                                icon: require('@img/icons/plus-20.png'),
-                                onPress: () => setBtnPressed(2),
-                                text: 'Button 2'
-                            },
-                            {
-                                icon: require('@img/icons/plus-20.png'),
-                                onPress: () => setBtnPressed(3),
-                                text: 'Button 3'
-                            }
-                        ]
-                    } as MenuProps
-                }
-            })
-        }
-    })
+    const onTopBtnPressed: OnTopBtnPressed = useCallback(
+        async ({ buttonId }) => {
+            switch (buttonId) {
+                case 'more-btn':
+                    await Navigation.showOverlay({
+                        component: {
+                            name: 'ShowMore',
+                            passProps: {
+                                btns: [
+                                    {
+                                        icon: require('@img/icons/plus-20.png'),
+                                        onPress: () => setBtnPressed(1),
+                                        text: 'Button 1'
+                                    },
+                                    {
+                                        icon: require('@img/icons/plus-20.png'),
+                                        onPress: () => setBtnPressed(2),
+                                        text: 'Button 2'
+                                    },
+                                    {
+                                        icon: require('@img/icons/plus-20.png'),
+                                        onPress: () => setBtnPressed(3),
+                                        text: 'Button 3'
+                                    }
+                                ]
+                            } as MenuProps
+                        }
+                    })
+                    break
+                default:
+                    break
+            }
+        },
+        []
+    )
+
+    useTopBarBtnPress(componentId, onTopBtnPressed)
 
     return (
         <View style={styles.container}>

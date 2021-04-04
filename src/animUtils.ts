@@ -1,17 +1,15 @@
-/* eslint-disable quotes */
-
 export const clamp = (
     value: number,
     lowerBound: number,
     upperBound: number
 ) => {
-    "worklet";
+    'worklet';
     return Math.min(Math.max(lowerBound, value), upperBound);
 }
 
 
 export const round = (value: number, exponent: number) => {
-    "worklet";
+    'worklet';
     const exp = 10 ** exponent
     return Math.round(value * exp) / exp
 }
