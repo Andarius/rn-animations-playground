@@ -1,4 +1,4 @@
-export { BarChartScreen } from './Barchart'
+export { BarChartScreen } from './BarchartScreen'
 export { CalendarScreen } from './CalendarScreen'
 export { DraggableListScreen } from './DraggableList'
 export { DynamicItemsScreen } from './DynamicItem'
