@@ -105,7 +105,7 @@ const LineGraphScreen: RNNFC<Props> = function ({ componentId }) {
                     justifyContent: 'space-evenly'
                 }}>
                 {GRAPHS.map((x) => (
-                    <View style={styles.graphValueContainer}>
+                    <View style={styles.graphValueContainer} key={x.name}>
                         <Text style={styles.labelText}>{`${x.name}: `}</Text>
                         <View style={{ height: 80, justifyContent: 'center' }}>
                             {_displayedDataset.has(x.name) ? (

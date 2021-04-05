@@ -2,11 +2,10 @@ import { Colors } from '@src/theme'
 import React, { FC, useEffect } from 'react'
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import Animated, {
-    interpolate, useAnimatedStyle,
-
-
-
-    useDerivedValue, useSharedValue,
+    interpolate,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
     withTiming
 } from 'react-native-reanimated'
 
@@ -74,7 +73,11 @@ const BarItem: FC<BarProps> = function ({
     )
 
     const height = useDerivedValue(() => {
-        return animate ? (mounted.value ? withTiming(_height, { duration: 300 }) : 0) : _height
+        return animate
+            ? mounted.value
+                ? withTiming(_height, { duration: 300 })
+                : 0
+            : _height
     })
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -166,7 +169,14 @@ const BarChart: FC<Props> = function ({
                               )
                             : value
                     }
-                    {...{ label, labelColor, barColor, minHeight, maxHeight, animate }}
+                    {...{
+                        label,
+                        labelColor,
+                        barColor,
+                        minHeight,
+                        maxHeight,
+                        animate
+                    }}
                     minValue={normalize ? 0 : minValue}
                     maxValue={normalize ? 1 : maxValue}
                     mounted={mounted}
