@@ -1,4 +1,5 @@
 import { Colors } from '@src/theme'
+import { normalizeValue } from '@src/utils'
 import React, { FC, useEffect } from 'react'
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
@@ -21,16 +22,6 @@ const styles = StyleSheet.create({
 export type DataItem = {
     value: number
     label: string
-}
-
-const normalizeValue = function (
-    value: number,
-    minValue: number,
-    maxValue: number,
-    defaultValue: number = 1
-) {
-    if (maxValue - minValue === 0) return defaultValue
-    return (value - minValue) / (maxValue - minValue)
 }
 
 export type Props = {

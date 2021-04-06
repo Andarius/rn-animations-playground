@@ -1,9 +1,11 @@
 import { Button } from '@src/components'
 import { Colors } from '@src/theme'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { Barchart, DataItem } from './Barchart'
+import { Barchart as BarchartCustom, RenderBarProps } from './BarchartCustom'
+import { CustomBarItem } from './BarchartCustom/CustomBarItem'
 import { CONFIG, DATA } from './data'
 
 const BARCHART_HEIGHT = 200
@@ -11,7 +13,6 @@ const BARCHART_HEIGHT = 200
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
     },
     barchartContainer: {
@@ -63,9 +64,24 @@ const BarChartScreen: RNNFC<Props> = function ({}) {
         ])
     }
 
+    const _renderBar = useCallback(
+        (props: RenderBarProps) => {
+            return (
+                <CustomBarItem
+                    animate={animate}
+                    position={props.position}
+                    mounted={props.mounted}
+                    barSize={props.barSize}
+                    horizontal={true}
+                />
+            )
+        },
+        [animate]
+    )
+
     return (
         <View style={styles.container}>
-            <View style={styles.barchartContainer}>
+            <View style={[styles.barchartContainer, { marginTop: 100 }]}>
                 <Barchart
                     data={data}
                     maxHeight={CONFIG?.maxHeight}
@@ -78,7 +94,19 @@ const BarChartScreen: RNNFC<Props> = function ({}) {
                     horizontal={horizontal}
                 />
             </View>
-
+            <View style={[styles.barchartContainer, { marginTop: 50 }]}>
+                <BarchartCustom
+                    data={data}
+                    maxHeight={CONFIG?.maxHeight}
+                    minHeight={CONFIG?.minHeight}
+                    normalize={CONFIG?.normalize}
+                    minValue={CONFIG?.minValue}
+                    maxValue={CONFIG?.maxValue}
+                    minNormValue={CONFIG?.minNormValue}
+                    horizontal={true}
+                    renderBar={_renderBar}
+                />
+            </View>
             <View style={styles.btnsContainer}>
                 <Button
                     style={styles.btn}

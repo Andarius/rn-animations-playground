@@ -22,3 +22,13 @@ export function getIndex<T>(data: T[], fn: (x: T) => boolean): number {
     return -1
 }
 
+
+export const normalizeValue = function (
+    value: number,
+    minValue: number,
+    maxValue: number,
+    defaultValue: number = 1
+) {
+    if (maxValue - minValue === 0) return defaultValue
+    return (value - minValue) / (maxValue - minValue)
+}
