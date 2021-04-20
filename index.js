@@ -49,7 +49,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'BarChartScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'LineGraphScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {
