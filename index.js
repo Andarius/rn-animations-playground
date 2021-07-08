@@ -40,6 +40,10 @@ const _SCREENS = [
     {
         name: 'GraphModal',
         component: AnimScreens.GraphModal
+    },
+    {
+        name: 'ZoomableLineChartScreen',
+        component: AnimScreens.ZoomableLineChartScreen
     }
 ]
 
@@ -49,7 +53,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'ZoomableLineChartScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {

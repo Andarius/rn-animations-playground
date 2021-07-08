@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "./node_modules/eslint/bin/eslint.js . --ext .js,.jsx,.ts,.tsx"
+    "lint": "./node_modules/eslint/bin/eslint.js . --ext .js,.jsx,.ts,.tsx",
+    "check-ts": "./node_modules/typescript/bin/tsc -p ."
   },
   "dependencies": {
     "d3-scale": "^3.2.4",

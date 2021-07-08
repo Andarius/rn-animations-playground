@@ -1,6 +1,6 @@
 # RNAnimations v2
 
-Boilerplate project with RNN, RNGH and RNReanimated v2
+Boilerplate project with [React Native Navigation](https://wix.github.io/react-native-navigation/docs/before-you-start/), [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/) and [React Native Reanimated 2](https://github.com/software-mansion/react-native-reanimated).
 
 ## Animations
 

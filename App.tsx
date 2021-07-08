@@ -3,13 +3,16 @@ import React from 'react'
 import {
     Platform,
     SafeAreaView,
-    ScrollView, StyleSheet,
-    Text, View
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
-import { Navigation, NavigationFunctionComponent as RNFC } from 'react-native-navigation'
-
-
+import {
+    Navigation,
+    NavigationFunctionComponent as RNFC
+} from 'react-native-navigation'
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -93,6 +96,10 @@ const SCREENS = [
     {
         name: 'LineGraphScreen',
         title: 'Line Graph'
+    },
+    {
+        name: 'ZoomableLineChartScreen',
+        title: 'Zoomable Linechart'
     }
     // {
     //     name: 'DynamicItemsScreen',
@@ -103,7 +110,6 @@ const SCREENS = [
 type Props = {}
 
 const App: RNFC<Props> = function ({ componentId }) {
-
     function goToScreen(screen: string) {
         Navigation.push(componentId, {
             component: {
@@ -117,8 +123,7 @@ const App: RNFC<Props> = function ({ componentId }) {
             <SafeAreaView>
                 <ScrollView
                     contentInsetAdjustmentBehavior="automatic"
-                    style={styles.scrollView}
-                    >
+                    style={styles.scrollView}>
                     {SCREENS.map((x) => {
                         if (x.name)
                             return (

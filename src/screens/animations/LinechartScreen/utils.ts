@@ -11,7 +11,6 @@ type Item = {
     power: number
 }
 
-
 const DATASET_1 = [
     { x: 0, y: 0 },
     { x: 1, y: 2 },
@@ -23,7 +22,6 @@ const DATASET_2 = [
     { x: 1, y: 2 },
     { x: 2, y: 0 }
 ]
-
 
 const TEST_DATA: Item[] = require('./data.json')
 const BPM_DATA = TEST_DATA.map((x) => ({ ts: x.ts, value: x.bpm }))
