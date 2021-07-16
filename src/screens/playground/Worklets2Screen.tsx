@@ -43,8 +43,8 @@ const Worklets2Screen: RNNFC<Props> = function ({}) {
     }
 
     function onPress2() {
-        console.log('foo: ', foo.value)
-        console.log('list: ', list.value)
+        console.info('foo: ', foo.value)
+        console.info('list: ', list.value)
     }
 
     function addItemToList() {
@@ -57,7 +57,6 @@ const Worklets2Screen: RNNFC<Props> = function ({}) {
         return list.value.join('-')
     }, [list])
 
-    console.log('render ')
     return (
         <View style={styles.container}>
             <View
@@ -76,7 +75,7 @@ const Worklets2Screen: RNNFC<Props> = function ({}) {
                 </RectButton>
             </View>
 
-            <ReText text={foo} style={styles.textInfo}/>
+            <ReText text={foo} style={styles.textInfo} />
             <ReText text={joinedList} style={styles.textInfo} />
         </View>
     )

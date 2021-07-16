@@ -1,0 +1,1162 @@
+[
+    {
+        "date": "2015-05-11",
+        "weight": 77.8,
+        "body_fat": 12.53
+    },
+    {
+        "date": "2015-05-15",
+        "weight": 77.05,
+        "body_fat": 11.09
+    },
+    {
+        "date": "2015-05-18",
+        "weight": 76.19,
+        "body_fat": 10.33
+    },
+    {
+        "date": "2015-05-25",
+        "weight": 80.59,
+        "body_fat": 11.02
+    },
+    {
+        "date": "2015-06-01",
+        "weight": 75.96,
+        "body_fat": 10.59
+    },
+    {
+        "date": "2015-06-08",
+        "weight": 75.94,
+        "body_fat": 10.52
+    },
+    {
+        "date": "2015-06-22",
+        "weight": 76.31,
+        "body_fat": 9.12
+    },
+    {
+        "date": "2015-07-03",
+        "weight": 77.13,
+        "body_fat": 9.84
+    },
+    {
+        "date": "2015-07-06",
+        "weight": 76.52,
+        "body_fat": 10.79
+    },
+    {
+        "date": "2015-07-27",
+        "weight": 77.08,
+        "body_fat": 10.54
+    },
+    {
+        "date": "2015-07-29",
+        "weight": 76.34,
+        "body_fat": 11.4
+    },
+    {
+        "date": "2015-08-10",
+        "weight": 74.94,
+        "body_fat": 7.75
+    },
+    {
+        "date": "2015-08-12",
+        "weight": 74.53,
+        "body_fat": 10.32
+    },
+    {
+        "date": "2015-08-14",
+        "weight": 74.66,
+        "body_fat": 9.43
+    },
+    {
+        "date": "2015-08-20",
+        "weight": 76.22,
+        "body_fat": 10.62
+    },
+    {
+        "date": "2015-08-24",
+        "weight": 75.63,
+        "body_fat": 8.33
+    },
+    {
+        "date": "2015-08-26",
+        "weight": 74.71,
+        "body_fat": 9.19
+    },
+    {
+        "date": "2015-08-27",
+        "weight": 75.94,
+        "body_fat": 7.33
+    },
+    {
+        "date": "2015-09-07",
+        "weight": 75.73,
+        "body_fat": 12.15
+    },
+    {
+        "date": "2015-09-14",
+        "weight": 74.11,
+        "body_fat": 10.66
+    },
+    {
+        "date": "2015-09-18",
+        "weight": 74.57,
+        "body_fat": 10.5
+    },
+    {
+        "date": "2015-09-23",
+        "weight": 74.3,
+        "body_fat": 9.39
+    },
+    {
+        "date": "2015-09-28",
+        "weight": 75.25,
+        "body_fat": 10.79
+    },
+    {
+        "date": "2015-10-01",
+        "weight": 75.17,
+        "body_fat": 8.41
+    },
+    {
+        "date": "2015-10-02",
+        "weight": 75.84,
+        "body_fat": 9.26
+    },
+    {
+        "date": "2015-10-05",
+        "weight": 76.42,
+        "body_fat": 11.79
+    },
+    {
+        "date": "2015-10-08",
+        "weight": 76.13,
+        "body_fat": 10.62
+    },
+    {
+        "date": "2015-10-09",
+        "weight": 75.94,
+        "body_fat": 8.38
+    },
+    {
+        "date": "2015-10-15",
+        "weight": 76.42,
+        "body_fat": 10.84
+    },
+    {
+        "date": "2015-10-19",
+        "weight": 76.28,
+        "body_fat": 11.71
+    },
+    {
+        "date": "2015-11-01",
+        "weight": 75.91,
+        "body_fat": 11.71
+    },
+    {
+        "date": "2015-11-07",
+        "weight": 77.91,
+        "body_fat": 11.05
+    },
+    {
+        "date": "2015-11-16",
+        "weight": 78.25,
+        "body_fat": 11.06
+    },
+    {
+        "date": "2015-11-19",
+        "weight": 77.2,
+        "body_fat": 10.21
+    },
+    {
+        "date": "2015-11-23",
+        "weight": 77.19,
+        "body_fat": 12.29
+    },
+    {
+        "date": "2015-11-30",
+        "weight": 77.3,
+        "body_fat": 12.07
+    },
+    {
+        "date": "2016-01-11",
+        "weight": 77.47,
+        "body_fat": 11.38
+    },
+    {
+        "date": "2016-01-18",
+        "weight": 77.27,
+        "body_fat": 11.83
+    },
+    {
+        "date": "2016-01-25",
+        "weight": 77.3,
+        "body_fat": 11.34
+    },
+    {
+        "date": "2016-02-08",
+        "weight": 78.11,
+        "body_fat": 12.59
+    },
+    {
+        "date": "2016-03-21",
+        "weight": 79.08,
+        "body_fat": 11.11
+    },
+    {
+        "date": "2016-03-28",
+        "weight": 78.79,
+        "body_fat": 10.08
+    },
+    {
+        "date": "2016-04-01",
+        "weight": 77.53,
+        "body_fat": 11.01
+    },
+    {
+        "date": "2016-04-04",
+        "weight": 79.24,
+        "body_fat": 12.77
+    },
+    {
+        "date": "2016-04-07",
+        "weight": 78.03,
+        "body_fat": 11.52
+    },
+    {
+        "date": "2016-04-11",
+        "weight": 79.1,
+        "body_fat": 11.76
+    },
+    {
+        "date": "2016-04-18",
+        "weight": 79.98,
+        "body_fat": 12.66
+    },
+    {
+        "date": "2016-04-21",
+        "weight": 78.68,
+        "body_fat": 11.88
+    },
+    {
+        "date": "2016-04-25",
+        "weight": 79.46,
+        "body_fat": 10.67
+    },
+    {
+        "date": "2016-05-06",
+        "weight": 80.19,
+        "body_fat": 11.87
+    },
+    {
+        "date": "2016-05-09",
+        "weight": 80.02,
+        "body_fat": 12.51
+    },
+    {
+        "date": "2016-05-13",
+        "weight": 79.14,
+        "body_fat": 11.96
+    },
+    {
+        "date": "2016-05-18",
+        "weight": 80.25,
+        "body_fat": null
+    },
+    {
+        "date": "2016-05-19",
+        "weight": 80.13,
+        "body_fat": 12.69
+    },
+    {
+        "date": "2016-05-23",
+        "weight": 78.47,
+        "body_fat": 11.65
+    },
+    {
+        "date": "2016-05-25",
+        "weight": 78.57,
+        "body_fat": 10.37
+    },
+    {
+        "date": "2016-05-26",
+        "weight": 78.56,
+        "body_fat": 10.43
+    },
+    {
+        "date": "2016-06-01",
+        "weight": 78.63,
+        "body_fat": 11.27
+    },
+    {
+        "date": "2016-06-03",
+        "weight": 78.5,
+        "body_fat": 11.84
+    },
+    {
+        "date": "2016-06-16",
+        "weight": 80.57,
+        "body_fat": 11.38
+    },
+    {
+        "date": "2016-06-20",
+        "weight": 80.06,
+        "body_fat": 11.28
+    },
+    {
+        "date": "2016-06-21",
+        "weight": 79.63,
+        "body_fat": 10.47
+    },
+    {
+        "date": "2016-06-22",
+        "weight": 79.64,
+        "body_fat": 10.59
+    },
+    {
+        "date": "2016-06-23",
+        "weight": 78.52,
+        "body_fat": 12.2
+    },
+    {
+        "date": "2016-06-27",
+        "weight": 80.94,
+        "body_fat": 8.98
+    },
+    {
+        "date": "2016-07-01",
+        "weight": 79.62,
+        "body_fat": 9.69
+    },
+    {
+        "date": "2016-07-04",
+        "weight": 80.19,
+        "body_fat": 9.45
+    },
+    {
+        "date": "2016-07-06",
+        "weight": 80.28,
+        "body_fat": 9.64
+    },
+    {
+        "date": "2016-07-07",
+        "weight": 78.99,
+        "body_fat": 10.02
+    },
+    {
+        "date": "2016-07-08",
+        "weight": 79.27,
+        "body_fat": 11.21
+    },
+    {
+        "date": "2016-07-09",
+        "weight": 79.8,
+        "body_fat": 11.56
+    },
+    {
+        "date": "2016-07-10",
+        "weight": 80.09,
+        "body_fat": null
+    },
+    {
+        "date": "2016-07-11",
+        "weight": 80.84,
+        "body_fat": 8.75
+    },
+    {
+        "date": "2016-07-12",
+        "weight": 80.04,
+        "body_fat": 9.73
+    },
+    {
+        "date": "2016-07-13",
+        "weight": 79.83,
+        "body_fat": 8.38
+    },
+    {
+        "date": "2016-07-15",
+        "weight": 80.37,
+        "body_fat": 11.57
+    },
+    {
+        "date": "2016-07-18",
+        "weight": 80.52,
+        "body_fat": 10.93
+    },
+    {
+        "date": "2016-07-19",
+        "weight": 80.09,
+        "body_fat": 9.22
+    },
+    {
+        "date": "2016-07-20",
+        "weight": 79.14,
+        "body_fat": 11.9
+    },
+    {
+        "date": "2016-07-26",
+        "weight": 79.99,
+        "body_fat": 11.25
+    },
+    {
+        "date": "2016-07-30",
+        "weight": 80.4,
+        "body_fat": 12.6
+    },
+    {
+        "date": "2016-08-03",
+        "weight": 80.53,
+        "body_fat": 11.82
+    },
+    {
+        "date": "2016-08-29",
+        "weight": 78.62,
+        "body_fat": 11.33
+    },
+    {
+        "date": "2016-09-02",
+        "weight": 79.03,
+        "body_fat": 12.54
+    },
+    {
+        "date": "2016-09-13",
+        "weight": 79.45,
+        "body_fat": 10.84
+    },
+    {
+        "date": "2016-09-28",
+        "weight": 78.0,
+        "body_fat": 11.04
+    },
+    {
+        "date": "2016-09-29",
+        "weight": 79.16,
+        "body_fat": 10.4
+    },
+    {
+        "date": "2016-10-03",
+        "weight": 80.14,
+        "body_fat": 12.99
+    },
+    {
+        "date": "2016-10-26",
+        "weight": 79.88,
+        "body_fat": 12.9
+    },
+    {
+        "date": "2016-11-28",
+        "weight": 82.24,
+        "body_fat": 12.13
+    },
+    {
+        "date": "2017-01-02",
+        "weight": 83.6,
+        "body_fat": 14.43
+    },
+    {
+        "date": "2017-01-09",
+        "weight": 82.63,
+        "body_fat": 13.7
+    },
+    {
+        "date": "2017-01-16",
+        "weight": 81.92,
+        "body_fat": 13.62
+    },
+    {
+        "date": "2017-02-06",
+        "weight": 81.75,
+        "body_fat": 13.96
+    },
+    {
+        "date": "2017-05-11",
+        "weight": 78.79,
+        "body_fat": 11.88
+    },
+    {
+        "date": "2017-06-02",
+        "weight": 80.63,
+        "body_fat": null
+    },
+    {
+        "date": "2019-08-23",
+        "weight": 79.0,
+        "body_fat": null
+    },
+    {
+        "date": "2019-08-30",
+        "weight": 83.65,
+        "body_fat": null
+    },
+    {
+        "date": "2019-09-04",
+        "weight": 83.67,
+        "body_fat": null
+    },
+    {
+        "date": "2019-09-18",
+        "weight": 83.71,
+        "body_fat": null
+    },
+    {
+        "date": "2019-09-19",
+        "weight": 84.0,
+        "body_fat": null
+    },
+    {
+        "date": "2019-09-20",
+        "weight": 83.89,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-04",
+        "weight": 83.77,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-16",
+        "weight": 83.85,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-18",
+        "weight": 83.97,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-24",
+        "weight": 83.93,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-25",
+        "weight": 83.21,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-26",
+        "weight": 83.05,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-29",
+        "weight": 83.84,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-30",
+        "weight": 83.45,
+        "body_fat": null
+    },
+    {
+        "date": "2019-10-31",
+        "weight": 83.02,
+        "body_fat": null
+    },
+    {
+        "date": "2019-11-01",
+        "weight": 82.78,
+        "body_fat": null
+    },
+    {
+        "date": "2019-11-02",
+        "weight": 83.36,
+        "body_fat": null
+    },
+    {
+        "date": "2019-11-06",
+        "weight": 83.95,
+        "body_fat": null
+    },
+    {
+        "date": "2019-11-29",
+        "weight": 83.93,
+        "body_fat": null
+    },
+    {
+        "date": "2019-11-30",
+        "weight": 83.67,
+        "body_fat": null
+    },
+    {
+        "date": "2019-12-04",
+        "weight": 83.95,
+        "body_fat": null
+    },
+    {
+        "date": "2020-03-21",
+        "weight": 83.66,
+        "body_fat": 15.03
+    },
+    {
+        "date": "2020-03-23",
+        "weight": 83.16,
+        "body_fat": 14.12
+    },
+    {
+        "date": "2020-03-25",
+        "weight": 83.26,
+        "body_fat": 13.53
+    },
+    {
+        "date": "2020-03-30",
+        "weight": 83.04,
+        "body_fat": 13.3
+    },
+    {
+        "date": "2020-04-02",
+        "weight": 81.36,
+        "body_fat": 14.1
+    },
+    {
+        "date": "2020-04-06",
+        "weight": 82.88,
+        "body_fat": 12.78
+    },
+    {
+        "date": "2020-04-09",
+        "weight": 80.74,
+        "body_fat": 13.38
+    },
+    {
+        "date": "2020-04-13",
+        "weight": 81.99,
+        "body_fat": 13.04
+    },
+    {
+        "date": "2020-04-16",
+        "weight": 80.76,
+        "body_fat": 13.22
+    },
+    {
+        "date": "2020-04-24",
+        "weight": 80.03,
+        "body_fat": 14.05
+    },
+    {
+        "date": "2020-04-27",
+        "weight": 82.34,
+        "body_fat": 13.36
+    },
+    {
+        "date": "2020-04-30",
+        "weight": 80.38,
+        "body_fat": 13.13
+    },
+    {
+        "date": "2020-05-04",
+        "weight": 82.33,
+        "body_fat": 14.46
+    },
+    {
+        "date": "2020-05-07",
+        "weight": 80.35,
+        "body_fat": 12.87
+    },
+    {
+        "date": "2020-05-11",
+        "weight": 81.73,
+        "body_fat": 13.14
+    },
+    {
+        "date": "2020-05-14",
+        "weight": 80.07,
+        "body_fat": 14.73
+    },
+    {
+        "date": "2020-05-15",
+        "weight": 83.8,
+        "body_fat": null
+    },
+    {
+        "date": "2020-05-16",
+        "weight": 83.86,
+        "body_fat": null
+    },
+    {
+        "date": "2020-05-21",
+        "weight": 83.8,
+        "body_fat": null
+    },
+    {
+        "date": "2020-05-22",
+        "weight": 81.21,
+        "body_fat": 13.77
+    },
+    {
+        "date": "2020-05-25",
+        "weight": 82.04,
+        "body_fat": 14.24
+    },
+    {
+        "date": "2020-05-28",
+        "weight": 81.19,
+        "body_fat": 13.7
+    },
+    {
+        "date": "2020-05-30",
+        "weight": 83.88,
+        "body_fat": null
+    },
+    {
+        "date": "2020-06-01",
+        "weight": 80.78,
+        "body_fat": 13.95
+    },
+    {
+        "date": "2020-06-02",
+        "weight": 83.68,
+        "body_fat": null
+    },
+    {
+        "date": "2020-06-04",
+        "weight": 80.91,
+        "body_fat": 13.6
+    },
+    {
+        "date": "2020-06-05",
+        "weight": 83.99,
+        "body_fat": null
+    },
+    {
+        "date": "2020-06-06",
+        "weight": 83.44,
+        "body_fat": null
+    },
+    {
+        "date": "2020-06-11",
+        "weight": 80.96,
+        "body_fat": 14.71
+    },
+    {
+        "date": "2020-06-13",
+        "weight": 83.98,
+        "body_fat": null
+    },
+    {
+        "date": "2020-06-17",
+        "weight": 83.94,
+        "body_fat": null
+    },
+    {
+        "date": "2020-06-18",
+        "weight": 80.76,
+        "body_fat": 14.66
+    },
+    {
+        "date": "2020-06-19",
+        "weight": 80.65,
+        "body_fat": 14.29
+    },
+    {
+        "date": "2020-06-20",
+        "weight": 83.73,
+        "body_fat": null
+    },
+    {
+        "date": "2020-06-21",
+        "weight": 80.27,
+        "body_fat": 13.77
+    },
+    {
+        "date": "2020-06-27",
+        "weight": 82.67,
+        "body_fat": 15.22
+    },
+    {
+        "date": "2020-07-01",
+        "weight": 80.75,
+        "body_fat": 14.05
+    },
+    {
+        "date": "2020-07-02",
+        "weight": 83.9,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-03",
+        "weight": 80.36,
+        "body_fat": 13.77
+    },
+    {
+        "date": "2020-07-04",
+        "weight": 83.05,
+        "body_fat": 14.34
+    },
+    {
+        "date": "2020-07-07",
+        "weight": 83.92,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-08",
+        "weight": 80.55,
+        "body_fat": 13.94
+    },
+    {
+        "date": "2020-07-09",
+        "weight": 83.98,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-10",
+        "weight": 83.42,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-17",
+        "weight": 80.51,
+        "body_fat": 13.61
+    },
+    {
+        "date": "2020-07-18",
+        "weight": 83.55,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-19",
+        "weight": 83.25,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-20",
+        "weight": 83.86,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-21",
+        "weight": 83.93,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-22",
+        "weight": 83.39,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-23",
+        "weight": 83.69,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-24",
+        "weight": 80.45,
+        "body_fat": 14.12
+    },
+    {
+        "date": "2020-07-25",
+        "weight": 83.7,
+        "body_fat": null
+    },
+    {
+        "date": "2020-07-27",
+        "weight": 80.21,
+        "body_fat": 14.04
+    },
+    {
+        "date": "2020-07-30",
+        "weight": 80.38,
+        "body_fat": 13.54
+    },
+    {
+        "date": "2020-07-31",
+        "weight": 83.66,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-01",
+        "weight": 83.76,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-02",
+        "weight": 83.82,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-03",
+        "weight": 83.66,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-04",
+        "weight": 83.3,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-06",
+        "weight": 79.53,
+        "body_fat": 12.12
+    },
+    {
+        "date": "2020-08-07",
+        "weight": 83.23,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-23",
+        "weight": 82.83,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-26",
+        "weight": 83.02,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-28",
+        "weight": 83.19,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-29",
+        "weight": 83.64,
+        "body_fat": null
+    },
+    {
+        "date": "2020-08-31",
+        "weight": 83.55,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-01",
+        "weight": 83.68,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-02",
+        "weight": 83.02,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-03",
+        "weight": 83.41,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-04",
+        "weight": 83.36,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-05",
+        "weight": 83.51,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-06",
+        "weight": 83.98,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-07",
+        "weight": 83.36,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-08",
+        "weight": 83.41,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-11",
+        "weight": 79.02,
+        "body_fat": 13.99
+    },
+    {
+        "date": "2020-09-12",
+        "weight": 83.49,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-15",
+        "weight": 83.3,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-16",
+        "weight": 83.28,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-17",
+        "weight": 78.97,
+        "body_fat": 12.97
+    },
+    {
+        "date": "2020-09-18",
+        "weight": 83.22,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-19",
+        "weight": 83.24,
+        "body_fat": 10.68
+    },
+    {
+        "date": "2020-09-24",
+        "weight": 83.97,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-25",
+        "weight": 83.38,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-26",
+        "weight": 83.48,
+        "body_fat": null
+    },
+    {
+        "date": "2020-09-29",
+        "weight": 78.79,
+        "body_fat": 12.05
+    },
+    {
+        "date": "2020-09-30",
+        "weight": 83.34,
+        "body_fat": null
+    },
+    {
+        "date": "2020-10-01",
+        "weight": 83.37,
+        "body_fat": null
+    },
+    {
+        "date": "2020-10-02",
+        "weight": 83.65,
+        "body_fat": null
+    },
+    {
+        "date": "2020-10-14",
+        "weight": 83.82,
+        "body_fat": null
+    },
+    {
+        "date": "2020-10-16",
+        "weight": 79.55,
+        "body_fat": 13.13
+    },
+    {
+        "date": "2020-10-24",
+        "weight": 80.25,
+        "body_fat": 13.41
+    },
+    {
+        "date": "2020-11-05",
+        "weight": 82.01,
+        "body_fat": 13.49
+    },
+    {
+        "date": "2020-11-13",
+        "weight": 80.74,
+        "body_fat": 13.75
+    },
+    {
+        "date": "2020-11-19",
+        "weight": 81.34,
+        "body_fat": 14.03
+    },
+    {
+        "date": "2020-12-16",
+        "weight": 81.23,
+        "body_fat": 15.72
+    },
+    {
+        "date": "2020-12-24",
+        "weight": 82.19,
+        "body_fat": 15.13
+    },
+    {
+        "date": "2021-01-14",
+        "weight": 82.63,
+        "body_fat": 14.88
+    },
+    {
+        "date": "2021-01-21",
+        "weight": 81.79,
+        "body_fat": 14.65
+    },
+    {
+        "date": "2021-01-28",
+        "weight": 82.64,
+        "body_fat": 13.21
+    },
+    {
+        "date": "2021-02-04",
+        "weight": 81.76,
+        "body_fat": 12.25
+    },
+    {
+        "date": "2021-02-11",
+        "weight": 81.59,
+        "body_fat": 14.96
+    },
+    {
+        "date": "2021-02-18",
+        "weight": 82.49,
+        "body_fat": 15.05
+    },
+    {
+        "date": "2021-03-11",
+        "weight": 81.39,
+        "body_fat": 14.84
+    },
+    {
+        "date": "2021-03-18",
+        "weight": 81.42,
+        "body_fat": 14.01
+    },
+    {
+        "date": "2021-04-22",
+        "weight": 82.04,
+        "body_fat": 12.95
+    },
+    {
+        "date": "2021-04-24",
+        "weight": 81.86,
+        "body_fat": 12.91
+    },
+    {
+        "date": "2021-04-29",
+        "weight": 81.15,
+        "body_fat": 15.25
+    },
+    {
+        "date": "2021-05-01",
+        "weight": 81.31,
+        "body_fat": 13.4
+    },
+    {
+        "date": "2021-05-10",
+        "weight": 82.19,
+        "body_fat": 11.55
+    },
+    {
+        "date": "2021-05-17",
+        "weight": 81.42,
+        "body_fat": 13.77
+    },
+    {
+        "date": "2021-05-31",
+        "weight": 81.95,
+        "body_fat": 12.35
+    },
+    {
+        "date": "2021-06-14",
+        "weight": null,
+        "body_fat": null
+    },
+    {
+        "date": "2021-06-18",
+        "weight": 83.69,
+        "body_fat": 14.16
+    },
+    {
+        "date": "2021-07-05",
+        "weight": 84.33,
+        "body_fat": 13.1
+    }
+]

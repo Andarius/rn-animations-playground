@@ -1,5 +1,6 @@
 export { BarChartScreen } from './BarchartScreen'
 export { CalendarScreen } from './CalendarScreen'
+export { D3ChartScreen } from './D3Chart'
 export { DraggableListScreen } from './DraggableList'
 export { DynamicItemsScreen } from './DynamicItem'
 export { GalleryScreen } from './Gallery'

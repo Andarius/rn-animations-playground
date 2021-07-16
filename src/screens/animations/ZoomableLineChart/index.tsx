@@ -1,31 +1,17 @@
-import { Button } from '@src/components'
+import { Button, ReText } from '@src/components'
 import { Colors } from '@src/theme'
-import * as shape from 'd3-shape'
-import React, { useCallback, useRef } from 'react'
-import { StyleSheet, View } from 'react-native'
-import {
-    PanGestureHandler,
-    PanGestureHandlerGestureEvent,
-    PinchGestureHandler
-} from 'react-native-gesture-handler'
+import React, { useRef, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import Animated, {
-    useAnimatedGestureHandler,
-    useAnimatedReaction,
-    useDerivedValue,
-    useSharedValue
-} from 'react-native-reanimated'
-import { parse } from 'react-native-redash'
-import Svg from 'react-native-svg'
-import { buildGraph } from '../LinechartScreen/Linechart/utils'
-import { Line } from './Path'
-import { usePinchGesture } from './utils'
+import { useDerivedValue } from 'react-native-reanimated'
+import { WEIGHT } from './data'
+import { ZoomableChart, ZoomableChartRef } from './ZoomableChart'
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 1
+        // justifyContent: 'center',
+        // alignItems: 'center'
     },
     btnsContainer: {
         position: 'absolute',
@@ -46,144 +32,183 @@ const styles = StyleSheet.create({
     btnLabelText: {
         fontSize: 14,
         textAlign: 'center'
+    },
+    text: {
+        color: Colors.primary,
+        fontSize: 18
+    },
+    textRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        height: 40
     }
 })
-
-const BORDER_WIDTH = 2
 
 const WIDTH = 400
 const HEIGHT = 400
 
-const GRAPH = buildGraph(
-    [
-        [0, 0],
-        [50, HEIGHT * 0.7],
-        [100, HEIGHT * 0.5],
-        [150, HEIGHT * 0.1],
-        [200, HEIGHT * 0.7],
-        [250, HEIGHT * 0.5],
-        [300, HEIGHT * 0.1]
-    ],
-    WIDTH,
-    HEIGHT,
-    { curve: shape.curveLinear }
-).path
-
-type PanContext = {
-    tmpOffsetX: number
-    tmpOffsetY: number
-}
+export type DataItem = [number, number]
+const DATA = [
+    [0, 0],
+    [50, HEIGHT * 0.7],
+    [100, HEIGHT * 0.5],
+    [150, HEIGHT * 0.1],
+    [200, HEIGHT * 0.7],
+    [250, HEIGHT * 0.5],
+    [300, HEIGHT * 0.1],
+    [400, HEIGHT]
+] as DataItem[]
 
 export type Props = {}
 
 const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
-    const path = useRef(parse(GRAPH)).current
+    const [data, setData] = useState<DataItem[]>(DATA)
+    const [showDots, setShowDots] = useState<boolean>(true)
+    const graphRef = useRef<ZoomableChartRef>()
 
-    const { onPinchEvent, scale, reset: resetPinch } = usePinchGesture()
-
-    const _translateX = useSharedValue<number>(0)
-    const _translateY = useSharedValue<number>(0)
-
-    const _offsetX = useSharedValue<number>(0)
-    const _offsetY = useSharedValue<number>(0)
-
-    const scaleOffset = useDerivedValue(() => {
-        return ((1 - scale.value) * WIDTH) / 2
-    }, [])
-
-    const translateX = useDerivedValue(() => {
-        return _translateX.value + _offsetX.value + scaleOffset.value
-    }, [])
-
-    useAnimatedReaction(
-        () => {
-            return scaleOffset.value
-        },
-        (_scaleOffset) => {
-            if (Math.abs(_offsetX.value) > Math.abs(scaleOffset.value)) {
-                _offsetX.value =
-                    _offsetX.value < 0 ? scaleOffset.value : -scaleOffset.value
-            }
-        },
-        []
+    const { scale, translateX, focalX, scaleOffset, translateNorm } =
+        graphRef.current?.getAnimatedValues() ?? {}
+    const virtualWidth = useDerivedValue(
+        () =>
+            scale?.value !== undefined
+                ? (scale.value * WIDTH).toFixed(1).toString()
+                : '',
+        [scale, WIDTH]
     )
-
-    const onGestureEvent = useAnimatedGestureHandler<
-        PanGestureHandlerGestureEvent,
-        PanContext
-    >(
-        {
-            onStart: (_, ctx) => {
-                ctx.tmpOffsetX = 0
-                ctx.tmpOffsetY = 0
-                // console.log('Active')
-            },
-            onActive: (event, _) => {
-                if (
-                    Math.abs(_offsetX.value + event.translationX) <
-                    Math.abs(scaleOffset.value)
-                ) {
-                    _translateX.value = event.translationX
-                    _translateY.value = event.translationY
-                }
-            },
-            onEnd: (_, ctx) => {
-                ctx.tmpOffsetX = _translateX.value
-                ctx.tmpOffsetY = _translateY.value
-
-                _translateX.value = 0
-                _translateY.value = 0
-
-                _offsetX.value += ctx.tmpOffsetX
-                _offsetY.value += ctx.tmpOffsetY
-            }
-        },
-        []
+    const scaleFmt = useDerivedValue(
+        () =>
+            scale?.value !== undefined ? scale.value.toFixed(1).toString() : '',
+        [scale]
     )
+    const translateXFmt = useDerivedValue(
+        () =>
+            translateX?.value !== undefined
+                ? translateX.value.toFixed(1).toString()
+                : '',
+        [translateX]
+    )
+    const focalXFmt = useDerivedValue(
+        () =>
+            focalX?.value !== undefined
+                ? focalX.value.toFixed(1).toString()
+                : '',
+        [focalX]
+    )
+    const translateNormalized = useDerivedValue(() => {
+        return translateNorm?.value !== undefined
+            ? translateNorm.value.toFixed(2).toString()
+            : ''
+    }, [translateNorm])
 
-    const resetGesture = useCallback(() => {
-        _translateX.value = 0
-        _translateY.value = 0
-        _offsetX.value = 0
-        _offsetY.value = 0
-    }, [_offsetX, _offsetY, _translateX, _translateY])
+    const scaleOffsetFmt = useDerivedValue(() => {
+        return scaleOffset?.value !== undefined
+            ? scaleOffset.value.toFixed(1).toString()
+            : 'undefined'
+    }, [scaleOffset])
 
     //https://docs.swmansion.com/react-native-gesture-handler/docs/api/gesture-handlers/pan-gh
     return (
         <View style={styles.container}>
-            <PanGestureHandler
-                minDist={10}
-                maxPointers={1}
-                {...{ onGestureEvent }}>
-                <Animated.View>
-                    <PinchGestureHandler onGestureEvent={onPinchEvent}>
-                        <Animated.View
-                            style={{
-                                height: HEIGHT + BORDER_WIDTH * 2,
-                                width: WIDTH + BORDER_WIDTH * 2,
-                                borderColor: 'red',
-                                borderWidth: BORDER_WIDTH
-                            }}>
-                            <Svg style={{ backgroundColor: Colors.background }}>
-                                <Line
-                                    path={path}
-                                    scale={scale}
-                                    translateX={translateX}
-                                />
-                            </Svg>
-                        </Animated.View>
-                    </PinchGestureHandler>
-                </Animated.View>
-            </PanGestureHandler>
+            <View
+                style={{
+                    width: '100%',
+                    flex: 0.4
+                }}>
+                <View style={styles.textRow}>
+                    <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.text, { paddingBottom: 2 }]}>
+                            Scale:{' '}
+                        </Text>
+                        <ReText style={styles.text} text={scaleFmt} />
+                    </View>
+                    <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.text, { paddingBottom: 2 }]}>
+                            Width:{' '}
+                        </Text>
+                        <ReText style={styles.text} text={virtualWidth} />
+                    </View>
+                </View>
+                <View style={styles.textRow}>
+                    <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.text, { paddingBottom: 2 }]}>
+                            Translate X:{' '}
+                        </Text>
+                        <ReText style={styles.text} text={translateXFmt} />
+                    </View>
+                    <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.text, { paddingBottom: 2 }]}>
+                            Trans norm X:{' '}
+                        </Text>
+                        <ReText
+                            style={styles.text}
+                            text={translateNormalized}
+                        />
+                    </View>
+                </View>
+                <View style={styles.textRow}>
+                    <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.text, { paddingBottom: 2 }]}>
+                            Scale offset{' '}
+                        </Text>
+                        <ReText style={styles.text} text={scaleOffsetFmt} />
+                    </View>
+                    <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.text, { paddingBottom: 2 }]}>
+                            Focal X:{' '}
+                        </Text>
+                        <ReText style={styles.text} text={focalXFmt} />
+                    </View>
+                </View>
+            </View>
+
+            <ZoomableChart
+                style={{ borderWidth: 2, borderColor: 'red' }}
+                data={data}
+                height={HEIGHT}
+                width={WIDTH}
+                graphRef={graphRef}
+                showDots={showDots}
+            />
             <View style={styles.btnsContainer}>
                 <Button
                     style={styles.btn}
                     labelStyle={styles.btnLabelText}
-                    label="reset"
+                    label="Dataset 1"
                     onPress={() => {
-                        resetGesture()
-                        resetPinch()
+                        graphRef.current?.reset()
+                        setData(DATA)
                     }}
+                />
+                <Button
+                    style={styles.btn}
+                    labelStyle={styles.btnLabelText}
+                    label="Dataset 2"
+                    onPress={() => {
+                        graphRef.current?.reset()
+                        setData(WEIGHT)
+                    }}
+                />
+                <Button
+                    style={styles.btn}
+                    labelStyle={styles.btnLabelText}
+                    label={showDots ? 'Hide dots' : 'Show dots'}
+                    onPress={() => {
+                        setShowDots((old) => {
+                            return !old
+                        })
+                    }}
+                />
+                <Button
+                    style={styles.btn}
+                    labelStyle={styles.btnLabelText}
+                    label="reset"
+                    onPress={graphRef.current?.reset}
                 />
             </View>
         </View>

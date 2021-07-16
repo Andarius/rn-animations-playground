@@ -44,6 +44,10 @@ const _SCREENS = [
     {
         name: 'ZoomableLineChartScreen',
         component: AnimScreens.ZoomableLineChartScreen
+    },
+    {
+        name: 'D3ChartScreen',
+        component: AnimScreens.D3ChartScreen
     }
 ]
 

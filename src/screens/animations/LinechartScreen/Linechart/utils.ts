@@ -40,6 +40,8 @@ export const buildGraph = (
         data: fmtValues,
         minY,
         maxY,
+        minX,
+        maxX,
         path
     }
 }
