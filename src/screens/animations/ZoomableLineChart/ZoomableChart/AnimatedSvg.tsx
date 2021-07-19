@@ -30,7 +30,6 @@ export const serializeScale = function (
         .join(' ')}${path.close ? 'Z' : ''}`
     return _path
 }
-
 type AnimatedPathProps = {
     path: RPath
     color?: string

@@ -1,22 +1,19 @@
 import { Button, ReText } from '@src/components'
 import { Colors } from '@src/theme'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { useDerivedValue } from 'react-native-reanimated'
 import { WEIGHT } from './data'
-import { ZoomableChart, ZoomableChartRef } from './ZoomableChart'
+import { useZoomableChart, ZoomableChart } from './ZoomableChart'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1
-        // justifyContent: 'center',
-        // alignItems: 'center'
     },
     btnsContainer: {
         position: 'absolute',
         bottom: 0,
-        // height: 200,
         left: 0,
         right: 0,
         flexDirection: 'row',
@@ -64,10 +61,17 @@ export type Props = {}
 const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
     const [data, setData] = useState<DataItem[]>(DATA)
     const [showDots, setShowDots] = useState<boolean>(true)
-    const graphRef = useRef<ZoomableChartRef>()
 
-    const { scale, translateX, focalX, scaleOffset, translateNorm } =
-        graphRef.current?.getAnimatedValues() ?? {}
+    const {
+        scale,
+        translateX,
+        focalX,
+        scaleOffset,
+        translateNorm,
+        reset,
+        offsetX
+    } = useZoomableChart({ width: WIDTH })
+
     const virtualWidth = useDerivedValue(
         () =>
             scale?.value !== undefined
@@ -172,8 +176,10 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                 data={data}
                 height={HEIGHT}
                 width={WIDTH}
-                graphRef={graphRef}
                 showDots={showDots}
+                focalX={focalX}
+                offsetX={offsetX}
+                scale={scale}
             />
             <View style={styles.btnsContainer}>
                 <Button
@@ -181,7 +187,7 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                     labelStyle={styles.btnLabelText}
                     label="Dataset 1"
                     onPress={() => {
-                        graphRef.current?.reset()
+                        reset()
                         setData(DATA)
                     }}
                 />
@@ -190,7 +196,7 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                     labelStyle={styles.btnLabelText}
                     label="Dataset 2"
                     onPress={() => {
-                        graphRef.current?.reset()
+                        reset()
                         setData(WEIGHT)
                     }}
                 />
@@ -208,7 +214,7 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                     style={styles.btn}
                     labelStyle={styles.btnLabelText}
                     label="reset"
-                    onPress={graphRef.current?.reset}
+                    onPress={reset}
                 />
             </View>
         </View>
