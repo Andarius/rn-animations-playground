@@ -31,8 +31,13 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     text: {
-        color: Colors.primary,
+        paddingBottom: 5,
+        color: Colors.secondary,
         fontSize: 18
+    },
+    reText: {
+        color: Colors.primary,
+        fontSize: 16
     },
     textRow: {
         flexDirection: 'row',
@@ -69,7 +74,9 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
         scaleOffset,
         translateNorm,
         reset,
-        offsetX
+        offsetX,
+        onPanEvent,
+        onPinchEvent
     } = useZoomableChart({ width: WIDTH })
 
     const virtualWidth = useDerivedValue(
@@ -107,7 +114,7 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
     const scaleOffsetFmt = useDerivedValue(() => {
         return scaleOffset?.value !== undefined
             ? scaleOffset.value.toFixed(1).toString()
-            : 'undefined'
+            : '0'
     }, [scaleOffset])
 
     //https://docs.swmansion.com/react-native-gesture-handler/docs/api/gesture-handlers/pan-gh
@@ -121,34 +128,26 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                 <View style={styles.textRow}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={[styles.text, { paddingBottom: 2 }]}>
-                            Scale:{' '}
-                        </Text>
-                        <ReText style={styles.text} text={scaleFmt} />
+                        <Text style={[styles.text]}>Scale: </Text>
+                        <ReText style={styles.reText} text={scaleFmt} />
                     </View>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={[styles.text, { paddingBottom: 2 }]}>
-                            Width:{' '}
-                        </Text>
-                        <ReText style={styles.text} text={virtualWidth} />
+                        <Text style={[styles.text]}>Width: </Text>
+                        <ReText style={styles.reText} text={virtualWidth} />
                     </View>
                 </View>
                 <View style={styles.textRow}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={[styles.text, { paddingBottom: 2 }]}>
-                            Translate X:{' '}
-                        </Text>
-                        <ReText style={styles.text} text={translateXFmt} />
+                        <Text style={[styles.text]}>Translate X: </Text>
+                        <ReText style={styles.reText} text={translateXFmt} />
                     </View>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={[styles.text, { paddingBottom: 2 }]}>
-                            Trans norm X:{' '}
-                        </Text>
+                        <Text style={[styles.text]}>Trans norm X: </Text>
                         <ReText
-                            style={styles.text}
+                            style={styles.reText}
                             text={translateNormalized}
                         />
                     </View>
@@ -156,30 +155,31 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                 <View style={styles.textRow}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={[styles.text, { paddingBottom: 2 }]}>
-                            Scale offset{' '}
-                        </Text>
-                        <ReText style={styles.text} text={scaleOffsetFmt} />
+                        <Text style={[styles.text]}>Scale offset </Text>
+                        <ReText style={styles.reText} text={scaleOffsetFmt} />
                     </View>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={[styles.text, { paddingBottom: 2 }]}>
-                            Focal X:{' '}
-                        </Text>
-                        <ReText style={styles.text} text={focalXFmt} />
+                        <Text style={[styles.text]}>Focal X: </Text>
+                        <ReText style={styles.reText} text={focalXFmt} />
                     </View>
                 </View>
             </View>
 
             <ZoomableChart
                 style={{ borderWidth: 2, borderColor: 'red' }}
-                data={data}
                 height={HEIGHT}
                 width={WIDTH}
-                showDots={showDots}
-                focalX={focalX}
-                offsetX={offsetX}
-                scale={scale}
+                {...{
+                    data,
+                    showDots,
+                    focalX,
+                    offsetX,
+                    translateX,
+                    scale,
+                    onPanEvent,
+                    onPinchEvent
+                }}
             />
             <View style={styles.btnsContainer}>
                 <Button

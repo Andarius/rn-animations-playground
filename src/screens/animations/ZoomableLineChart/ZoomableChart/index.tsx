@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import {
     PanGestureHandler,
-    PinchGestureHandler
+    PanGestureHandlerGestureEvent,
+    PinchGestureHandler,
+    PinchGestureHandlerGestureEvent
 } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 import { parse, Path as RPath } from 'react-native-redash'
@@ -17,6 +19,13 @@ export { ZoomableChart }
 
 type CurveType = shape.CurveFactory | shape.CurveFactoryLineOnly
 
+export type UseZoomableProps = {
+    onPanEvent: (event: PanGestureHandlerGestureEvent) => void
+    onPinchEvent: (event: PinchGestureHandlerGestureEvent) => void
+    translateX: Readonly<Animated.SharedValue<number>>
+    scale: Readonly<Animated.SharedValue<number>>
+}
+
 export type Props = {
     width: number
     height: number
@@ -24,11 +33,7 @@ export type Props = {
     curve?: CurveType
     showDots?: boolean
     style?: StyleProp<ViewStyle>
-    //
-    scale?: Animated.SharedValue<number>
-    focalX?: Animated.SharedValue<number>
-    offsetX?: Animated.SharedValue<number>
-}
+} & UseZoomableProps
 
 const ZoomableChart = function ({
     width,
@@ -37,9 +42,10 @@ const ZoomableChart = function ({
     curve = shape.curveMonotoneX,
     style,
     showDots = false,
-    scale,
-    offsetX,
-    focalX
+    onPanEvent,
+    onPinchEvent,
+    translateX,
+    scale
 }: Props) {
     const [path, setPath] = useState<RPath>(() =>
         parse(buildGraph(data, width, height, { curve: curve }).path)
@@ -49,18 +55,6 @@ const ZoomableChart = function ({
         const graph = buildGraph(data, width, height, { curve })
         setPath(parse(graph.path))
     }, [data, width, height, curve])
-
-    const {
-        onPanEvent,
-        onPinchEvent,
-        translateX: _translateX,
-        scale: _scale
-    } = useZoomableChart({
-        width,
-        scale,
-        focalX,
-        offsetX
-    })
 
     //https://docs.swmansion.com/react-native-gesture-handler/docs/api/gesture-handlers/pan-gh
     return (
@@ -98,8 +92,8 @@ const ZoomableChart = function ({
                                     />
                                 </Marker>
                             </Defs>
-                            <AnimatedG translateX={_translateX}>
-                                <AnimatedPath path={path} scale={_scale} />
+                            <AnimatedG translateX={translateX}>
+                                <AnimatedPath {...{ path, scale }} />
                             </AnimatedG>
                         </Svg>
                     </Animated.View>

@@ -25,6 +25,7 @@ export type PinchGestureProps = {
     offsetX: Animated.SharedValue<number>
     focalX: Animated.SharedValue<number>
     scale: Animated.SharedValue<number>
+    tmpScale: Animated.SharedValue<number>
     width: number
 }
 
@@ -32,42 +33,30 @@ export const usePinchGesture = function ({
     offsetX,
     scale,
     focalX,
+    tmpScale,
     width
 }: PinchGestureProps) {
-    const _tmpScale = useSharedValue<number>(1)
     const _isScaling = useSharedValue<boolean>(false)
 
+    const maxTranslateX = useDerivedValue(() => {
+        return width * (scale.value - 1)
+    }, [width, scale])
+
+    /**
+     * Thanks @same7m !
+     */
     const scaleOffset = useDerivedValue(() => {
         if (_isScaling.value) {
             const r =
                 (Math.abs(offsetX.value) + focalX.value) *
-                    (scale.value / _tmpScale.value) -
+                    (scale.value / tmpScale.value) -
                 focalX.value
-            return -r
+            // We want to stay between the left / right boundaries
+            const r2 = Math.min(Math.max(r, 0), maxTranslateX.value)
+            return -r2
         }
         return undefined
     })
-
-    /**
-     * Keep the left / right boundaries in place if we dezoom
-     * when all left or all right
-     */
-    // useAnimatedReaction(
-    //     () => {
-    //         return scaleOffset.value
-    //     },
-    //     (_scaleOffset) => {
-    //         if (
-    //             Math.abs(_offsetX.value) > Math.abs(scaleOffset.value) &&
-    //             focalX.value !== 0
-    //         ) {
-    //             console.log('ENTER REAXT')
-    //             _offsetX.value =
-    //                 _offsetX.value < 0 ? scaleOffset.value : -scaleOffset.value
-    //         }
-    //     },
-    //     []
-    // )
 
     const onPinchEvent = useAnimatedGestureHandler<
         PinchGestureHandlerGestureEvent,
@@ -101,7 +90,7 @@ export const usePinchGesture = function ({
                         : (event.scale - 1) * DEZOOM_MUTLTIPLIER
                  */
                 const _newScale =
-                    _tmpScale.value +
+                    tmpScale.value +
                     (event.scale - 1) *
                         (ctx.scaleEvent === 'ZOOMING'
                             ? ZOOM_MUTLTIPLIER
@@ -110,7 +99,7 @@ export const usePinchGesture = function ({
                 scale.value = Math.min(Math.max(1, _newScale), MAX_ZOOM)
             },
             onEnd: (_) => {
-                _tmpScale.value = scale.value
+                tmpScale.value = scale.value
                 if (scaleOffset.value === undefined)
                     throw new Error('scaleOffset must not be undefined')
                 offsetX.value = scaleOffset.value
@@ -121,10 +110,10 @@ export const usePinchGesture = function ({
     )
 
     const reset = useCallback(() => {
-        _tmpScale.value = 1
-    }, [_tmpScale])
+        _isScaling.value = false
+    }, [_isScaling])
 
-    return { onPinchEvent, reset, scaleOffset }
+    return { onPinchEvent, reset, scaleOffset, maxTranslateX }
 }
 
 type PanContext = {
@@ -134,13 +123,12 @@ type PanContext = {
 
 export const usePanGesture = function (
     offsetX: Animated.SharedValue<number>,
+    tmpTranslate: Animated.SharedValue<number>,
     maxTranslateX: Readonly<Animated.SharedValue<number>>
 ) {
-    const _translateX = useSharedValue<number>(0)
-
     const translateX = useDerivedValue(() => {
-        return _translateX.value + offsetX.value
-    }, [_translateX, offsetX])
+        return tmpTranslate.value + offsetX.value
+    }, [tmpTranslate, offsetX])
 
     const onPanEvent = useAnimatedGestureHandler<
         PanGestureHandlerGestureEvent,
@@ -157,66 +145,66 @@ export const usePanGesture = function (
                     _currTranslate < 0 &&
                     _currTranslate > -maxTranslateX.value
                 ) {
-                    _translateX.value = event.translationX
+                    tmpTranslate.value = event.translationX
                 } else {
                     // Left bound
                     if (translateX.value !== 0 && _currTranslate > 0)
-                        _translateX.value -= translateX.value
+                        tmpTranslate.value -= translateX.value
                     // Right bound
                     if (
                         -translateX.value !== maxTranslateX.value &&
                         _currTranslate + maxTranslateX.value < 0
                     ) {
-                        _translateX.value -=
+                        tmpTranslate.value -=
                             translateX.value + maxTranslateX.value
                     }
                 }
             },
             onEnd: (_, ctx) => {
-                ctx.tmpOffsetX = _translateX.value
-                _translateX.value = 0
+                ctx.tmpOffsetX = tmpTranslate.value
+                tmpTranslate.value = 0
                 offsetX.value += ctx.tmpOffsetX
             }
         },
         []
     )
 
-    const reset = useCallback(() => {
-        _translateX.value = 0
-    }, [_translateX])
-
-    return { onPanEvent, translateX, reset }
+    return { onPanEvent, translateX }
 }
 
 export type UseZoomableChartProps = {
     width: number
-    offsetX?: Animated.SharedValue<number>
-    scale?: Animated.SharedValue<number>
-    focalX?: Animated.SharedValue<number>
+    initScale?: number
 }
 
-export const useZoomableChart = function (props: UseZoomableChartProps) {
-    const { width } = props
-    const offsetX = props?.offsetX ?? useSharedValue<number>(0)
-    const scale = props?.scale ?? useSharedValue<number>(1)
-    const focalX = props?.focalX ?? useSharedValue<number>(0)
+export const useZoomableChart = function ({
+    width,
+    initScale = 1
+}: UseZoomableChartProps) {
+    const offsetX = useSharedValue<number>(0)
+    const tmpTranslate = useSharedValue<number>(0)
+    const scale = useSharedValue<number>(initScale)
+    const focalX = useSharedValue<number>(0)
+    const tmpScale = useSharedValue<number>(initScale)
 
-    const maxTranslateX = useDerivedValue(() => {
-        return width * (scale.value - 1)
-    }, [width, scale])
-
-    const { onPinchEvent, scaleOffset, reset: resetPinch } = usePinchGesture({
+    const {
+        onPinchEvent,
+        scaleOffset,
+        reset: resetPinch,
+        maxTranslateX
+    } = usePinchGesture({
         scale,
         focalX,
         offsetX,
-        width
+        width,
+        tmpScale
     })
 
-    const {
-        translateX: panTranslateX,
-        onPanEvent,
-        reset: resetPan
-    } = usePanGesture(offsetX, maxTranslateX)
+    const { translateX: panTranslateX, onPanEvent } = usePanGesture(
+        offsetX,
+        tmpTranslate,
+        maxTranslateX
+    )
 
     const translateX = useDerivedValue(() => {
         return scaleOffset.value !== undefined
@@ -224,21 +212,22 @@ export const useZoomableChart = function (props: UseZoomableChartProps) {
             : panTranslateX.value
     }, [scaleOffset, panTranslateX])
 
-    const reset = useCallback(() => {
-        offsetX.value = 0
-        scale.value = 1
-        focalX.value = 0
-        resetPan()
-        resetPinch()
-    }, [resetPan, resetPinch, offsetX, scale, focalX])
-
     const translateNorm = useDerivedValue(() => {
         return interpolate(
-            -panTranslateX.value,
+            -translateX.value,
             [0, width * (scale.value - 1)],
             [0, 1]
         )
-    }, [width, panTranslateX, scale])
+    }, [width, translateX, scale])
+
+    const reset = useCallback(() => {
+        offsetX.value = 0
+        tmpTranslate.value = 0
+        focalX.value = 0
+        scale.value = initScale
+        tmpScale.value = initScale
+        resetPinch()
+    }, [offsetX, tmpTranslate, focalX, scale, initScale, tmpScale, resetPinch])
 
     return {
         offsetX,
