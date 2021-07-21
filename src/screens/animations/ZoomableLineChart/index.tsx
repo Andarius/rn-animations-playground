@@ -74,7 +74,6 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
         scaleOffset,
         translateNorm,
         reset,
-        offsetX,
         onPanEvent,
         onPinchEvent
     } = useZoomableChart({ width: WIDTH })
@@ -174,7 +173,6 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                     data,
                     showDots,
                     focalX,
-                    offsetX,
                     translateX,
                     scale,
                     onPanEvent,
