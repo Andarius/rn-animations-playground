@@ -48,7 +48,7 @@ const ZoomableChart = function ({
     scale
 }: Props) {
     const [path, setPath] = useState<RPath>(() =>
-        parse(buildGraph(data, width, height, { curve: curve }).path)
+        parse(buildGraph(data, width, height, { curve }).path)
     )
 
     useEffect(() => {

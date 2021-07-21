@@ -16,14 +16,12 @@ type PinchContext = {
     scaleEvent: 'ZOOMING' | 'DEZOOMING' | undefined
 }
 
-const DEZOOM_MUTLTIPLIER = 7
-const ZOOM_MUTLTIPLIER = 3
-
 export type PinchGestureProps = {
     offsetX: Animated.SharedValue<number>
     width: number
     initScale: number
     zoomMax?: number
+    zoomModifierWl?: (scale: number, isZooming: boolean) => number
 }
 
 export const usePinchGesture = function ({
@@ -32,10 +30,16 @@ export const usePinchGesture = function ({
     width,
     zoomMax = 100
 }: PinchGestureProps) {
-    const scale = useSharedValue<number>(initScale)
-    const _tmpScale = useSharedValue<number>(initScale)
-    const focalX = useSharedValue<number>(0)
     const _isScaling = useSharedValue<boolean>(false)
+    const focalX = useSharedValue<number>(0)
+
+    const _currentScale = useSharedValue<number>(initScale)
+    const _lastScale = useSharedValue<number>(initScale)
+
+    const scale = useDerivedValue(() => {
+        const _scale = _lastScale.value * _currentScale.value
+        return Math.min(Math.max(initScale, _scale), zoomMax)
+    }, [initScale, zoomMax])
 
     const maxTranslateX = useDerivedValue(() => {
         return width * (scale.value - 1)
@@ -48,7 +52,7 @@ export const usePinchGesture = function ({
         if (_isScaling.value) {
             const r =
                 (Math.abs(offsetX.value) + focalX.value) *
-                    (scale.value / _tmpScale.value) -
+                    (scale.value / _lastScale.value) -
                 focalX.value
             // We want to stay between the left / right boundaries
             const r2 = Math.min(Math.max(r, 0), maxTranslateX.value)
@@ -74,7 +78,6 @@ export const usePinchGesture = function ({
                     ctx.scaleEvent = event.scale < 1 ? 'DEZOOMING' : 'ZOOMING'
                     const newFocal =
                         (event.focalX - offsetX.value) / scale.value
-
                     focalX.value =
                         scale.value === 1
                             ? newFocal
@@ -83,37 +86,27 @@ export const usePinchGesture = function ({
                                   easing: Easing.linear
                               })
                 }
-                /**
-                 *  ctx.scaleEvent === 'ZOOMING'
-                        ? Math.exp(event.scale - 1)
-                        : (event.scale - 1) * DEZOOM_MUTLTIPLIER
-                 */
-                const _newScale =
-                    _tmpScale.value +
-                    (event.scale - 1) *
-                        (ctx.scaleEvent === 'ZOOMING'
-                            ? ZOOM_MUTLTIPLIER
-                            : DEZOOM_MUTLTIPLIER)
 
-                scale.value = Math.min(Math.max(1, _newScale), zoomMax)
+                _currentScale.value = event.scale
             },
             onEnd: (_) => {
-                _tmpScale.value = scale.value
+                _currentScale.value = initScale
+                _lastScale.value = scale.value
                 if (scaleOffset.value === undefined)
                     throw new Error('scaleOffset must not be undefined')
                 offsetX.value = scaleOffset.value
                 _isScaling.value = false
             }
         },
-        []
+        [width]
     )
 
     const reset = useCallback(() => {
         _isScaling.value = false
-        _tmpScale.value = initScale
-        scale.value = initScale
+        _lastScale.value = initScale
+        _currentScale.value = initScale
         focalX.value = 0
-    }, [_isScaling, initScale, _tmpScale, scale, focalX])
+    }, [_currentScale, _isScaling, _lastScale, focalX, initScale])
 
     return { onPinchEvent, reset, scaleOffset, maxTranslateX, scale, focalX }
 }
