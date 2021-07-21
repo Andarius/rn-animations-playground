@@ -78,6 +78,7 @@ export const usePinchGesture = function ({
                     ctx.scaleEvent = event.scale < 1 ? 'DEZOOMING' : 'ZOOMING'
                     const newFocal =
                         (event.focalX - offsetX.value) / scale.value
+
                     focalX.value =
                         scale.value === 1
                             ? newFocal
