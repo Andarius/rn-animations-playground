@@ -9,7 +9,8 @@ import Animated, {
     useAnimatedGestureHandler,
     useAnimatedStyle,
     useDerivedValue,
-    withSpring
+    withSpring,
+    WithSpringConfig
 } from 'react-native-reanimated'
 
 export type Direction = 'left' | 'right'
@@ -21,7 +22,7 @@ function stiffnessFromTension(oValue: number) {
 function dampingFromFriction(oValue: number) {
     return (oValue - 8) * 3 + 25
 }
-const SPRING_CONFIG: Animated.WithSpringConfig = {
+const SPRING_CONFIG: WithSpringConfig = {
     stiffness: stiffnessFromTension(400),
     damping: dampingFromFriction(50),
     mass: 5,
@@ -110,7 +111,9 @@ const Page: FC<Props> = function ({
             const moveRight = event.translationX > 0
 
             if (!shouldSwap) {
-                offsets.map((_x) => (_x.translateX.value = withSpring(0, config)))
+                offsets.map(
+                    (_x) => (_x.translateX.value = withSpring(0, config))
+                )
             } else {
                 if (moveRight)
                     offsets.map(

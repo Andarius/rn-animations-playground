@@ -9,7 +9,8 @@ import Animated, {
     useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
-    withSpring
+    withSpring,
+    WithSpringConfig
 } from 'react-native-reanimated'
 
 const styles = StyleSheet.create({
@@ -31,7 +32,7 @@ function stiffnessFromTension(oValue: number) {
 function dampingFromFriction(oValue: number) {
     return (oValue - 8) * 3 + 25
 }
-const SPRING_CONFIG: Animated.WithSpringConfig = {
+const SPRING_CONFIG: WithSpringConfig = {
     stiffness: stiffnessFromTension(400),
     damping: dampingFromFriction(50),
     mass: 5,

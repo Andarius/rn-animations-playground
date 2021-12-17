@@ -6,11 +6,12 @@ import Animated, {
     useAnimatedReaction, useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
-    withSpring
+    withSpring,
+    WithSpringConfig
 } from 'react-native-reanimated'
 import { GestureState, IDraggableItem, isOverlapping, ItemID } from './utils'
 
-const SPRING_CONFIG: Animated.WithSpringConfig = {
+const SPRING_CONFIG: WithSpringConfig = {
     mass: 1,
     stiffness: 150,
     damping: 30,
