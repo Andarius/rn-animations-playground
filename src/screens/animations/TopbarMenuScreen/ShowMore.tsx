@@ -6,7 +6,12 @@ import {
     Navigation,
     NavigationFunctionComponent as RNNFC
 } from 'react-native-navigation'
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import Animated, {
+    Easing,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming
+} from 'react-native-reanimated'
 
 export const BTN_HEIGHT = 50
 export const ICON_SIZE = 22
@@ -61,8 +66,6 @@ export type Props = {
 }
 
 const ShowMore: RNNFC<Props> = function ({ componentId, btns, width = 100 }) {
-
-
     const height = useSharedValue<number>(0)
     const opacity = useSharedValue<number>(1)
 
@@ -82,13 +85,13 @@ const ShowMore: RNNFC<Props> = function ({ componentId, btns, width = 100 }) {
         await Navigation.dismissOverlay(componentId)
     }
 
-
     return (
         <BaseButton
             rippleColor="transparent"
             style={styles.container}
             onPress={_onDismiss}>
-            <Animated.View style={[styles.menu, { minWidth: width }, animatedStyle]}>
+            <Animated.View
+                style={[styles.menu, { minWidth: width }, animatedStyle]}>
                 {btns.map(({ icon, text, onPress, testID }, i) => (
                     <RectButton
                         testID={testID}

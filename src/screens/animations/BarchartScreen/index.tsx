@@ -81,7 +81,7 @@ const BarChartScreen: RNNFC<Props> = function ({}) {
 
     return (
         <View style={styles.container}>
-            <View style={[styles.barchartContainer, { marginTop: 100 }]}>
+            <View style={[styles.barchartContainer, { marginTop: 20 }]}>
                 <Barchart
                     data={data}
                     maxHeight={CONFIG?.maxHeight}
