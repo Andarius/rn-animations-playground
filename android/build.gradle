@@ -2,12 +2,18 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "29.0.2"
+       buildToolsVersion = "30.0.2"
+        // Note: lower version than that will cause a dex file error
+        // https://stackoverflow.com/questions/48249633/errorcannot-fit-requested-classes-in-a-single-dex-file-try-supplying-a-main-dex
         minSdkVersion = 21
-        compileSdkVersion = 29
-        targetSdkVersion = 29
+        compileSdkVersion = 30
+        targetSdkVersion = 30
+        ndkVersion = "21.4.7075529"
+
+        supportLibVersion = "28.0.0"
+        googlePlayServicesAuthVersion = "16.0.1"
         // RNN
-        kotlinVersion = "1.4.30"
+        kotlinVersion = "1.5.20" // Or any other kotlin version following 1.3.x
         RNNKotlinVersion = kotlinVersion
     }
     repositories {
