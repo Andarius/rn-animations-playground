@@ -6,7 +6,7 @@ platform :ios, '12.0'
 # Ignore warnings from all pods
 inhibit_all_warnings!
 
-target 'RNAnimationsv2' do
+target 'RnAnimationsPlayground' do
   config = use_native_modules!
 
   use_react_native!(
@@ -15,7 +15,7 @@ target 'RNAnimationsv2' do
     :hermes_enabled => true
   )
 
-  target 'RNAnimationsv2Tests' do
+  target 'RnAnimationsPlaygroundTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -33,10 +33,10 @@ target 'RNAnimationsv2' do
   end
 end
 
-target 'RNAnimationsv2-tvOS' do
-  # Pods for RNAnimationsv2-tvOS
+target 'RnAnimationsPlayground-tvOS' do
+  # Pods for RnAnimationsPlayground-tvOS
 
-  target 'RNAnimationsv2-tvOSTests' do
+  target 'RnAnimationsPlayground-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
