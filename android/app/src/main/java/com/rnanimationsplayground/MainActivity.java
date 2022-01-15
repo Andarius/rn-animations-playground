@@ -1,4 +1,4 @@
-package com.rnanimationsv2;
+package com.rnanimationsplayground;
 
 import com.reactnativenavigation.NavigationActivity;
 
