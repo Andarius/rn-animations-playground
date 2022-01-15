@@ -17,7 +17,7 @@
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
                BuildableName = "RNAnimationsv2-tvOS.app"
                BlueprintName = "RNAnimationsv2-tvOS"
-               ReferencedContainer = "container:RNAnimationsv2.xcodeproj">
+               ReferencedContainer = "container:RnAnimationsPlayground.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
                BuildableName = "RNAnimationsv2-tvOSTests.xctest"
                BlueprintName = "RNAnimationsv2-tvOSTests"
-               ReferencedContainer = "container:RNAnimationsv2.xcodeproj">
+               ReferencedContainer = "container:RnAnimationsPlayground.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,7 +57,7 @@
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "RNAnimationsv2-tvOS.app"
             BlueprintName = "RNAnimationsv2-tvOS"
-            ReferencedContainer = "container:RNAnimationsv2.xcodeproj">
+            ReferencedContainer = "container:RnAnimationsPlayground.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -74,7 +74,7 @@
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "RNAnimationsv2-tvOS.app"
             BlueprintName = "RNAnimationsv2-tvOS"
-            ReferencedContainer = "container:RNAnimationsv2.xcodeproj">
+            ReferencedContainer = "container:RnAnimationsPlayground.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

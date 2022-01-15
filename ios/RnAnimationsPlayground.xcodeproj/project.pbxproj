@@ -41,20 +41,20 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* RNAnimationsv2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNAnimationsv2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* RnAnimationsPlaygroundTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RnAnimationsPlaygroundTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* RNAnimationsv2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNAnimationsv2Tests.m; sourceTree = "<group>"; };
 		032E01BE80D59C9368013097 /* Pods-RNAnimationsv2-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNAnimationsv2-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RNAnimationsv2-tvOS/Pods-RNAnimationsv2-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		05E2BA52C86A000B4C6F9165 /* libPods-RNAnimationsv2-RNAnimationsv2Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNAnimationsv2-RNAnimationsv2Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DCC8DE460956246A926BCB8 /* Pods-RNAnimationsv2-RNAnimationsv2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNAnimationsv2-RNAnimationsv2Tests.release.xcconfig"; path = "Target Support Files/Pods-RNAnimationsv2-RNAnimationsv2Tests/Pods-RNAnimationsv2-RNAnimationsv2Tests.release.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* RNAnimationsv2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNAnimationsv2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* RnAnimationsPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RnAnimationsPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RNAnimationsv2/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = RNAnimationsv2/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RNAnimationsv2/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RNAnimationsv2/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RNAnimationsv2/main.m; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* RNAnimationsv2-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RNAnimationsv2-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* RNAnimationsv2-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RNAnimationsv2-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RnAnimationsPlayground-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* RnAnimationsPlayground-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RnAnimationsPlayground-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3937087367C15851E7C18242 /* Pods-RNAnimationsv2-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNAnimationsv2-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RNAnimationsv2-tvOS/Pods-RNAnimationsv2-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		4D44374A73B28BBA137B0820 /* libPods-RNAnimationsv2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNAnimationsv2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B602C2C430EEAD42688919 /* libPods-RNAnimationsv2-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNAnimationsv2-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,13 +105,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* RNAnimationsv2Tests */ = {
+		00E356EF1AD99517003FC87E /* RnAnimationsPlaygroundTests */ = {
 			isa = PBXGroup;
 			children = (
 				00E356F21AD99517003FC87E /* RNAnimationsv2Tests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = RNAnimationsv2Tests;
+			path = RnAnimationsPlaygroundTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -122,7 +122,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* RNAnimationsv2 */ = {
+		13B07FAE1A68108700A75B9A /* RnAnimationsPlayground */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -133,7 +133,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = RNAnimationsv2;
+			name = RnAnimationsPlayground;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -161,7 +161,6 @@
 				E7FF1C3BD16B62EA062613D9 /* Pods-RNAnimationsv2-tvOSTests.debug.xcconfig */,
 				9975488D9D92CF3782C2321D /* Pods-RNAnimationsv2-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,9 +174,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* RNAnimationsv2 */,
+				13B07FAE1A68108700A75B9A /* RnAnimationsPlayground */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* RNAnimationsv2Tests */,
+				00E356EF1AD99517003FC87E /* RnAnimationsPlaygroundTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				49B662DE101ACE24BE38BF4D /* Pods */,
@@ -190,10 +189,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* RNAnimationsv2.app */,
-				00E356EE1AD99517003FC87E /* RNAnimationsv2Tests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* RNAnimationsv2-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* RNAnimationsv2-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* RnAnimationsPlayground.app */,
+				00E356EE1AD99517003FC87E /* RnAnimationsPlaygroundTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* RnAnimationsPlayground-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,9 +200,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* RNAnimationsv2Tests */ = {
+		00E356ED1AD99517003FC87E /* RnAnimationsPlaygroundTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RNAnimationsv2Tests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RnAnimationsPlaygroundTests" */;
 			buildPhases = (
 				4ED0D78BCA988C1562944F86 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -216,14 +215,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = RNAnimationsv2Tests;
+			name = RnAnimationsPlaygroundTests;
 			productName = RNAnimationsv2Tests;
-			productReference = 00E356EE1AD99517003FC87E /* RNAnimationsv2Tests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* RnAnimationsPlaygroundTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* RNAnimationsv2 */ = {
+		13B07F861A680F5B00A75B9A /* RnAnimationsPlayground */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RNAnimationsv2" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RnAnimationsPlayground" */;
 			buildPhases = (
 				B64A6C2499DCD72276D732FF /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -237,14 +236,14 @@
 			);
 			dependencies = (
 			);
-			name = RNAnimationsv2;
+			name = RnAnimationsPlayground;
 			productName = RNAnimationsv2;
-			productReference = 13B07F961A680F5B00A75B9A /* RNAnimationsv2.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* RnAnimationsPlayground.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* RNAnimationsv2-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNAnimationsv2-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnAnimationsPlayground-tvOS" */;
 			buildPhases = (
 				17C0709E5C40689CB58F0792 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -257,14 +256,14 @@
 			);
 			dependencies = (
 			);
-			name = "RNAnimationsv2-tvOS";
+			name = "RnAnimationsPlayground-tvOS";
 			productName = "RNAnimationsv2-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* RNAnimationsv2-tvOS.app */;
+			productReference = 2D02E47B1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* RNAnimationsv2-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNAnimationsv2-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnAnimationsPlayground-tvOSTests" */;
 			buildPhases = (
 				6A80B5BA75E8E38491B54033 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -276,9 +275,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "RNAnimationsv2-tvOSTests";
+			name = "RnAnimationsPlayground-tvOSTests";
 			productName = "RNAnimationsv2-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* RNAnimationsv2-tvOSTests.xctest */;
+			productReference = 2D02E4901E0B4A5D006451C7 /* RnAnimationsPlayground-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -294,6 +293,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = UXW22GVSD5;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -307,7 +307,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RNAnimationsv2" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RnAnimationsPlayground" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -320,10 +320,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* RNAnimationsv2 */,
-				00E356ED1AD99517003FC87E /* RNAnimationsv2Tests */,
-				2D02E47A1E0B4A5D006451C7 /* RNAnimationsv2-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* RNAnimationsv2-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* RnAnimationsPlayground */,
+				00E356ED1AD99517003FC87E /* RnAnimationsPlaygroundTests */,
+				2D02E47A1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -595,12 +595,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* RNAnimationsv2 */;
+			target = 13B07F861A680F5B00A75B9A /* RnAnimationsPlayground */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* RNAnimationsv2-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* RnAnimationsPlayground-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -625,7 +625,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RNAnimationsv2.app/RNAnimationsv2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnAnimationsPlayground.app/RnAnimationsPlayground";
 			};
 			name = Debug;
 		};
@@ -645,7 +645,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RNAnimationsv2.app/RNAnimationsv2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnAnimationsPlayground.app/RnAnimationsPlayground";
 			};
 			name = Release;
 		};
@@ -656,8 +656,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXW22GVSD5;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = RNAnimationsv2/Info.plist;
+				INFOPLIST_FILE = RnAnimationsPlayground/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -665,7 +666,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = RNAnimationsv2;
+				PRODUCT_NAME = RnAnimationsPlayground;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -679,7 +680,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = RNAnimationsv2/Info.plist;
+				DEVELOPMENT_TEAM = UXW22GVSD5;
+				INFOPLIST_FILE = RnAnimationsPlayground/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -687,7 +689,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = RNAnimationsv2;
+				PRODUCT_NAME = RnAnimationsPlayground;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -771,7 +773,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.RNAnimationsv2-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RNAnimationsv2-tvOS.app/RNAnimationsv2-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnAnimationsPlayground-tvOS.app/RnAnimationsPlayground-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
@@ -798,7 +800,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.RNAnimationsv2-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RNAnimationsv2-tvOS.app/RNAnimationsv2-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnAnimationsPlayground-tvOS.app/RnAnimationsPlayground-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -919,7 +921,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RNAnimationsv2Tests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RnAnimationsPlaygroundTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -928,7 +930,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RNAnimationsv2" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RnAnimationsPlayground" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -937,7 +939,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNAnimationsv2-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnAnimationsPlayground-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -946,7 +948,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNAnimationsv2-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnAnimationsPlayground-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -955,7 +957,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RNAnimationsv2" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RnAnimationsPlayground" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
