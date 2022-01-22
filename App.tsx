@@ -100,6 +100,10 @@ const SCREENS = [
     {
         name: 'ZoomableLineChartScreen',
         title: 'Zoomable Linechart'
+    },
+    {
+        name: 'ModalDemoScreen',
+        title: 'Modal Demo'
     }
     // {
     //     name: 'DynamicItemsScreen',

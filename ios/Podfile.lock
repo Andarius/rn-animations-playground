@@ -367,7 +367,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - React-RCTText
-  - RNGestureHandler (2.1.1):
+  - RNGestureHandler (2.2.0):
     - React-Core
   - RNReanimated (2.3.1):
     - DoubleConversion
@@ -603,7 +603,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: dec32ee6f2e2a26e13e58152271535fadff5455a
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
   ReactNativeNavigation: 0a768a3eb149e808ca28e12ffbca9b3efecb4ddf
-  RNGestureHandler: e1ad51d31a580755079d5124d3ab66f0fcaa8311
+  RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
   RNReanimated: da3860204e5660c0dd66739936732197d359d753
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280

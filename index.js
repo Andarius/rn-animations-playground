@@ -48,6 +48,14 @@ const _SCREENS = [
     {
         name: 'D3ChartScreen',
         component: AnimScreens.D3ChartScreen
+    },
+    {
+        name: 'ModalDemoScreen',
+        component: AnimScreens.ModalDemoScreen
+    },
+    {
+        name: 'ModalScreen',
+        component: AnimScreens.ModalScreen
     }
 ]
 
@@ -57,7 +65,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'WelcomeScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'ModalDemoScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {

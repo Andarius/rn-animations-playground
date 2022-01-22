@@ -6,7 +6,6 @@ import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { OffsetsInfo } from './OffsetInfos'
 import { Direction, Offset, Paginate } from './Paginate'
 
-
 const ITEM_HEIGHT = 100
 const styles = StyleSheet.create({
     container: {
@@ -74,7 +73,7 @@ const PaginateScreen: RNNFC<Props> = function ({}) {
         setData(DATA)
     }
 
-    function reset2(){
+    function reset2() {
         offsets_2.map((x, i) => {
             x.x.value = initPositions2[i]
             x.translateX.value = 0
@@ -102,9 +101,8 @@ const PaginateScreen: RNNFC<Props> = function ({}) {
                                 styles.item,
                                 {
                                     width: itemWidth,
-                                    backgroundColor: OFFSET_COLORS.get(
-                                        offsetIndex
-                                    )
+                                    backgroundColor:
+                                        OFFSET_COLORS.get(offsetIndex)
                                 }
                             ]}>
                             <Text style={styles.text}>{item}</Text>
@@ -129,9 +127,8 @@ const PaginateScreen: RNNFC<Props> = function ({}) {
                                     styles.item,
                                     {
                                         width,
-                                        backgroundColor: OFFSET_COLORS.get(
-                                            offsetIndex
-                                        )
+                                        backgroundColor:
+                                            OFFSET_COLORS.get(offsetIndex)
                                     }
                                 ]}>
                                 <Text style={styles.text}>{item}</Text>
