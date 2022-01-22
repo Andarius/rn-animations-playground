@@ -1,7 +1,12 @@
 import { InsetUtils } from '@src/insets'
 import { Colors } from '@src/theme'
 import React, { useEffect } from 'react'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import {
+    KeyboardAvoidingView,
+    Platform,
+    SafeAreaView,
+    StyleSheet
+} from 'react-native'
 import { BaseButton, TextInput } from 'react-native-gesture-handler'
 import {
     Navigation,
@@ -40,12 +45,9 @@ const styles = StyleSheet.create({
     }
 })
 
-const BOTTOM_INSET = 0
-// Platform.OS === 'ios'
-//     ? require('react-native-static-safe-area-insets').default
-//           .safeAreaInsetsBottom
-//     : 0
+const BOTTOM_INSET = InsetUtils.getInsets().bottom
 const CORRECTED_HEIGHT = HEIGHT + BOTTOM_INSET
+const PADDING_BOTTOM = BOTTOM_INSET === 0 ? 20 : 0
 
 const CONFIG: WithTimingConfig = {
     duration: 200,
@@ -56,8 +58,6 @@ export type Props = {}
 
 const ModalScreen: RNNFC<Props> = function ({ componentId }) {
     const translateY = useSharedValue(HEIGHT)
-
-    console.log(InsetUtils.getInsets())
 
     const onPressBackground = () => {
         'worklet'
@@ -93,26 +93,30 @@ const ModalScreen: RNNFC<Props> = function ({ componentId }) {
     }))
 
     useEffect(() => {
-        translateY.value = 0
+        translateY.value = -PADDING_BOTTOM
     }, [translateY])
 
     return (
-        // <KeyboardAvoidingView
-        //     behavior="padding"
-        //     style={styles.container}
-        //     contentContainerStyle={styles.container}
-        //     keyboardVerticalOffset={10}>
-        <SafeAreaView style={styles.container}>
-            <BaseButton
-                rippleColor="transparent"
-                style={styles.container}
-                onPress={onPressBackground}>
-                <Animated.View style={[styles.box, style]}>
-                    <TextInput style={styles.textInput} placeholder="Enter" />
-                </Animated.View>
-            </BaseButton>
-        </SafeAreaView>
-        // </KeyboardAvoidingView>
+        <KeyboardAvoidingView
+            enabled={Platform.OS === 'ios'}
+            behavior="padding"
+            style={styles.container}
+            contentContainerStyle={styles.container}
+            keyboardVerticalOffset={10}>
+            <SafeAreaView style={styles.container}>
+                <BaseButton
+                    rippleColor="transparent"
+                    style={styles.container}
+                    onPress={onPressBackground}>
+                    <Animated.View style={[styles.box, style]}>
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="Enter"
+                        />
+                    </Animated.View>
+                </BaseButton>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     )
 }
 
