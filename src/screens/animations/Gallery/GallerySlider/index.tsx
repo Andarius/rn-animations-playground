@@ -1,5 +1,5 @@
 import { getArrayDiff } from '@src/utils'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useWindowDimensions, View } from 'react-native'
 import Animated, {
     runOnJS,
@@ -27,7 +27,8 @@ const GallerySlider = function <T extends GalleryItemType>({
 }: Props<T>) {
     const { width } = useWindowDimensions()
 
-    const isMoving = useSharedValue<boolean>(false)
+    // const isMoving = useSharedValue<boolean>(false)
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const currentIndex = currentPage ?? useSharedValue<number>(0)
     const ids = useRef<number[]>([])
     const [offsets, setOffsets] = useState<(Offset & { id: number })[]>([])
@@ -39,7 +40,7 @@ const GallerySlider = function <T extends GalleryItemType>({
         }
     )
 
-    function onInit(id: number, offset: Offset) {
+    const onInit = useCallback((id: number, offset: Offset) => {
         if (!ids.current.includes(id)) ids.current.push(id)
 
         setOffsets((old) => {
@@ -47,7 +48,7 @@ const GallerySlider = function <T extends GalleryItemType>({
             if (_ids.includes(id)) return old
             else return [...old, { id, ...offset }]
         })
-    }
+    }, [])
 
     useEffect(() => {
         const changedIds = getArrayDiff(
@@ -86,7 +87,7 @@ const GallerySlider = function <T extends GalleryItemType>({
                     id={x.id}
                     currentIndex={currentIndex}
                     height={height}
-                    isMoving={isMoving}
+                    // isMoving={isMoving}
                     onInit={onInit}
                     prevOffset={i === 0 ? undefined : offsets[i - 1]}
                     nextOffset={i === data.length ? undefined : offsets[i + 1]}>

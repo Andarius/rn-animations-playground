@@ -1,9 +1,13 @@
 import React, { FC, useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { PanGestureHandler, PanGestureHandlerProperties } from 'react-native-gesture-handler'
+import {
+    Gesture,
+    GestureDetector,
+    PanGestureHandlerProperties
+} from 'react-native-gesture-handler'
 import Animated, {
-    useAnimatedGestureHandler,
-    useAnimatedReaction, useAnimatedStyle,
+    useAnimatedReaction,
+    useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
     withSpring,
@@ -56,7 +60,6 @@ const DraggableItem: FC<Props> = function ({
 }) {
     const { width } = useWindowDimensions()
 
-
     const gestureState = useSharedValue<GestureState>('CREATED')
     const x = useSharedValue(0)
     const y = useSharedValue(0)
@@ -73,65 +76,63 @@ const DraggableItem: FC<Props> = function ({
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
 
-    const onGestureEvent = useAnimatedGestureHandler(
-        {
-            onStart: () => {
-                gestureState.value = 'ACTIVE'
-                tmpOffset.value = offset.value
-            },
-            onActive: (event, _) => {
-                // x.value = x.value + event.translationX
-                x.value = verticalOnly ? 0 : event.translationX
-                y.value = event.translationY
-                items.map((p) => {
-                    const _isOverlapping = isOverlapping(
-                        translateY.value,
-                        maxY.value,
-                        p.offset.value,
-                        p.offset.value + p.height.value,
-                        overlayTreshPercentage
-                    )
-                    if (p.id !== id && _isOverlapping) {
-                        // Move down
-                        if (tmpOffset.value < p.offset.value) {
-                            p.offset.value = tmpOffset.value
-                            tmpOffset.value =
-                                tmpOffset.value + p.height.value + spacingY
-                        } else {
-                            const tmp = p.offset.value
-                            p.offset.value =
-                                p.offset.value + height.value + spacingY
-                            tmpOffset.value = tmp
-                        }
-
-                        const tmpPosition = p.position.value
-                        p.position.value = position.value
-                        position.value = tmpPosition
+    const gesture = Gesture.Pan()
+        .enabled(!disabled)
+        .activeOffsetY(activeOffsetY ?? 0)
+        .onBegin(() => {
+            gestureState.value = 'ACTIVE'
+            tmpOffset.value = offset.value
+        })
+        .onUpdate((event) => {
+            // x.value = x.value + event.translationX
+            x.value = verticalOnly ? 0 : event.translationX
+            y.value = event.translationY
+            items.map((p) => {
+                const _isOverlapping = isOverlapping(
+                    translateY.value,
+                    maxY.value,
+                    p.offset.value,
+                    p.offset.value + p.height.value,
+                    overlayTreshPercentage
+                )
+                if (p.id !== id && _isOverlapping) {
+                    // Move down
+                    if (tmpOffset.value < p.offset.value) {
+                        p.offset.value = tmpOffset.value
+                        tmpOffset.value =
+                            tmpOffset.value + p.height.value + spacingY
+                    } else {
+                        const tmp = p.offset.value
+                        p.offset.value =
+                            p.offset.value + height.value + spacingY
+                        tmpOffset.value = tmp
                     }
-                })
-            },
-            onEnd: (event, _) => {
-                gestureState.value = 'IDLE'
-                offset.value = tmpOffset.value
-                tmpOffset.value = 0
 
-                // Move back into position
-                const springConfig = SPRING_CONFIG
-                springConfig.velocity = event.velocityX
-                x.value = withSpring(0, springConfig)
-                y.value = withSpring(0, {
-                    mass: 10,
-                    stiffness: 300,
-                    damping: 100,
-                    overshootClamping: false,
-                    restSpeedThreshold: 0.001,
-                    restDisplacementThreshold: 0.001,
-                    velocity: event.velocityY
-                })
-            }
-        },
-        [items, verticalOnly]
-    )
+                    const tmpPosition = p.position.value
+                    p.position.value = position.value
+                    position.value = tmpPosition
+                }
+            })
+        })
+        .onEnd((event, _) => {
+            gestureState.value = 'IDLE'
+            offset.value = tmpOffset.value
+            tmpOffset.value = 0
+
+            // Move back into position
+            const springConfig = SPRING_CONFIG
+            springConfig.velocity = event.velocityX
+            x.value = withSpring(0, springConfig)
+            y.value = withSpring(0, {
+                mass: 10,
+                stiffness: 300,
+                damping: 100,
+                overshootClamping: false,
+                restSpeedThreshold: 0.001,
+                restDisplacementThreshold: 0.001,
+                velocity: event.velocityY
+            })
+        })
 
     const style = useAnimatedStyle(() => ({
         zIndex: gestureState.value === 'ACTIVE' ? 100 : 0,
@@ -160,13 +161,11 @@ const DraggableItem: FC<Props> = function ({
                 })
                 prevHeight.value = newHeight
             }
-        }
-    , [items])
+        },
+        [items]
+    )
     return (
-        <PanGestureHandler
-            activeOffsetY={activeOffsetY}
-            enabled={!disabled}
-            {...{ onGestureEvent }}>
+        <GestureDetector gesture={gesture}>
             <Animated.View
                 style={[
                     {
@@ -174,13 +173,13 @@ const DraggableItem: FC<Props> = function ({
                         top: 0,
                         left: (width - itemWidth) / 2,
                         alignItems: 'center',
-                        width: itemWidth,
+                        width: itemWidth
                     },
                     style
                 ]}>
                 {children}
             </Animated.View>
-        </PanGestureHandler>
+        </GestureDetector>
     )
 }
 

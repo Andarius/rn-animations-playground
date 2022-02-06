@@ -1,11 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
-import {
-    PanGestureHandler,
-    PanGestureHandlerGestureEvent
-} from 'react-native-gesture-handler'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
-    useAnimatedGestureHandler,
     useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
@@ -49,7 +45,7 @@ export type Props = {
     prevOffset?: Offset
     nextOffset?: Offset
     height: number
-    isMoving: Animated.SharedValue<boolean>
+    // isMoving: Animated.SharedValue<boolean>
     onInit: (id: number, offset: Offset) => void
 }
 
@@ -62,7 +58,7 @@ const GalleryItem: FC<Props> = function ({
     prevOffset,
     nextOffset,
     height,
-    isMoving,
+    // isMoving,
     onInit
 }) {
     const { width } = useWindowDimensions()
@@ -76,28 +72,9 @@ const GalleryItem: FC<Props> = function ({
         onInit(id, { x, translateX })
     }, [id, onInit, translateX, x])
 
-    // useAnimatedReaction(
-    //     () => translateX.value,
-    //     (newTranslate: number) => {
-    //         if (
-    //             translateX.value !== 0 &&
-    //             Math.abs(Math.round(newTranslate)) === Math.round(width)
-    //         ) {
-    //             translateX.value = 0
-    //             x.value = tmpX.value
-    //             if (x.value === 0) currentIndex.value = index
-    //             tmpX.value = 0
-    //             isMoving.value = false
-    //         }
-    //     }
-    // )
-
-    const onGestureEvent = useAnimatedGestureHandler<
-        PanGestureHandlerGestureEvent,
-        { isMoving: boolean }
-    >({
-        onStart: () => {},
-        onActive: (event) => {
+    const gesture = Gesture.Pan()
+        .activeOffsetY([-1, 1])
+        .onUpdate((event) => {
             if (
                 (!prevOffset && event.translationX > 0) ||
                 (!nextOffset && event.translationX < 0)
@@ -107,12 +84,12 @@ const GalleryItem: FC<Props> = function ({
                 if (nextOffset) nextOffset.translateX.value = event.translationX
                 if (prevOffset) prevOffset.translateX.value = event.translationX
             }
-        },
-        onEnd: (event, ctx) => {
-            if (ctx.isMoving) {
-                isMoving.value = false
-                return
-            }
+        })
+        .onEnd((event) => {
+            // if (ctx.isMoving) {
+            //     isMoving.value = false
+            //     return
+            // }
             // Move back into position
 
             const velocityThresh = Math.abs(event.velocityX) > 100
@@ -168,19 +145,18 @@ const GalleryItem: FC<Props> = function ({
                     )
                 }
             }
-        }
-    })
+        })
 
     const style = useAnimatedStyle(() => ({
         transform: [{ translateX: _translateX.value }]
     }))
 
     return (
-        <PanGestureHandler activeOffsetY={[-1, 1]} {...{ onGestureEvent }}>
+        <GestureDetector gesture={gesture}>
             <Animated.View style={[styles.container, { width, height }, style]}>
                 {children}
             </Animated.View>
-        </PanGestureHandler>
+        </GestureDetector>
     )
 }
 

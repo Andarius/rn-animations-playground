@@ -1,12 +1,8 @@
 import React, { FC } from 'react'
 import { StyleSheet } from 'react-native'
-import {
-    PanGestureHandler,
-    PanGestureHandlerGestureEvent
-} from 'react-native-gesture-handler'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
     runOnJS,
-    useAnimatedGestureHandler,
     useAnimatedStyle,
     useDerivedValue,
     withSpring,
@@ -92,15 +88,13 @@ const Page: FC<Props> = function ({
         height: height.value
     }))
 
-    const onGestureEvent = useAnimatedGestureHandler<
-        PanGestureHandlerGestureEvent,
-        { isMoving: boolean }
-    >({
-        onStart: () => {},
-        onActive: (event) => {
+    // TODO: improve performances at it seems to be laggier than previous RNGH API
+    const gesture = Gesture.Pan()
+        .activeOffsetY([-1, 1])
+        .onUpdate((event) => {
             offsets.map((_x) => (_x.translateX.value = event.translationX))
-        },
-        onEnd: (event) => {
+        })
+        .onEnd((event) => {
             const velocityThresh = Math.abs(event.velocityX) > 100
             const swipeThresh = width.value / 2 < Math.abs(event.translationX)
             const shouldSwap = velocityThresh || swipeThresh
@@ -152,16 +146,15 @@ const Page: FC<Props> = function ({
                             ))
                     )
             }
-        }
-    })
+        })
 
     return (
-        <PanGestureHandler activeOffsetY={[-1, 1]} {...{ onGestureEvent }}>
+        <GestureDetector gesture={gesture}>
             <Animated.View
                 style={[{ ...StyleSheet.absoluteFillObject }, style]}>
                 {children}
             </Animated.View>
-        </PanGestureHandler>
+        </GestureDetector>
     )
 }
 

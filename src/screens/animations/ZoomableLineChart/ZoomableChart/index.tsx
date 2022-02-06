@@ -3,10 +3,9 @@ import * as shape from 'd3-shape'
 import React, { useEffect, useState } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import {
-    PanGestureHandler,
-    PanGestureHandlerGestureEvent,
-    PinchGestureHandler,
-    PinchGestureHandlerGestureEvent
+    GestureDetector,
+    PanGesture,
+    PinchGesture
 } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 import { parse, Path as RPath } from 'react-native-redash'
@@ -20,8 +19,8 @@ export { ZoomableChart }
 type CurveType = shape.CurveFactory | shape.CurveFactoryLineOnly
 
 export type UseZoomableProps = {
-    onPanEvent: (event: PanGestureHandlerGestureEvent) => void
-    onPinchEvent: (event: PinchGestureHandlerGestureEvent) => void
+    pinchGesture: PinchGesture
+    panGesture: PanGesture
     translateX: Readonly<Animated.SharedValue<number>>
     scale: Readonly<Animated.SharedValue<number>>
 }
@@ -42,14 +41,16 @@ const ZoomableChart = function ({
     curve = shape.curveMonotoneX,
     style,
     showDots = false,
-    onPanEvent,
-    onPinchEvent,
+    panGesture,
+    pinchGesture,
     translateX,
     scale
 }: Props) {
     const [path, setPath] = useState<RPath>(() =>
         parse(buildGraph(data, width, height, { curve }).path)
     )
+
+    panGesture.minDistance(3).maxPointers(1)
 
     useEffect(() => {
         const graph = buildGraph(data, width, height, { curve })
@@ -58,12 +59,17 @@ const ZoomableChart = function ({
 
     //https://docs.swmansion.com/react-native-gesture-handler/docs/api/gesture-handlers/pan-gh
     return (
-        <PanGestureHandler
-            minDist={3}
-            maxPointers={1}
-            onGestureEvent={onPanEvent}>
+        <GestureDetector
+            gesture={panGesture}
+            // minDist={3}
+            // maxPointers={1}
+            // onGestureEvent={onPanEvent}
+        >
             <Animated.View>
-                <PinchGestureHandler onGestureEvent={onPinchEvent}>
+                <GestureDetector
+                    gesture={pinchGesture}
+                    // onGestureEvent={onPinchEvent}
+                >
                     <Animated.View
                         style={[
                             {
@@ -97,8 +103,8 @@ const ZoomableChart = function ({
                             </AnimatedG>
                         </Svg>
                     </Animated.View>
-                </PinchGestureHandler>
+                </GestureDetector>
             </Animated.View>
-        </PanGestureHandler>
+        </GestureDetector>
     )
 }
