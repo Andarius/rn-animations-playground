@@ -76,7 +76,7 @@ const DraggableItem: FC<Props> = function ({
     })
     const maxY = useDerivedValue(() => translateY.value + height.value)
 
-    const gesture = Gesture.Pan()
+    const panGesture = Gesture.Pan()
         .enabled(!disabled)
         .activeOffsetY(activeOffsetY ?? 0)
         .onBegin(() => {
@@ -165,7 +165,7 @@ const DraggableItem: FC<Props> = function ({
         [items]
     )
     return (
-        <GestureDetector gesture={gesture}>
+        <GestureDetector gesture={panGesture}>
             <Animated.View
                 style={[
                     {

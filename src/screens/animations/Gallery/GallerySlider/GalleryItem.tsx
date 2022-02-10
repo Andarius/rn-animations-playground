@@ -72,7 +72,7 @@ const GalleryItem: FC<Props> = function ({
         onInit(id, { x, translateX })
     }, [id, onInit, translateX, x])
 
-    const gesture = Gesture.Pan()
+    const panGesture = Gesture.Pan()
         .activeOffsetY([-1, 1])
         .onUpdate((event) => {
             if (
@@ -152,7 +152,7 @@ const GalleryItem: FC<Props> = function ({
     }))
 
     return (
-        <GestureDetector gesture={gesture}>
+        <GestureDetector gesture={panGesture}>
             <Animated.View style={[styles.container, { width, height }, style]}>
                 {children}
             </Animated.View>

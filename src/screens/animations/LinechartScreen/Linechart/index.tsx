@@ -92,7 +92,7 @@ const Linechart: FC<LinechartProps> = function ({
     const xPosition = useSharedValue(0)
     const yPosition = useSharedValue(height)
 
-    const gesture = Gesture.Pan()
+    const panGesture = Gesture.Pan()
         .onBegin((event) => {
             xPosition.value = clamp(event.x, 0, width)
             yPosition.value = clamp(event.y, 0, height)
@@ -112,7 +112,7 @@ const Linechart: FC<LinechartProps> = function ({
             </Svg>
             {showCursor && (
                 <View style={{ ...StyleSheet.absoluteFillObject }}>
-                    <GestureDetector gesture={gesture}>
+                    <GestureDetector gesture={panGesture}>
                         <Animated.View
                             style={{ ...StyleSheet.absoluteFillObject }}>
                             {_graphs.map((x, i) => (
