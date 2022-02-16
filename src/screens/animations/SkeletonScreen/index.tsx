@@ -1,6 +1,6 @@
 import { Colors } from '@src/theme'
 import React, { useEffect } from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { Platform, SafeAreaView, StyleSheet, View } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { Skeleton } from './Skeleton'
 import { useSkeleton } from './utils'
@@ -14,6 +14,21 @@ const styles = StyleSheet.create({
 export type Props = {
     defaultSpeed?: number
 }
+
+const elevation = Platform.select({
+    ios: {
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 1
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41
+    },
+    default: {
+        elevation: 2
+    }
+})
 
 const SkeletonScreen: RNNFC<Props> = function ({ defaultSpeed = 1.2 }) {
     const { animatedProps, startAnimation, resetAnimation } = useSkeleton({
@@ -34,12 +49,12 @@ const SkeletonScreen: RNNFC<Props> = function ({ defaultSpeed = 1.2 }) {
                     flex: 1,
                     alignItems: 'center',
                     height: 200,
-                    justifyContent: 'space-evenly'
+                    justifyContent: 'space-evenly',
                 }}>
                 <Skeleton
                     animatedProps={animatedProps}
                     type="rect"
-                    style={{ elevation: 2 }}
+                    style={{...elevation}}
                     width={300}
                     height={50}
                 />
@@ -53,11 +68,11 @@ const SkeletonScreen: RNNFC<Props> = function ({ defaultSpeed = 1.2 }) {
                 />
                 <View
                     style={{
-                        elevation: 2,
+                        ...elevation,
                         width: 50,
                         height: 50,
                         borderRadius: 25,
-                        overflow: 'hidden'
+                        // overflow: 'hidden'
                     }}>
                     <Skeleton
                         animatedProps={animatedProps}
