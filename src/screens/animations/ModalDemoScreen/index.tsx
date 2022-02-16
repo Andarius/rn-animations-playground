@@ -21,11 +21,25 @@ const styles = StyleSheet.create({
 
 export type Props = {}
 
-const ModalDemoScreen: RNNFC<Props> = function ({  }) {
+const ModalDemoScreen: RNNFC<Props> = function ({}) {
     const onModalPress = () => {
         Navigation.showModal({
             component: {
-                name: 'ModalScreen'
+                name: 'ModalScreen',
+                passProps: {
+                    autoFocus: false
+                }
+            }
+        })
+    }
+
+    const onAutofocusModalPress = () => {
+        Navigation.showModal({
+            component: {
+                name: 'ModalScreen',
+                passProps: {
+                    autoFocus: true
+                }
             }
         })
     }
@@ -36,6 +50,12 @@ const ModalDemoScreen: RNNFC<Props> = function ({  }) {
                 onPress={onModalPress}
                 label="Show Modal"
                 style={styles.btn}
+                labelStyle={styles.labelText}
+            />
+            <Button
+                onPress={onAutofocusModalPress}
+                label="Show Modal Autofocus"
+                style={[styles.btn, { marginTop: 10 }]}
                 labelStyle={styles.labelText}
             />
         </View>
