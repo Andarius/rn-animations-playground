@@ -74,40 +74,44 @@ export type Props = RectButtonProperties & {
     style?: StyleProp<ViewStyle>
 }
 
-const RectBtnRadius: FC<Props> = function (props) {
-    const { style, testID, children, rippleColor, ...restProps } = props
-    const _flattenedStyle = StyleSheet.flatten(style)
-    if (Platform.OS === 'android') {
-        const _rippleColor = rippleColor ?? DEFAULT_RIPPLE_COLOR
-        const [containerStyle, btnStyle] = _extractViewProps(_flattenedStyle)
-        return (
-            <View
-                style={[containerStyle, { overflow: 'hidden' }]}
-                testID={testID}>
-                <RectButton
-                    style={btnStyle}
-                    rippleColor={_rippleColor}
-                    {...restProps}>
-                    {children}
-                </RectButton>
-            </View>
-        )
-    } else {
-        // See: https://github.com/software-mansion/react-native-gesture-handler/issues/294
-        if (props.enabled ?? true)
+class RectBtnRadius extends React.Component<Props> {
+    render(): React.ReactNode {
+        const { style, testID, children, rippleColor, ...restProps } =
+            this.props
+        const _flattenedStyle = StyleSheet.flatten(style)
+        if (Platform.OS === 'android') {
+            const _rippleColor = rippleColor ?? DEFAULT_RIPPLE_COLOR
+            const [containerStyle, btnStyle] =
+                _extractViewProps(_flattenedStyle)
             return (
-                <View testID={testID}>
-                    <RectButton {...restProps} style={_flattenedStyle}>
+                <View
+                    style={[containerStyle, { overflow: 'hidden' }]}
+                    testID={testID}>
+                    <RectButton
+                        style={btnStyle}
+                        rippleColor={_rippleColor}
+                        {...restProps}>
                         {children}
                     </RectButton>
                 </View>
             )
-        else
-            return (
-                <View testID={testID} style={_flattenedStyle}>
-                    {children}
-                </View>
-            )
+        } else {
+            // See: https://github.com/software-mansion/react-native-gesture-handler/issues/294
+            if (this.props.enabled ?? true)
+                return (
+                    <View testID={testID}>
+                        <RectButton {...restProps} style={_flattenedStyle}>
+                            {children}
+                        </RectButton>
+                    </View>
+                )
+            else
+                return (
+                    <View testID={testID} style={_flattenedStyle}>
+                        {children}
+                    </View>
+                )
+        }
     }
 }
 

@@ -6,22 +6,24 @@
  */
 export const getArrayDiff = function <T>(a: T[], b: T[]): T[] {
     const [a1, a2] = [new Set(a), new Set(b)]
-    return [...new Set([...a1].filter((x) => !a2.has(x)).concat(
-        [...a2].filter((x) => !a1.has(x))
-    ))]
+    return [
+        ...new Set(
+            [...a1]
+                .filter((x) => !a2.has(x))
+                .concat([...a2].filter((x) => !a1.has(x)))
+        )
+    ]
 }
 
 /**
  * Returns the first matching element index from a given list
  */
 export function getIndex<T>(data: T[], fn: (x: T) => boolean): number {
-    for (let i = 0; i < data.length; i += 1){
-        if (fn(data[i]))
-            return i
+    for (let i = 0; i < data.length; i += 1) {
+        if (fn(data[i])) return i
     }
     return -1
 }
-
 
 export const normalizeValue = function (
     value: number,
