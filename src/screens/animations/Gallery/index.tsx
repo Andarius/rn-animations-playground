@@ -7,7 +7,6 @@ import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import { GallerySlider } from './GallerySlider'
 import { styles } from './styles'
 
-
 export type Props = {}
 
 export type ImageType = { id: number; uri: number; color: string }
@@ -43,7 +42,7 @@ const ALBUM_2: ImageType[] = [
     }
 ]
 
-const GalleryScreen: RNNFC<Props> = function ({ }) {
+const GalleryScreen: RNNFC<Props> = function ({}) {
     const { width } = useWindowDimensions()
 
     const [height] = useState<number>(400)
@@ -68,7 +67,9 @@ const GalleryScreen: RNNFC<Props> = function ({ }) {
                         <Image
                             style={{ height, resizeMode: 'contain', width }}
                             source={item.uri}
-                            onError={(error) => console.log('error: ', error.nativeEvent)}
+                            onError={(error) =>
+                                console.log('error: ', error.nativeEvent)
+                            }
                         />
                     </BaseButton>
                 )}

@@ -7,7 +7,8 @@ import {
     DragToSortScreen,
     GestureScreen,
     Worklets2Screen,
-    WorkletScreen
+    WorkletScreen,
+    OthersScreen
 } from './src/screens/playground'
 import { Colors } from './src/theme'
 
@@ -17,8 +18,11 @@ const _SCREENS = [
     { name: 'Worklet2Screen', component: Worklets2Screen },
     { name: 'GestureScreen', component: GestureScreen },
     { name: 'DragToSortScreen', component: DragToSortScreen },
+    {
+        name: 'OthersScreen',
+        component: OthersScreen
+    },
     { name: 'DraggableListScreen', component: AnimScreens.DraggableListScreen },
-    { name: 'DynamicItemsScreen', component: AnimScreens.DynamicItemsScreen },
     { name: 'GalleryScreen', component: AnimScreens.GalleryScreen },
     { name: 'BarChartScreen', component: AnimScreens.BarChartScreen },
     { name: 'CalendarScreen', component: AnimScreens.CalendarScreen },
@@ -56,6 +60,10 @@ const _SCREENS = [
     {
         name: 'ModalScreen',
         component: AnimScreens.ModalScreen
+    },
+    {
+        name: 'SkeletonScreen',
+        component: AnimScreens.SkeletonScreen
     }
 ]
 
@@ -65,7 +73,7 @@ _SCREENS.forEach((v) => {
     )
 })
 
-const FIRST_SCREEN = __DEV__ ? 'ModalDemoScreen' : 'WelcomeScreen'
+const FIRST_SCREEN = __DEV__ ? 'SkeletonScreen' : 'WelcomeScreen'
 
 Navigation.setDefaultOptions({
     layout: {

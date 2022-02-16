@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
-import { PanGestureHandler } from 'react-native-gesture-handler'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
-    useAnimatedGestureHandler,
     useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
@@ -11,8 +10,6 @@ import Animated, {
 export type Offset = {
     y: Animated.SharedValue<number>
 }
-
-
 
 export type Props = {
     index: number
@@ -43,12 +40,12 @@ const SortableItem: FC<Props> = function ({
         }
     })
 
-    const onGestureEvent = useAnimatedGestureHandler({
-        onStart: () => {
+    const gesture = Gesture.Pan()
+        .onBegin(() => {
             gestureActive.value = true
             safeOffsetY.value = offset.y.value
-        },
-        onActive: (event) => {
+        })
+        .onUpdate((event) => {
             x.value = event.translationX
             y.value = safeOffsetY.value + event.translationY
             // Moving others
@@ -61,8 +58,8 @@ const SortableItem: FC<Props> = function ({
                 }
             })
             //
-        },
-        onEnd: (event) => {
+        })
+        .onEnd((event) => {
             gestureActive.value = false
             gestureFinishing.value = true
 
@@ -89,8 +86,7 @@ const SortableItem: FC<Props> = function ({
                 },
                 () => (gestureFinishing.value = false)
             )
-        }
-    })
+        })
 
     const style = useAnimatedStyle(() => ({
         zIndex: gestureActive.value || gestureFinishing.value ? 100 : 0,
@@ -102,7 +98,7 @@ const SortableItem: FC<Props> = function ({
     }))
 
     return (
-        <PanGestureHandler {...{ onGestureEvent }}>
+        <GestureDetector gesture={gesture}>
             <Animated.View
                 style={[
                     {
@@ -117,7 +113,7 @@ const SortableItem: FC<Props> = function ({
                 ]}>
                 {children}
             </Animated.View>
-        </PanGestureHandler>
+        </GestureDetector>
     )
 }
 

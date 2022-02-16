@@ -35,3 +35,7 @@ Boilerplate project with [React Native Navigation](https://wix.github.io/react-n
 ### 8. Scalable LineChart
 
 ![video](./gifs/scalableLinechart.gif)
+
+### 9. Skeleton
+
+![video](./gifs/skeleton.gif)

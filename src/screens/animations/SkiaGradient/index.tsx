@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 export type Props = {}
 
 const SkiaGradientScreen: RNNFC<Props> = function ({}) {
-    return <View style={styles.container}></View>
+    return <View style={styles.container} />
 }
 
 SkiaGradientScreen.options = {

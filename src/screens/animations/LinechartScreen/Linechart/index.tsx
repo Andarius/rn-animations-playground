@@ -2,9 +2,8 @@ import { clamp } from '@src/animUtils'
 import { Colors } from '@src/theme'
 import React, { FC } from 'react'
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
-import { PanGestureHandler } from 'react-native-gesture-handler'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
-    useAnimatedGestureHandler,
     useAnimatedProps,
     useSharedValue
 } from 'react-native-reanimated'
@@ -93,31 +92,27 @@ const Linechart: FC<LinechartProps> = function ({
     const xPosition = useSharedValue(0)
     const yPosition = useSharedValue(height)
 
-    const onGestureEvent = useAnimatedGestureHandler({
-        onStart: (event) => {
+    const panGesture = Gesture.Pan()
+        .onBegin((event) => {
             xPosition.value = clamp(event.x, 0, width)
             yPosition.value = clamp(event.y, 0, height)
-        },
-        onActive: (event) => {
+        })
+        .onUpdate((event) => {
             xPosition.value = clamp(event.x, 0, width)
             yPosition.value = clamp(event.y, 0, height)
-        },
-        onEnd: () => {}
-    })
+        })
 
     return (
         <View style={containerStyle}>
             <Svg width={width} height={height} style={style}>
-                {
-                    children
-                }
+                {children}
                 {_graphs.map((x, i) => (
                     <Line key={i} path={x.path} color={lines[i].color} />
                 ))}
             </Svg>
             {showCursor && (
                 <View style={{ ...StyleSheet.absoluteFillObject }}>
-                    <PanGestureHandler {...{ onGestureEvent }}>
+                    <GestureDetector gesture={panGesture}>
                         <Animated.View
                             style={{ ...StyleSheet.absoluteFillObject }}>
                             {_graphs.map((x, i) => (
@@ -134,7 +129,7 @@ const Linechart: FC<LinechartProps> = function ({
                                 />
                             ))}
                         </Animated.View>
-                    </PanGestureHandler>
+                    </GestureDetector>
                 </View>
             )}
         </View>

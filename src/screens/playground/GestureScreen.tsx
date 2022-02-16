@@ -4,15 +4,13 @@ import { useTopBarHeight } from '@src/hooks'
 import { Colors } from '@src/theme'
 import React from 'react'
 import { StyleSheet, useWindowDimensions, View } from 'react-native'
-import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
 import Animated, {
-    useAnimatedGestureHandler,
     useAnimatedStyle,
     useSharedValue,
     withDecay
 } from 'react-native-reanimated'
-
 
 const styles = StyleSheet.create({
     container: {
@@ -20,15 +18,9 @@ const styles = StyleSheet.create({
     }
 })
 
-type Context = {
-    offsetX: number
-    offsetY: number
-}
-
 export type Props = {}
 
-const GestureScreen: RNNFC<Props> = function ({ }) {
-
+const GestureScreen: RNNFC<Props> = function ({}) {
     const { width, height } = useWindowDimensions()
     const topBarHeight = useTopBarHeight()
     const [boundX, boundY] = [
@@ -38,22 +30,37 @@ const GestureScreen: RNNFC<Props> = function ({ }) {
     const translateX = useSharedValue(0)
     const translateY = useSharedValue(0)
 
+    const offsetX = useSharedValue<number>(0)
+    const offsetY = useSharedValue<number>(0)
 
-    const onGestureEvent = useAnimatedGestureHandler<PanGestureHandlerGestureEvent, Context>({
-        onStart: (_, ctx) => {
-            ctx.offsetX = translateX.value
-            ctx.offsetY = translateY.value
-        },
-        onActive: (event, ctx) => {
+    const panGesture = Gesture.Pan()
+        .onBegin((_) => {
+            offsetX.value = translateX.value
+            offsetY.value = translateY.value
+        })
+        .onUpdate((event) => {
             // Clamp to avoid moving outside of the screen
-            translateX.value = clamp(ctx.offsetX + event.translationX, 0, boundX)
-            translateY.value =  clamp(ctx.offsetY + event.translationY, 0, boundY)
-        },
-        onEnd: (event) => {
-            translateX.value = withDecay({ velocity: event.velocityX, clamp: [0, boundX]})
-            translateY.value = withDecay({ velocity: event.velocityY, clamp: [0, boundY]})
-        }
-    })
+            translateX.value = clamp(
+                offsetX.value + event.translationX,
+                0,
+                boundX
+            )
+            translateY.value = clamp(
+                offsetY.value + event.translationY,
+                0,
+                boundY
+            )
+        })
+        .onEnd((event) => {
+            translateX.value = withDecay({
+                velocity: event.velocityX,
+                clamp: [0, boundX]
+            })
+            translateY.value = withDecay({
+                velocity: event.velocityY,
+                clamp: [0, boundY]
+            })
+        })
 
     const style = useAnimatedStyle(() => {
         return {
@@ -66,11 +73,11 @@ const GestureScreen: RNNFC<Props> = function ({ }) {
 
     return (
         <View style={styles.container}>
-            <PanGestureHandler {...{ onGestureEvent }}>
+            <GestureDetector gesture={panGesture}>
                 <Animated.View {...{ style }}>
                     <Card />
                 </Animated.View>
-            </PanGestureHandler>
+            </GestureDetector>
         </View>
     )
 }

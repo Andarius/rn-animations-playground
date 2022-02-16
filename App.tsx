@@ -104,6 +104,14 @@ const SCREENS = [
     {
         name: 'ModalDemoScreen',
         title: 'Modal Demo'
+    },
+    {
+        name: 'OthersScreen',
+        title: 'Others'
+    },
+    {
+        name: 'SkeletonScreen',
+        title: 'Skeleton'
     }
     // {
     //     name: 'DynamicItemsScreen',

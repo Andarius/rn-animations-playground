@@ -73,9 +73,9 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
         focalX,
         scaleOffset,
         translateNorm,
-        reset,
-        onPanEvent,
-        onPinchEvent
+        pinchGesture,
+        panGesture,
+        reset
     } = useZoomableChart({ width: WIDTH })
 
     const virtualWidth = useDerivedValue(
@@ -175,8 +175,8 @@ const ZoomableLineChartScreen: RNNFC<Props> = function ({}) {
                     focalX,
                     translateX,
                     scale,
-                    onPanEvent,
-                    onPinchEvent
+                    panGesture,
+                    pinchGesture
                 }}
             />
             <View style={styles.btnsContainer}>
