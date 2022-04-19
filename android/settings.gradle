@@ -3,3 +3,8 @@ apply from: file("../node_modules/@react-native-community/cli-platform-android/n
 include ':flipper-plugin-rn-performance-android'
 project(':flipper-plugin-rn-performance-android').projectDir = new File(rootProject.projectDir, '../node_modules/flipper-plugin-rn-performance-android')
 include ':app'
+includeBuild('../node_modules/react-native-gradle-plugin')
+if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true") {
+    include(":ReactAndroid")
+    project(":ReactAndroid").projectDir = file('../node_modules/react-native/ReactAndroid')
+}
