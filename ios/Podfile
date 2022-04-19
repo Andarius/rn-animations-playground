@@ -39,12 +39,3 @@ target 'RnAnimationsPlayground' do
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
-
-target 'RnAnimationsPlayground-tvOS' do
-  # Pods for RnAnimationsPlayground-tvOS
-
-  target 'RnAnimationsPlayground-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-end
