@@ -1,13 +1,10 @@
-import { Button, ReText } from '@src/components'
-import { Colors } from '@src/theme'
 import React from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import { NavigationFunctionComponent as RNNFC } from 'react-native-navigation'
-import Animated, {
-    runOnUI,
-    useSharedValue
-} from 'react-native-reanimated'
+import Animated, { runOnUI, useSharedValue } from 'react-native-reanimated'
 
+import { Button, ReText } from '@src/components'
+import { Colors } from '@src/theme'
 
 const styles = StyleSheet.create({
     container: {
@@ -37,7 +34,7 @@ const sayHello = function (text: Animated.SharedValue<string>, from: string) {
     )}`
 }
 
-const WorkletScreen: RNNFC<Props> = function ({  }) {
+const WorkletScreen: RNNFC<Props> = function ({}) {
     const text = useSharedValue('')
 
     function onPress() {
@@ -47,9 +44,8 @@ const WorkletScreen: RNNFC<Props> = function ({  }) {
     return (
         <View style={styles.container}>
             <Button label="Say hello" onPress={onPress} />
-            <View style={{ marginTop: 10}} >
-            <ReText {...{ text }} />
-
+            <View style={{ marginTop: 10 }}>
+                <ReText {...{ text }} />
             </View>
         </View>
     )
